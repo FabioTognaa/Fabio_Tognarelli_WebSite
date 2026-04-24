@@ -1,6 +1,6 @@
 # Fabio Tognarelli - Portfolio Personale
 
-![Banner Principale](/public/screenshots/desktop-preview.png)
+![Banner Principale](../public/screenshots/desktop-preview.png)
 
 [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://fabiotognaa-personal-portfolio.vercel.app)
 
@@ -38,11 +38,15 @@ Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 
 ### Desktop View
 
-![Desktop Screenshot](/public/screenshots/desktop-preview.png)
+![Desktop Screenshot](../public/screenshots/desktop-preview.png)
 
 ### Mobile View
 
-![Mobile Screenshot](/public/screenshots/mobile-preview.png)
+<img src="../public/screenshots/mobile-preview.png" alt="Mobile Preview" width="260" />
+
+### Form Page
+
+<img src="../public/screenshots/form-preview.png" alt="Form Preview" width="260" />
 
 ### Form Page
 
