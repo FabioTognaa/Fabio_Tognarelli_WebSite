@@ -9,8 +9,8 @@ function SchoolCard({ school, title, date, descr }) {
         className="my-0 mb-4 ml-0 h-16 w-auto md:mb-0 md:h-full md:w-1/5"
       />
       <div>
-        <h1 className="text-xl md:text-3xl">{title}</h1>
-        <h2 className="mt-1 text-sm font-semibold md:text-base">{date}</h2>
+        <h3 className="text-xl md:text-3xl">{title}</h3>
+        <p className="mt-1 text-sm font-semibold md:text-base">{date}</p>
         <p className="mt-2 text-base font-light md:text-lg">{descr}</p>
       </div>
     </div>

@@ -62,7 +62,7 @@ function ContactPage() {
           {/* Link per tornare alla home */}
           <a
             href="/"
-            className="rounded-full border border-blue-300 px-4 py-2 text-sm font-semibold text-[#0a2342] transition hover:bg-blue-300 hover:text-whit transition-all duration-150 hover:-translate-y-1"
+            className="rounded-full border border-blue-300 px-4 py-2 text-sm font-semibold text-[#0a2342] transition-all duration-150 hover:-translate-y-1 hover:bg-blue-300 hover:text-white"
           >
             Torna alla home
           </a>

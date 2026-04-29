@@ -15,7 +15,7 @@ function SkillCard({ skill }) {
               <img
                 src={icon.src}
                 alt={icon.alt}
-                className="h-8 w-auto max-w-[3rem] object-contain"
+                className="h-8 w-auto max-w-12 object-contain"
               />
             </div>
           ))}
@@ -23,12 +23,12 @@ function SkillCard({ skill }) {
       
 
       {/* Title */}
-      <h3 className="text-card-foreground mb-10 text-xl font-bold tracking-tight ">
+      <h3 className="mb-10 text-xl font-bold tracking-tight text-[#0a2342]">
         {title}
       </h3>
 
       {/* Description */}
-      <p className="text-muted-foreground mb-10 leading-relaxed">
+      <p className="mb-10 leading-relaxed text-slate-700">
         {description}
       </p>
 
@@ -37,9 +37,7 @@ function SkillCard({ skill }) {
         {tags.map((tag, index) => (
           <div
             key={index}
-            className={
-              "[a&]:hover:bg-accent [a&]:hover:text-accent-foreground w-fit shrink-0 cursor-pointer overflow-hidden rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-sm font-medium whitespace-nowrap text-slate-700 transition-all duration-200 hover:-translate-y-1 hover:border-slate-300 hover:bg-slate-100 focus"
-            }
+              className="w-fit shrink-0 overflow-hidden rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-sm font-medium whitespace-nowrap text-slate-700"
           >
             {tag}
           </div>

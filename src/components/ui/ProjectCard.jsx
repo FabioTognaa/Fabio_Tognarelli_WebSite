@@ -1,4 +1,3 @@
-import React from "react";
 function ProjectCard({ project }) {
   const { title, description, link } = project;
   const workInProgress = title === "";
@@ -6,7 +5,7 @@ function ProjectCard({ project }) {
   if (workInProgress) {
     return (
       <div className="m-8 flex animate-pulse items-center justify-center rounded-lg border border-blue-900 p-10 text-xl font-medium text-blue-900 md:m-0 md:p-18">
-        <h1 className="text-lg md:text-3xl">Work in progress...</h1>
+        <p className="text-lg md:text-3xl">Work in progress...</p>
       </div>
     );
   }
@@ -14,7 +13,7 @@ function ProjectCard({ project }) {
   return (
     <div className="m-8 flex h-full flex-col justify-between rounded-lg p-6 shadow-xl transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl md:m-0">
       <h3 className="mb-4 text-xl font-bold tracking-tight">{title}</h3>
-      <p className="text-muted-foreground mb-6 leading-relaxed">{description}</p>
+      <p className="mb-6 leading-relaxed text-slate-700">{description}</p>
 
       {link ? (
         <a
