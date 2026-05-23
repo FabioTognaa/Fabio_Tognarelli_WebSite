@@ -19,6 +19,8 @@ Il progetto è costruito con un approccio moderno, pulito e focalizzato sulle pe
 - **Accessibilità:** Menu di navigazione e interazioni gestite con **Headless UI** per la massima accessibilità.
 - **Architettura a Componenti:** Struttura modulare basata su React per la massima manutenibilità.
 - **Download CV:** Accesso diretto al curriculum vitae aggiornato.
+- **Form di contatto:** Pagina dedicata con invio messaggi tramite Supabase (opzionale in locale).
+- **Routing multipagina:** Home, progetti e contatto con React Router.
 
 ## 🛠️ Tech Stack
 
@@ -28,7 +30,7 @@ Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 | :------------------ | :---------------------------------- |
 | **Build Tool**      | Vite                                |
 | **Database**        | Supabase                            |
-| **Frontend**        | React, Tailwind CSS, Headless UI    |
+| **Frontend**        | React, React Router, Tailwind CSS, Headless UI |
 | **Code Quality**    | Prettier (Tailwind Plugin), ESLint  |
 | **Version Control** | Git & GitHub                        |
 | **Deployment**      | Vercel                              |
@@ -44,25 +46,21 @@ Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 
 <img src="../public/screenshots/mobile-preview.png" alt="Mobile Preview" width="260" />
 
-### Form Page
+### Contact Page
 
-<img src="../public/screenshots/form-preview.png" alt="Form Preview" width="260" />
-
-### Form Page
-
-![Desktop Screenshot](/public/screenshots/form-preview.png)
+<img src="../public/screenshots/form-preview.png" alt="Contact form preview" width="260" />
 
 ## 🚀 Come avviare il progetto in locale
 
 Come far girare questo progetto in locale:
 
 **Prerequisiti:**
-Assicurati di avere installato [Node.js](https://nodejs.org/) e `pnpm`.
+Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://pnpm.io/) (il repo dichiara `pnpm@10.32.0` in `package.json`).
 
 1.  **Clona il repository:**
 
     ```bash
-    git clone https://fabiotognaa-personal-portfolio.vercel.app
+    git clone https://github.com/FabioTognaa/fabiotognaa-personal-portfolio.git
     ```
 
 2.  **Entra nella cartella:**
@@ -77,37 +75,58 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e `pnpm`.
     pnpm install
     ```
 
-4.  **Avvia il server di sviluppo:**
+4.  **Configura le variabili d'ambiente (opzionale, per il form di contatto):**
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Modifica `.env` con `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` dal [dashboard Supabase](https://supabase.com/dashboard/project/_/settings/api). Senza queste variabili il sito si avvia comunque, ma l'invio dal form di contatto non è disponibile.
+
+5.  **Avvia il server di sviluppo:**
 
     ```bash
     pnpm dev
     ```
 
-5.  Apri il browser all'indirizzo `localhost` presente sul tuo terminale.
+6.  Apri il browser su `http://localhost:5173` (o sull'URL indicato nel terminale).
+
+### Altri comandi utili
+
+| Comando              | Descrizione                          |
+| :------------------- | :----------------------------------- |
+| `pnpm build`         | Build di produzione in `dist/`       |
+| `pnpm preview`       | Anteprima locale della build         |
+| `pnpm lint`          | Controllo ESLint                     |
+| `pnpm deploy`        | Build + deploy produzione su Vercel  |
+| `pnpm deploy:preview`| Build + deploy preview su Vercel     |
 
 ## 📂 Struttura del Progetto
 
-````text
 ```text
-├── public/                     # File statici
-│   ├── screenshots/            # Immagini per il README
-│   ├── cv-tognarelli-fabio.pdf # Curriculum vitae
-│   └── me-acquerelli.svg       # Icone/Loghi
+├── public/                     # Asset statici serviti così come sono
+│   ├── images/                 # Foto profilo e loghi istituti
+│   ├── screenshots/            # Anteprime per la documentazione
+│   └── cv-tognarelli-fabio.pdf # Curriculum vitae
 │
 ├── src/
-│   ├── assets/                 # File immagine e SVG
+│   ├── assets/                 # Icone SVG e sorgenti immagine
 │   ├── components/
-│   │   ├── pages/              # Pagine/route (es. Home/Contact)
-│   │   ├── sections/           # Sezioni riutilizzate nella pagina
+│   │   ├── layout/             # Header, footer e shell di pagina
+│   │   ├── pages/              # Route (Home, Contact, Projects)
+│   │   ├── sections/           # Sezioni della home
 │   │   └── ui/                 # Componenti UI riutilizzabili
-│   ├── lib/                    # Utilità (es. client Supabase)
+│   ├── hooks/                  # Hook React (scroll header, icone skill)
+│   ├── lib/                    # Dati, navigazione, client Supabase
 │   ├── main.jsx                # Entry point React
-│   ├── index.css               # Stili globali
-│   └── App.jsx                 # Componente principale
+│   ├── index.css               # Stili globali e token Tailwind
+│   └── components/App.jsx      # Router e lazy loading delle pagine
 │
+├── docs/                       # Documentazione (questo README)
+├── .env.example                # Template variabili Supabase
 ├── index.html                  # Entry point HTML
-└── [config files]              # Config (Vite, Tailwind, ESLint, Vercel)
-````
+└── [config files]              # Vite, ESLint, Prettier, Vercel
+```
 
 ## 📬 Contatti
 

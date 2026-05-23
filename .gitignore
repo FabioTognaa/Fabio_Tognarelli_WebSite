@@ -25,3 +25,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# agenti ai
+skills-lock.json
+.agents/*
+DESIGN.md

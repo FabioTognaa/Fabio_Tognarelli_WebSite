@@ -1,24 +1,20 @@
-import HomeSection from "../sections/HomeSection";
-import AboutMeSection from "../sections/AboutMeSection";
-import SkillSection from "../sections/SkillSection";
-import StudySection from "../sections/StudySection";
-import ContactSection from "../sections/ContactSection";
+import PageShell from "../layout/PageShell";
+import HeroSection from "../sections/HeroSection";
+import AboutSection from "../sections/AboutSection";
+import StudyTimeline from "../sections/StudyTimeline";
+import SkillsSection from "../sections/SkillsSection";
 import ProjectsSection from "../sections/ProjectsSection";
 
 function HomePage() {
   return (
-    <>
-      <HomeSection />
-      <main>
-        <AboutMeSection />
-        <StudySection />
-        <SkillSection />
-        <ProjectsSection />
-      </main>
-      <ContactSection />
-    </>
+    <PageShell>
+      <HeroSection />
+      <AboutSection />
+      <StudyTimeline />
+      <SkillsSection />
+      <ProjectsSection />
+    </PageShell>
   );
 }
 
 export default HomePage;
-

@@ -1,12 +1,50 @@
 import { useMemo, useState } from "react";
+import PageShell from "../layout/PageShell";
+import Button from "../ui/Button";
+import Reveal from "../ui/Reveal";
 import { supabase } from "../../lib/supabaseClient";
 
-function ContactPage() {
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
-  const [errorMsg, setErrorMsg] = useState(""); //var per messaggio di errore 
-  const [values, setValues] = useState({ name: "", email: "", message: "" }); //stato dei valori nel form
+function validateContactForm(values) {
+  const errors = {};
+  const name = values.name.trim();
+  const email = values.email.trim();
+  const message = values.message.trim();
 
-  //calcola se il form è pronto per essere inviato: tutti i campi devono essere non vuoti e non deve essere già in corso un invio
+  if (!name) {
+    errors.name = "Inserisci il tuo nome.";
+  }
+
+  if (!email) {
+    errors.email = "Inserisci la tua email.";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errors.email = "Formato non valido. Esempio: nome@email.com";
+  }
+
+  if (!message) {
+    errors.message = "Scrivi un messaggio.";
+  }
+
+  return errors;
+}
+
+function FieldError({ id, message }) {
+  if (!message) {
+    return null;
+  }
+
+  return (
+    <p id={id} role="alert" className="mt-1.5 text-sm text-error-text">
+      {message}
+    </p>
+  );
+}
+
+function ContactPage() {
+  const [status, setStatus] = useState("idle");
+  const [formError, setFormError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [values, setValues] = useState({ name: "", email: "", message: "" });
+
   const canSubmit = useMemo(() => {
     const nameOk = values.name.trim().length > 0;
     const emailOk = values.email.trim().length > 0;
@@ -14,138 +52,202 @@ function ContactPage() {
     return nameOk && emailOk && msgOk && status !== "sending";
   }, [status, values]);
 
-  //invio del form, gestisce comunicazione con SUpabase
+  function clearFieldError(field) {
+    setFieldErrors((current) => {
+      if (!current[field]) {
+        return current;
+      }
+      const next = { ...current };
+      delete next[field];
+      return next;
+    });
+  }
+
+  function updateField(field, value) {
+    setValues((current) => ({ ...current, [field]: value }));
+    clearFieldError(field);
+    if (formError) {
+      setFormError("");
+    }
+  }
+
   async function onSubmit(e) {
     e.preventDefault();
-    setStatus("sending");
-    setErrorMsg("");
 
-    //se le var di ambiente non sono configurate
+    const errors = validateContactForm(values);
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setFormError("");
+      setStatus("idle");
+      const firstInvalid = ["name", "email", "message"].find((field) => errors[field]);
+      if (firstInvalid) {
+        document.getElementById(`contact-${firstInvalid}`)?.focus();
+      }
+      return;
+    }
+
+    setFieldErrors({});
+    setStatus("sending");
+    setFormError("");
+
     if (!supabase) {
       setStatus("error");
-      setErrorMsg(
-        "Configurazione Supabase mancante. Contatta l'amministratore del sito."
+      setFormError(
+        "Il modulo non è configurato. Scrivimi a fabiotognaa@gmail.com.",
       );
       return;
     }
 
-    //prepara i dati da inviare
     const payload = {
       name: values.name.trim(),
       email: values.email.trim(),
       message: values.message.trim(),
     };
 
-    //post dei dati su supabase
     const { error } = await supabase.from("contact_messages").insert([payload]);
 
-    //se l'inserimento fallisce, mostra messaggio di errore
     if (error) {
       setStatus("error");
-      setErrorMsg(error.message || "Errore durante l'invio.");
+      setFormError(
+        error.message ||
+          "Non sono riuscito a inviare il messaggio. Riprova tra poco.",
+      );
       return;
     }
 
-    //status = success e reset dei valori del form
     setStatus("success");
     setValues({ name: "", email: "", message: "" });
   }
 
   return (
-    <main className="min-h-screen px-4 py-28 md:px-8">
-      
-      <div className="mx-auto w-full max-w-xl rounded-2xl border border-blue-300 bg-transparent p-6 shadow-xl/10 md:p-10">
-        <div className="mb-8 flex items-center justify-between gap-4">
-          <h1 className="text-3xl font-semibold tracking-wide text-[#0a2342] md:text-4xl">
-            Contattami
-          </h1>
-          {/* Link per tornare alla home */}
-          <a
-            href="/"
-            className="rounded-full border border-blue-300 px-4 py-2 text-sm font-semibold text-[#0a2342] transition-all duration-150 hover:-translate-y-1 hover:bg-blue-300 hover:text-white"
-          >
-            Torna alla home
-          </a>
-        </div>
-        {/*Form di contatto */}
-        <form className="space-y-4" onSubmit={onSubmit}>
+    <PageShell>
+      <div className="section-pad mx-auto max-w-xl">
+        <Reveal>
+          <p className="section-label">Contatto</p>
+          <h1 className="section-heading mt-3">Parliamone</h1>
+          <p className="prose-body mt-4">
+            Opportunità di stage, collaborazioni o domande sul mio percorso: rispondo
+            appena possibile.
+          </p>
+        </Reveal>
+
+        <Reveal
+          as="form"
+          className="surface-panel mt-10 space-y-5 p-6 md:p-8"
+          delay={120}
+          onSubmit={onSubmit}
+          noValidate
+        >
           <div>
-            {/* Nome */}
-            <label className="mb-1 block text-sm font-semibold text-[#0a2342]">
+            <label
+              htmlFor="contact-name"
+              className="mb-1.5 block text-sm font-semibold text-ink"
+            >
               Nome
             </label>
             <input
+              id="contact-name"
+              name="name"
               value={values.name}
-              onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))}
+              onChange={(e) => updateField("name", e.target.value)}
               type="text"
-              className="w-full rounded-lg border border-blue-300 bg-transparent p-2.5 text-sm outline-none ring-blue-400 focus:ring transition-all duration-150 focus:mt-1.5"
+              className="motion-field w-full rounded-xl border border-line bg-canvas/50 px-4 py-3 text-base text-ink sm:text-sm"
               placeholder="Il tuo nome"
-              required
               autoComplete="name"
+              aria-invalid={fieldErrors.name ? "true" : undefined}
+              aria-describedby={
+                fieldErrors.name ? "contact-name-error" : undefined
+              }
             />
+            <FieldError id="contact-name-error" message={fieldErrors.name} />
           </div>
 
           <div>
-            {/* Email */}
-            <label className="mb-1 block text-sm font-semibold text-[#0a2342]">
+            <label
+              htmlFor="contact-email"
+              className="mb-1.5 block text-sm font-semibold text-ink"
+            >
               Email
             </label>
             <input
+              id="contact-email"
+              name="email"
               value={values.email}
-              onChange={(e) =>
-                setValues((v) => ({ ...v, email: e.target.value }))
-              }
+              onChange={(e) => updateField("email", e.target.value)}
               type="email"
-              className="w-full rounded-lg border border-blue-300 bg-transparent p-2.5 text-sm outline-none ring-blue-400 focus:ring transition-all duration-150 focus:mt-1.5"
+              className="motion-field w-full rounded-xl border border-line bg-canvas/50 px-4 py-3 text-base text-ink sm:text-sm"
               placeholder="nome@email.com"
-              required
               autoComplete="email"
+              aria-invalid={fieldErrors.email ? "true" : undefined}
+              aria-describedby={
+                fieldErrors.email ? "contact-email-error" : undefined
+              }
             />
+            <FieldError id="contact-email-error" message={fieldErrors.email} />
           </div>
-          {/* Messaggio */}
+
           <div>
-            <label className="mb-1 block text-sm font-semibold text-[#0a2342]">
+            <label
+              htmlFor="contact-message"
+              className="mb-1.5 block text-sm font-semibold text-ink"
+            >
               Messaggio
             </label>
             <textarea
+              id="contact-message"
+              name="message"
               value={values.message}
-              onChange={(e) =>
-                setValues((v) => ({ ...v, message: e.target.value }))
-              }
+              onChange={(e) => updateField("message", e.target.value)}
               rows={6}
-              className="w-full resize-none rounded-lg border border-blue-300 bg-transparent p-2.5 text-sm outline-none ring-blue-400 focus:ring transition-all duration-150 focus:mt-1.5"
-              placeholder="Scrivi qui..."
-              required
+              className="motion-field w-full resize-none rounded-xl border border-line bg-canvas/50 px-4 py-3 text-base text-ink sm:text-sm"
+              placeholder="Di cosa vuoi parlare?"
+              aria-invalid={fieldErrors.message ? "true" : undefined}
+              aria-describedby={
+                fieldErrors.message ? "contact-message-error" : undefined
+              }
+            />
+            <FieldError
+              id="contact-message-error"
+              message={fieldErrors.message}
             />
           </div>
 
-          {/* Bottone di invio */}
           <button
             type="submit"
             disabled={!canSubmit}
-            className="w-full rounded-lg bg-blue-600 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+            aria-live="polite"
           >
-            {status === "sending" ? "Invio in corso..." : "Invia"}
+            {status === "sending" ? "Invio in corso..." : "Invia messaggio"}
           </button>
 
-          {/* Messaggio di successo dopo l'invio*/}
           {status === "success" && (
-            <p className="rounded-lg border border-green-300 bg-green-50 p-3 text-sm text-green-800">
-              Messaggio inviato correttamente. Ti risponderò appena possibile.
+            <p
+              role="status"
+              className="rounded-xl border border-success-border bg-success-surface p-4 text-sm text-success-text"
+            >
+              Messaggio inviato. Ti risponderò appena possibile.
             </p>
           )}
 
-          {/* Messaggio di errore durante l'invio*/}
-          {status === "error" && (
-            <p className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-800">
-              {errorMsg || "Errore durante l'invio."}
+          {status === "error" && formError && (
+            <p
+              role="alert"
+              className="rounded-xl border border-error-border bg-error-surface p-4 text-sm text-error-text"
+            >
+              {formError}
             </p>
           )}
-        </form>
+        </Reveal>
+
+        <Reveal delay={200}>
+          <Button variant="ghost" to="/" className="mt-8">
+            Torna alla home
+          </Button>
+        </Reveal>
       </div>
-    </main>
+    </PageShell>
   );
 }
 
 export default ContactPage;
-

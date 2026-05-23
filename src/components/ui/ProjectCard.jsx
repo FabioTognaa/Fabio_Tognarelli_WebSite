@@ -1,31 +1,49 @@
-function ProjectCard({ project }) {
-  const { title, description, link } = project;
-  const workInProgress = title === "";
+import Button from "./Button";
 
-  if (workInProgress) {
-    return (
-      <div className="m-8 flex animate-pulse items-center justify-center rounded-lg border border-blue-900 p-10 text-xl font-medium text-blue-900 md:m-0 md:p-18">
-        <p className="text-lg md:text-3xl">Work in progress...</p>
-      </div>
-    );
-  }
+function ProjectCard({ project, size = "default" }) {
+  const { title, description, link, status } = project;
+  const isComingSoon = status === "coming-soon" || !link;
+
+  const sizeClass =
+    size === "featured"
+      ? "lg:col-span-2 lg:row-span-2 lg:flex lg:flex-col lg:justify-between lg:p-10"
+      : "p-6 md:p-8";
 
   return (
-    <div className="m-8 flex h-full flex-col justify-between rounded-lg p-6 shadow-xl transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl md:m-0">
-      <h3 className="mb-4 text-xl font-bold tracking-tight">{title}</h3>
-      <p className="mb-6 leading-relaxed text-slate-700">{description}</p>
-
-      {link ? (
-        <a
-          className="w-fit rounded-full border border-blue-300 px-4 py-1.5 text-sm font-semibold text-[#0a2342] transition-all duration-100 ease-linear hover:scale-105 hover:bg-blue-300 hover:text-gray-100"
-          href={link}
-          target="_blank"
-          rel="noreferrer"
+    <article
+      className={`surface-panel motion-lift group flex h-full flex-col ${sizeClass}`}
+    >
+      <div>
+        {isComingSoon && (
+          <span className="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent-deep">
+            In preparazione
+          </span>
+        )}
+        <h3
+          className={`font-display font-bold text-ink ${size === "featured" ? "mt-4 text-2xl md:text-3xl" : "mt-3 text-lg"}`}
         >
-          Visita progetto
-        </a>
-      ) : null}
-    </div>
+          {title}
+        </h3>
+        <p
+          className={`mt-3 leading-relaxed text-ink-muted ${size === "featured" ? "text-base md:text-lg" : "text-sm"}`}
+        >
+          {description}
+        </p>
+      </div>
+
+      <div className="mt-6">
+        {link && !isComingSoon ? (
+          <Button variant="ghost" href={link} className="text-sm">
+            Apri progetto
+          </Button>
+        ) : (
+          <span className="text-sm font-medium text-ink-soft">
+            Case study in arrivo: screenshot, stack e repository
+          </span>
+        )}
+      </div>
+    </article>
   );
 }
+
 export default ProjectCard;
