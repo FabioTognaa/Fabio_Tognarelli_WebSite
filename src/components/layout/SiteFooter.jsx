@@ -5,15 +5,15 @@ function SiteFooter() {
   return (
     <footer
       id="contatti"
-      className="scroll-mt-header border-t border-line bg-hero pb-[env(safe-area-inset-bottom,0px)] text-on-hero"
+      className="scroll-mt-header border-line bg-hero text-on-hero border-t pb-[env(safe-area-inset-bottom,0px)]"
     >
-      <div className="section-pad mx-auto max-w-6xl !py-16">
+      <div className="section-pad mx-auto max-w-6xl py-16!">
         <div className="grid gap-12 md:grid-cols-[1.2fr_1fr_1fr]">
           <div>
             <p className="font-display text-2xl font-bold tracking-tight">
               Fabio Tognarelli
             </p>
-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-on-hero/75">
+            <p className="text-on-hero/75 mt-3 max-w-sm text-sm leading-relaxed">
               Studente di informatica a Pisa. Costruisco interfacce e software
               con attenzione al dettaglio e voglia di imparare sul campo.
             </p>
@@ -27,7 +27,7 @@ function SiteFooter() {
           </div>
 
           <div>
-            <p className="section-label !text-accent-glow">Navigazione</p>
+            <p className="section-label text-accent-glow!">Navigazione</p>
             <ul className="mt-4 space-y-2 text-sm">
               {siteNav.map((item) =>
                 item.type === "route" ? (
@@ -54,8 +54,8 @@ function SiteFooter() {
           </div>
 
           <div>
-            <p className="section-label !text-accent-glow">Contatti</p>
-            <ul className="mt-4 space-y-3 text-sm text-on-hero/85">
+            <p className="section-label text-accent-glow!">Contatti</p>
+            <ul className="text-on-hero/85 mt-4 space-y-3 text-sm">
               <li>
                 <a
                   href="mailto:fabiotognaa@gmail.com"
@@ -80,7 +80,7 @@ function SiteFooter() {
                   href={s.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="motion-link text-sm font-medium text-accent-glow underline-offset-4 hover:text-on-hero hover:underline"
+                  className="motion-link text-accent-glow hover:text-on-hero text-sm font-medium underline-offset-4 hover:underline"
                 >
                   {s.label}
                 </a>
@@ -89,7 +89,7 @@ function SiteFooter() {
           </div>
         </div>
 
-        <p className="mt-12 border-t border-on-hero/15 pt-8 text-center text-xs text-on-hero/55 md:text-left">
+        <p className="border-on-hero/15 text-on-hero/55 mt-12 border-t pt-8 text-center text-xs md:text-left">
           &copy; 2026 Fabio Tognarelli
         </p>
       </div>

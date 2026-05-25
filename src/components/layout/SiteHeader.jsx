@@ -98,7 +98,7 @@ function SiteHeader() {
       <Transition show={open} as={Fragment}>
         <Dialog
           as="div"
-          className="relative z-[60] md:hidden"
+          className="relative z-60 md:hidden"
           onClose={close}
           initialFocus={closeButtonRef}
         >
