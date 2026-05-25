@@ -10,6 +10,7 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useHeaderScrollState } from "../../hooks/useHeaderScrollState";
 import { siteNav, headerCta } from "../../lib/navigation";
+import { useLocation } from "react-router-dom";
 
 function NavLink({ item, onNavigate, className }) {
   const base = className;
@@ -34,24 +35,34 @@ function SiteHeader() {
   const scrolled = useHeaderScrollState();
   const closeButtonRef = useRef(null);
   const close = () => setOpen(false);
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
 
   const linkClass = "drawer-link";
 
   return (
-    <header
-      className="site-header"
-      data-scrolled={scrolled ? "" : undefined}
-    >
+    <header className="site-header" data-scrolled={scrolled ? "" : undefined}>
       <a href="#main-content" className="skip-link">
         Salta al contenuto
       </a>
       <div className="site-header__bar">
-        <Link
-          to="/"
-          className="site-header__brand font-display text-lg font-bold tracking-tight text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-        >
-          Fabio Tognarelli
-        </Link>
+        
+        {//* se ci si trova in / fa da ancora, altrimenti da Link del router
+          isHome ? (
+          <Link
+            to="/"
+            className="site-header__brand font-display text-ink focus-visible:outline-accent text-lg font-bold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            Fabio Tognarelli
+          </Link>
+        ) : (
+          <a
+            href="/#home"
+            className="site-header__brand font-display text-ink focus-visible:outline-accent text-lg font-bold tracking-tight focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            Fabio Tognarelli
+          </a>
+        )}
 
         <nav
           className="hidden items-center gap-8 md:flex"
@@ -73,7 +84,7 @@ function SiteHeader() {
 
           <button
             type="button"
-            className="touch-target rounded-xl text-ink md:hidden"
+            className="touch-target text-ink rounded-xl md:hidden"
             onClick={() => setOpen(true)}
             aria-expanded={open}
             aria-controls="mobile-menu"
@@ -101,7 +112,7 @@ function SiteHeader() {
             leaveTo="opacity-0"
           >
             <div
-              className="fixed inset-0 bg-hero/40 backdrop-blur-sm"
+              className="bg-hero/40 fixed inset-0 backdrop-blur-sm"
               aria-hidden="true"
             />
           </TransitionChild>
@@ -121,19 +132,19 @@ function SiteHeader() {
                   <DialogPanel
                     id="mobile-menu"
                     aria-labelledby="mobile-menu-title"
-                    className="mobile-drawer pointer-events-auto flex w-screen max-w-xs flex-col bg-surface shadow-2xl"
+                    className="mobile-drawer bg-surface pointer-events-auto flex w-screen max-w-xs flex-col shadow-2xl"
                   >
-                    <div className="flex items-center justify-between border-b border-line/70 px-6 py-4">
+                    <div className="border-line/70 flex items-center justify-between border-b px-6 py-4">
                       <DialogTitle
                         id="mobile-menu-title"
-                        className="font-display text-lg font-bold text-ink"
+                        className="font-display text-ink text-lg font-bold"
                       >
                         Menu
                       </DialogTitle>
                       <button
                         ref={closeButtonRef}
                         type="button"
-                        className="touch-target rounded-xl text-ink"
+                        className="touch-target text-ink rounded-xl"
                         onClick={close}
                       >
                         <span className="sr-only">Chiudi menu</span>

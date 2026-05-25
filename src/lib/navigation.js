@@ -1,6 +1,7 @@
 import { CV_PATH } from "./projects";
 
 export const siteNav = [
+  { label: "Home", href: "/#home", type: "anchor" },
   { label: "Chi sono", href: "/#about", type: "anchor" },
   { label: "Percorso", href: "/#percorso", type: "anchor" },
   { label: "Competenze", href: "/#competenze", type: "anchor" },
