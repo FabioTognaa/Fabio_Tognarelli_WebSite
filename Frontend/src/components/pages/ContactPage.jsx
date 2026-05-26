@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
 import { supabase } from "../../lib/supabaseClient";
 
+//* validazione campi del form
 function validateContactForm(values) {
   const errors = {};
   const name = values.name.trim();
@@ -75,7 +76,7 @@ function ContactPage() {
     e.preventDefault();
 
     const errors = validateContactForm(values);
-    if (Object.keys(errors).length > 0) {
+    if (Object.keys(errors).length > 0) { //*se ci sono errori
       setFieldErrors(errors);
       setFormError("");
       setStatus("idle");
@@ -92,11 +93,13 @@ function ContactPage() {
     setStatus("sending");
     setFormError("");
 
+    //*se il modulo supabase non è configurato
     if (!supabase) {
       setStatus("error");
       setFormError(
         "Il modulo non è configurato. Scrivimi a fabiotognaa@gmail.com.",
       );
+      console.log("Errore: Supabase non è stato configurato nel progetto")
       return;
     }
 
@@ -106,8 +109,10 @@ function ContactPage() {
       message: values.message.trim(),
     };
 
+    //* invio messaggio al database
     const { error } = await supabase.from("contact_messages").insert([payload]);
 
+    //* gestione errori
     if (error) {
       setStatus("error");
       setFormError(
@@ -117,6 +122,7 @@ function ContactPage() {
       return;
     }
 
+    //* messaggio inviato con successo
     setStatus("success");
     setValues({ name: "", email: "", message: "" });
   }

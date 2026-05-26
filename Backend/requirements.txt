@@ -1,0 +1,14 @@
+# Dipendenze Python del backend (API portfolio)
+# Installazione (con venv attivo): pip install -r requirments.txt
+
+# Framework web per l'API REST
+fastapi
+
+# Server FastAPI
+uvicorn
+
+# Database
+psycopg2-binary
+
+# Utilities
+python-dotenv

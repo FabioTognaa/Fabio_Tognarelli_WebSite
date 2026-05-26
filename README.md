@@ -38,17 +38,17 @@ Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 
 ### Desktop View
 
-<img src="./docs/screenshots/desktop-preview.png" alt="Desktop Preview" width="260" />
+<img src="./Frontend/docs/screenshots/desktop-preview.png" alt="Desktop Preview" width="260" />
 
 
 ### Contact Page
 
-<img src="./docs/screenshots/form-preview.png" alt="Contact form preview" width="260" />
+<img src="./Frontend/docs/screenshots/form-preview.png" alt="Contact form preview" width="260" />
 
 
 ### Project Page
 
-<img src="./docs/screenshots/" alt="Project section preview" width="260" />
+_Screenshot in arrivo._
 
 ## 🚀 Come avviare il progetto in locale
 
@@ -104,33 +104,32 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://p
 ## 📂 Struttura del Progetto
 
 ```text
-├── public/                         # Asset statici serviti così come sono
-│   ├── images/
-│   │   ├── logos/                  # Loghi istituti (WebP, varianti responsive)
-│   │   └── tognarelli-*.webp       # Foto profilo (varianti responsive)
-│   └── cv-tognarelli-fabio.pdf     # Curriculum vitae
+├── Frontend/
+│   ├── public/                     # Asset statici serviti così come sono
+│   │   ├── images/
+│   │   │   ├── logos/              # Loghi istituti (WebP, varianti responsive)
+│   │   │   └── tognarelli-*.webp   # Foto profilo (varianti responsive)
+│   │   └── cv-tognarelli-fabio.pdf # Curriculum vitae
+│   ├── docs/
+│   │   └── screenshots/            # Anteprime usate nel README
+│   ├── src/
+│   │   ├── assets/                 # Icone skill e loghi (SVG)
+│   │   ├── components/
+│   │   │   ├── App.jsx             # Router e lazy loading delle pagine
+│   │   │   ├── ScrollToTop.jsx     # Scroll in cima al cambio route
+│   │   │   ├── layout/             # PageShell, SiteHeader, SiteFooter
+│   │   │   ├── pages/              # HomePage, ContactPage, ProjectsPage
+│   │   │   ├── sections/           # Hero, About, Skills, StudyTimeline, Projects
+│   │   │   └── ui/                 # Button, ProjectCard, Reveal, SkillGroupCard
+│   │   ├── hooks/                  # useHeaderScrollState, useLazySkillIcon
+│   │   ├── lib/                    # Dati, navigazione, skill-icons, supabaseClient
+│   │   ├── main.jsx                # Entry point React
+│   │   └── index.css               # Stili globali e token Tailwind
+│   └── index.html                  # Entry point HTML
 │
-├── docs/
-│   └── screenshots/                # Anteprime usate nel README
-│
-├── src/
-│   ├── assets/                     # Icone skill e loghi (SVG)
-│   ├── components/
-│   │   ├── App.jsx                 # Router e lazy loading delle pagine
-│   │   ├── ScrollToTop.jsx         # Scroll in cima al cambio route
-│   │   ├── layout/                 # PageShell, SiteHeader, SiteFooter
-│   │   ├── pages/                  # HomePage, ContactPage, ProjectsPage
-│   │   ├── sections/               # Hero, About, Skills, StudyTimeline, Projects
-│   │   └── ui/                     # Button, ProjectCard, Reveal, SkillGroupCard
-│   ├── hooks/                      # useHeaderScrollState, useLazySkillIcon
-│   ├── lib/                        # Dati (projects, skills, study), navigazione,
-│   │                               # skill-icons, revealObserver, supabaseClient
-│   ├── main.jsx                    # Entry point React
-│   └── index.css                   # Stili globali e token Tailwind
-│
-├── .env.example                    # Template variabili Supabase
-├── index.html                      # Entry point HTML
-└── [config files]                # vite.config.js, eslint.config.js, vercel.json,
+├── Backend/                        # Riservato a servizi futuri
+├── .env.example                    # Template variabili Supabase (root del repo)
+└── [config files]                  # vite.config.js, eslint.config.js, vercel.json,
                                     # .prettierrc, package.json, pnpm-lock.yaml
 ```
 
