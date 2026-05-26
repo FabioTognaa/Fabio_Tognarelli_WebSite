@@ -1,7 +1,5 @@
 # Fabio Tognarelli - Portfolio Personale
 
-![Banner Principale](../public/screenshots/desktop-preview.png)
-
 [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://fabiotognaa-personal-portfolio.vercel.app)
 
 ## 👋 Introduzione
@@ -26,29 +24,31 @@ Il progetto è costruito con un approccio moderno, pulito e focalizzato sulle pe
 
 Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 
-| Categoria           | Tecnologie                          |
-| :------------------ | :---------------------------------- |
-| **Build Tool**      | Vite                                |
-| **Database**        | Supabase                            |
+| Categoria           | Tecnologie                                     |
+| :------------------ | :--------------------------------------------- |
+| **Build Tool**      | Vite                                           |
+| **Database**        | Supabase                                       |
 | **Frontend**        | React, React Router, Tailwind CSS, Headless UI |
-| **Code Quality**    | Prettier (Tailwind Plugin), ESLint  |
-| **Version Control** | Git & GitHub                        |
-| **Deployment**      | Vercel                              |
-| **Design & Assets** | Canva (editing immagini), HeroIcons |
+| **Code Quality**    | Prettier (Tailwind Plugin), ESLint             |
+| **Version Control** | Git & GitHub                                   |
+| **Deployment**      | Vercel                                         |
+| **Design & Assets** | Canva (editing immagini), HeroIcons            |
 
 ## 📸 Anteprima
 
 ### Desktop View
 
-![Desktop Screenshot](../public/screenshots/desktop-preview.png)
+<img src="./docs/screenshots/desktop-preview.png" alt="Desktop Preview" width="260" />
 
-### Mobile View
-
-<img src="../public/screenshots/mobile-preview.png" alt="Mobile Preview" width="260" />
 
 ### Contact Page
 
-<img src="../public/screenshots/form-preview.png" alt="Contact form preview" width="260" />
+<img src="./docs/screenshots/form-preview.png" alt="Contact form preview" width="260" />
+
+
+### Project Page
+
+<img src="./docs/screenshots/" alt="Project section preview" width="260" />
 
 ## 🚀 Come avviare il progetto in locale
 
@@ -93,39 +93,45 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://p
 
 ### Altri comandi utili
 
-| Comando              | Descrizione                          |
-| :------------------- | :----------------------------------- |
-| `pnpm build`         | Build di produzione in `dist/`       |
-| `pnpm preview`       | Anteprima locale della build         |
-| `pnpm lint`          | Controllo ESLint                     |
-| `pnpm deploy`        | Build + deploy produzione su Vercel  |
-| `pnpm deploy:preview`| Build + deploy preview su Vercel     |
+| Comando               | Descrizione                         |
+| :-------------------- | :---------------------------------- |
+| `pnpm build`          | Build di produzione in `dist/`      |
+| `pnpm preview`        | Anteprima locale della build        |
+| `pnpm lint`           | Controllo ESLint                    |
+| `pnpm deploy`         | Build + deploy produzione su Vercel |
+| `pnpm deploy:preview` | Build + deploy preview su Vercel    |
 
 ## 📂 Struttura del Progetto
 
 ```text
-├── public/                     # Asset statici serviti così come sono
-│   ├── images/                 # Foto profilo e loghi istituti
-│   ├── screenshots/            # Anteprime per la documentazione
-│   └── cv-tognarelli-fabio.pdf # Curriculum vitae
+├── public/                         # Asset statici serviti così come sono
+│   ├── images/
+│   │   ├── logos/                  # Loghi istituti (WebP, varianti responsive)
+│   │   └── tognarelli-*.webp       # Foto profilo (varianti responsive)
+│   └── cv-tognarelli-fabio.pdf     # Curriculum vitae
+│
+├── docs/
+│   └── screenshots/                # Anteprime usate nel README
 │
 ├── src/
-│   ├── assets/                 # Icone SVG e sorgenti immagine
+│   ├── assets/                     # Icone skill e loghi (SVG)
 │   ├── components/
-│   │   ├── layout/             # Header, footer e shell di pagina
-│   │   ├── pages/              # Route (Home, Contact, Projects)
-│   │   ├── sections/           # Sezioni della home
-│   │   └── ui/                 # Componenti UI riutilizzabili
-│   ├── hooks/                  # Hook React (scroll header, icone skill)
-│   ├── lib/                    # Dati, navigazione, client Supabase
-│   ├── main.jsx                # Entry point React
-│   ├── index.css               # Stili globali e token Tailwind
-│   └── components/App.jsx      # Router e lazy loading delle pagine
+│   │   ├── App.jsx                 # Router e lazy loading delle pagine
+│   │   ├── ScrollToTop.jsx         # Scroll in cima al cambio route
+│   │   ├── layout/                 # PageShell, SiteHeader, SiteFooter
+│   │   ├── pages/                  # HomePage, ContactPage, ProjectsPage
+│   │   ├── sections/               # Hero, About, Skills, StudyTimeline, Projects
+│   │   └── ui/                     # Button, ProjectCard, Reveal, SkillGroupCard
+│   ├── hooks/                      # useHeaderScrollState, useLazySkillIcon
+│   ├── lib/                        # Dati (projects, skills, study), navigazione,
+│   │                               # skill-icons, revealObserver, supabaseClient
+│   ├── main.jsx                    # Entry point React
+│   └── index.css                   # Stili globali e token Tailwind
 │
-├── docs/                       # Documentazione (questo README)
-├── .env.example                # Template variabili Supabase
-├── index.html                  # Entry point HTML
-└── [config files]              # Vite, ESLint, Prettier, Vercel
+├── .env.example                    # Template variabili Supabase
+├── index.html                      # Entry point HTML
+└── [config files]                # vite.config.js, eslint.config.js, vercel.json,
+                                    # .prettierrc, package.json, pnpm-lock.yaml
 ```
 
 ## 📬 Contatti

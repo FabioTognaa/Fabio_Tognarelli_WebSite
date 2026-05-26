@@ -33,7 +33,7 @@ function FieldError({ id, message }) {
   }
 
   return (
-    <p id={id} role="alert" className="mt-1.5 text-sm text-error-text">
+    <p id={id} role="alert" className="text-error-text mt-1.5 text-sm">
       {message}
     </p>
   );
@@ -79,7 +79,9 @@ function ContactPage() {
       setFieldErrors(errors);
       setFormError("");
       setStatus("idle");
-      const firstInvalid = ["name", "email", "message"].find((field) => errors[field]);
+      const firstInvalid = ["name", "email", "message"].find(
+        (field) => errors[field],
+      );
       if (firstInvalid) {
         document.getElementById(`contact-${firstInvalid}`)?.focus();
       }
@@ -126,8 +128,8 @@ function ContactPage() {
           <p className="section-label">Contatto</p>
           <h1 className="section-heading mt-3">Parliamone</h1>
           <p className="prose-body mt-4">
-            Opportunità di stage, collaborazioni o domande sul mio percorso: rispondo
-            appena possibile.
+            Opportunità di stage, collaborazioni o domande sul mio percorso:
+            rispondo appena possibile.
           </p>
         </Reveal>
 
@@ -141,7 +143,7 @@ function ContactPage() {
           <div>
             <label
               htmlFor="contact-name"
-              className="mb-1.5 block text-sm font-semibold text-ink"
+              className="text-ink mb-1.5 block text-sm font-semibold"
             >
               Nome
             </label>
@@ -151,7 +153,7 @@ function ContactPage() {
               value={values.name}
               onChange={(e) => updateField("name", e.target.value)}
               type="text"
-              className="motion-field w-full rounded-xl border border-line bg-canvas/50 px-4 py-3 text-base text-ink sm:text-sm"
+              className="motion-field border-line text-ink w-full cursor-pointer rounded-xl border px-4 py-3 text-base sm:text-sm"
               placeholder="Il tuo nome"
               autoComplete="name"
               aria-invalid={fieldErrors.name ? "true" : undefined}
@@ -165,7 +167,7 @@ function ContactPage() {
           <div>
             <label
               htmlFor="contact-email"
-              className="mb-1.5 block text-sm font-semibold text-ink"
+              className="text-ink mb-1.5 block text-sm font-semibold"
             >
               Email
             </label>
@@ -175,7 +177,7 @@ function ContactPage() {
               value={values.email}
               onChange={(e) => updateField("email", e.target.value)}
               type="email"
-              className="motion-field w-full rounded-xl border border-line bg-canvas/50 px-4 py-3 text-base text-ink sm:text-sm"
+              className="motion-field border-line text-ink w-full cursor-pointer rounded-xl border px-4 py-3 text-base sm:text-sm"
               placeholder="nome@email.com"
               autoComplete="email"
               aria-invalid={fieldErrors.email ? "true" : undefined}
@@ -189,7 +191,7 @@ function ContactPage() {
           <div>
             <label
               htmlFor="contact-message"
-              className="mb-1.5 block text-sm font-semibold text-ink"
+              className="text-ink mb-1.5 block text-sm font-semibold"
             >
               Messaggio
             </label>
@@ -199,7 +201,7 @@ function ContactPage() {
               value={values.message}
               onChange={(e) => updateField("message", e.target.value)}
               rows={6}
-              className="motion-field w-full resize-none rounded-xl border border-line bg-canvas/50 px-4 py-3 text-base text-ink sm:text-sm"
+              className="motion-field border-line text-ink w-full cursor-pointer resize-none rounded-xl border px-4 py-3 text-base sm:text-sm"
               placeholder="Di cosa vuoi parlare?"
               aria-invalid={fieldErrors.message ? "true" : undefined}
               aria-describedby={
@@ -212,6 +214,7 @@ function ContactPage() {
             />
           </div>
 
+          {/* bottone submit */}
           <button
             type="submit"
             disabled={!canSubmit}
@@ -224,7 +227,7 @@ function ContactPage() {
           {status === "success" && (
             <p
               role="status"
-              className="rounded-xl border border-success-border bg-success-surface p-4 text-sm text-success-text"
+              className="border-success-border bg-success-surface text-success-text rounded-xl border p-4 text-sm"
             >
               Messaggio inviato. Ti risponderò appena possibile.
             </p>
@@ -233,7 +236,7 @@ function ContactPage() {
           {status === "error" && formError && (
             <p
               role="alert"
-              className="rounded-xl border border-error-border bg-error-surface p-4 text-sm text-error-text"
+              className="border-error-border bg-error-surface text-error-text rounded-xl border p-4 text-sm"
             >
               {formError}
             </p>
