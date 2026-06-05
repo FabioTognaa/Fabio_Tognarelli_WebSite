@@ -1,72 +1,83 @@
-import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
-import { CV_PATH } from "../../lib/projects";
+
+const DIRECTIONS = [
+  "Specializzarmi su data e AI applicata al prodotto",
+  "Mostrare lavoro concreto, non solo liste di tecnologie",
+  "Collaborare su codice pulito, review e standard di team",
+];
+
+function AboutQuote({ quote, author, delay = 0 }) {
+  return (
+    <Reveal as="figure" delay={delay} className="about-quote">
+      <span className="about-quote__mark" aria-hidden>
+        "
+      </span>
+      <blockquote className="about-quote__text">
+        <p>{quote}</p>
+      </blockquote>
+      <figcaption className="about-quote__author">{author}</figcaption>
+    </Reveal>
+  );
+}
 
 function AboutSection() {
   return (
     <section
       id="about"
-      className="section-pad section-pad--after-hero mx-auto max-w-6xl scroll-mt-header"
+      className="section-pad section-pad--after-hero scroll-mt-header mx-auto max-w-7xl"
       aria-labelledby="about-heading"
     >
       <Reveal>
         <p className="section-label">Chi sono</p>
-        <h2 id="about-heading" className="section-heading mt-3">
-          Determinato, creativo, pronto al mercato del lavoro
+        <h2
+          id="about-heading"
+          className="section-heading mt-3 max-w-[30ch] lg:max-w-[34ch]"
+        >
+          Determinato e pronto a creare valore nella società
         </h2>
       </Reveal>
 
-      <div className="mt-10 grid gap-8 md:mt-12 md:gap-10 lg:grid-cols-2 lg:gap-16">
-        <Reveal as="div" className="prose-body space-y-5" delay={80}>
-          <p>
-            Studio informatica all&apos;Università di Pisa e mi alleno ogni
-            giorno su progetti web reali: componenti React, API leggere,
-            interfacce responsive.
-          </p>
-          <p>
-            Cerco un team che mi faccia crescere velocemente: imparare dai
-            senior, consegnare feature utili e diventare un software engineer
-            affidabile.
-          </p>
-        </Reveal>
+      <div className="about-pairs">
+        <div className="about-row">
+          <AboutQuote
+            quote="La Rivoluzione Umana di un singolo individuo condurrà al cambiamento nel destino dell'umanità"
+            author="Daisaku Ikeda"
+          />
 
-        <Reveal
-          as="div"
-          className="surface-panel flex flex-col justify-between p-8 md:p-10"
-          delay={160}
-        >
-          <div>
-            <h3 className="font-display text-xl font-bold text-ink">
-              Obiettivi
-            </h3>
-            <ul className="mt-4 space-y-3 text-ink-muted">
-              <li className="flex gap-3">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                <span>
-                  Specializzarmi nel tempo su data e AI applicata al prodotto
-                </span>
+          <Reveal as="p" className="about-prose" delay={80}>
+            In un mondo dove l'AI sembra essere la soluzione per tutto,
+            voglio costruire un ecosistema sostenibile perché sia implementata
+            in modo efficace, rispettosa del pianeta e orientata al bene
+            comune.
+          </Reveal>
+        </div>
+
+        <div className="about-row">
+          <Reveal as="p" className="about-prose" delay={120}>
+            Faccio della costanza il mio pilastro principale. La vera chiave
+            per progredire è imparare giorno dopo giorno, acquisendo
+            conoscenze e abilità che mi aiutino a restare uno sviluppatore al
+            passo con i tempi.
+          </Reveal>
+          <AboutQuote
+            quote="Il viaggio da Kamakura a Kyoto dura dodici giorni: se viaggi per undici giorni e ti fermi quando ne manca uno solo, come puoi ammirare la luna sopra la capitale?"
+            author="Nichiren Daishonin"
+            delay={200}
+          />
+        </div>
+
+        <Reveal as="div" className="about-directions" delay={280}>
+          <h3 className="about-directions__heading">Dove sto andando</h3>
+          <ul className="about-directions__list">
+            {DIRECTIONS.map((item) => (
+              <li key={item} className="about-directions__item">
+                {item}
               </li>
-              <li className="flex gap-3">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                <span>
-                  Mostrare proof of work concreto, non solo liste di tecnologie
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                <span>
-                  Collaborare su codice pulito, review e standard di team
-                </span>
-              </li>
-            </ul>
-          </div>
-          <Button
-            href={CV_PATH}
-            download={CV_PATH}
-            className="mt-8 w-full sm:w-auto"
-          >
-            Scarica CV
-          </Button>
+            ))}
+          </ul>
+          <a href="/#progetti" className="link-arrow about-directions__link">
+            Vedi i progetti
+          </a>
         </Reveal>
       </div>
     </section>

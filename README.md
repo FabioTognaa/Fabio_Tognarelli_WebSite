@@ -28,6 +28,7 @@ Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 | :------------------ | :--------------------------------------------- |
 | **Build Tool**      | Vite                                           |
 | **Database**        | Supabase                                       |
+| **Backend**         | FastAPI (Python), Uvicorn                     |
 | **Frontend**        | React, React Router, Tailwind CSS, Headless UI |
 | **Code Quality**    | Prettier (Tailwind Plugin), ESLint             |
 | **Version Control** | Git & GitHub                                   |
@@ -102,35 +103,44 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://p
 | `pnpm deploy:preview` | Build + deploy preview su Vercel    |
 
 ## 📂 Struttura del Progetto
-
 ```text
 ├── Frontend/
-│   ├── public/                     # Asset statici serviti così come sono
-│   │   ├── images/
-│   │   │   ├── logos/              # Loghi istituti (WebP, varianti responsive)
-│   │   │   └── tognarelli-*.webp   # Foto profilo (varianti responsive)
-│   │   └── cv-tognarelli-fabio.pdf # Curriculum vitae
+│   ├── index.html
+│   ├── public/
+│   │   ├── cv-tognarelli-fabio.pdf
+│   │   └── images/
+│   │       ├── logos/
+│   │       └── tognarelli-*.webp
 │   ├── docs/
-│   │   └── screenshots/            # Anteprime usate nel README
+│   │   └── screenshots/
+│   │       ├── desktop-preview.png
+│   │       └── form-preview.png
 │   ├── src/
-│   │   ├── assets/                 # Icone skill e loghi (SVG)
+│   │   ├── assets/                 # icone skill e loghi (SVG)
 │   │   ├── components/
-│   │   │   ├── App.jsx             # Router e lazy loading delle pagine
-│   │   │   ├── ScrollToTop.jsx     # Scroll in cima al cambio route
-│   │   │   ├── layout/             # PageShell, SiteHeader, SiteFooter
-│   │   │   ├── pages/              # HomePage, ContactPage, ProjectsPage
-│   │   │   ├── sections/           # Hero, About, Skills, StudyTimeline, Projects
-│   │   │   └── ui/                 # Button, ProjectCard, Reveal, SkillGroupCard
-│   │   ├── hooks/                  # useHeaderScrollState, useLazySkillIcon
-│   │   ├── lib/                    # Dati, navigazione, skill-icons, supabaseClient
-│   │   ├── main.jsx                # Entry point React
-│   │   └── index.css               # Stili globali e token Tailwind
-│   └── index.html                  # Entry point HTML
+│   │   │   ├── layout/
+│   │   │   ├── pages/
+│   │   │   ├── sections/
+│   │   │   └── ui/
+│   │   ├── hooks/
+│   │   ├── lib/
+│   │   ├── main.jsx
+│   │   └── index.css
+│   └── dist/                      # output build (generato)
 │
-├── Backend/                        # Riservato a servizi futuri
-├── .env.example                    # Template variabili Supabase (root del repo)
-└── [config files]                  # vite.config.js, eslint.config.js, vercel.json,
-                                    # .prettierrc, package.json, pnpm-lock.yaml
+├── Backend/
+│   ├── .env.example
+│   ├── requirements.txt
+│   └── setup/
+│       └── README.md
+│
+├── .env.example                   # Supabase vars (frontend)
+├── package.json
+├── pnpm-lock.yaml
+├── vite.config.js
+├── eslint.config.js
+├── .prettierrc
+└── vercel.json
 ```
 
 ## 📬 Contatti

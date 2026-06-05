@@ -3,6 +3,7 @@
 
 # Framework web per l'API REST
 fastapi
+pydantic-settings
 
 # Server FastAPI
 uvicorn

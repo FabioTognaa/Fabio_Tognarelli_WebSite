@@ -89,3 +89,22 @@ copy .env.example .env
 Modifica `.env` (es. `DATABASE_URL`) con le credenziali del tuo database locale.
 
 > Non committare `.env`: contiene dati sensibili.
+
+## 6. Avviare il server (Uvicorn)
+
+Con il venv attivo, dalla cartella `Backend`:
+
+```bash
+uvicorn main:app --reload
+```
+
+- `main:app` — modulo `main.py`, istanza FastAPI `app`
+- `--reload` — riavvio automatico in sviluppo quando modifichi il codice
+
+Il server è in ascolto su `http://127.0.0.1:8000`. Apri quell’URL nel browser oppure la documentazione interattiva su `http://127.0.0.1:8000/docs`.
+
+Per cambiare host o porta:
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
