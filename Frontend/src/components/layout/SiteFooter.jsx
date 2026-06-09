@@ -29,27 +29,16 @@ function SiteFooter() {
           <div>
             <p className="section-label text-accent-glow!">Navigazione</p>
             <ul className="mt-4 space-y-2 text-sm">
-              {siteNav.map((item) =>
-                item.type === "route" ? (
-                  <li key={item.label}>
-                    <Link
-                      to={item.href}
-                      className="motion-link text-on-hero/80 hover:text-on-hero"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ) : (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      className="motion-link text-on-hero/80 hover:text-on-hero"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ),
-              )}
+              {siteNav.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    to={item.href}
+                    className="motion-link text-on-hero/80 hover:text-on-hero"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

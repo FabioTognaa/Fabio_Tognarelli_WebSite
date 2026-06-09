@@ -1,12 +1,12 @@
 import { CV_PATH } from "./projects";
 
 export const siteNav = [
-  { label: "Home", href: "/#home", type: "anchor" },
-  { label: "Chi sono", href: "/#about", type: "anchor" },
-  { label: "Percorso", href: "/#percorso", type: "anchor" },
-  { label: "Competenze", href: "/#competenze", type: "anchor" },
-  { label: "Progetti", href: "/projects", type: "route" },
-  { label: "Contatto", href: "/contact", type: "route" },
+  { label: "Home", href: "/" },
+  { label: "Chi sono", href: "/about" },
+  { label: "Percorso", href: "/studies" },
+  { label: "Competenze", href: "/skills" },
+  { label: "Progetti", href: "/projects" },
+  { label: "Contatto", href: "/contact" },
 ];
 
 export const headerCta = {

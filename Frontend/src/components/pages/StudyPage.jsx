@@ -2,7 +2,7 @@ import { useId, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Reveal from "../ui/Reveal";
 import { studyPath } from "../../lib/study";
-
+import PageShell from "../layout/PageShell";
 
 function StudyEntry({ entry, index }) {
   const detailsId = useId();
@@ -29,9 +29,7 @@ function StudyEntry({ entry, index }) {
         />
       </div>
 
-      <article
-        className={`surface-panel p-6 md:p-8`}
-      >
+      <article className={`surface-panel p-6 md:p-8`}>
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <p className="text-accent text-xs font-semibold tracking-wider uppercase">
             {entry.period}
@@ -92,33 +90,35 @@ function StudyEntry({ entry, index }) {
   );
 }
 
-function StudyTimeline() {
+function StudyPage() {
   return (
-    <section
-      id="percorso"
-      className="section-pad border-line bg-surface/50 scroll-mt-header border-y"
-      aria-labelledby="study-heading"
-    >
-      <div className="mx-auto max-w-6xl">
-        <Reveal>
-          <p className="section-label">Percorso</p>
-          <h2 id="study-heading" className="section-heading mt-3">
-            Formazione
-          </h2>
-          <p className="prose-body mt-6">
-            Dal diploma IT al triennale in Computer Science: un percorso
-            orientato allo sviluppo software e al lavoro in team.
-          </p>
-        </Reveal>
+    <PageShell>
+      <section
+        id="percorso"
+        className="section-pad border-line bg-surface/50 scroll-mt-header border-y"
+        aria-labelledby="study-heading"
+      >
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <p className="section-label">Percorso</p>
+            <h2 id="study-heading" className="section-heading mt-3">
+              Formazione
+            </h2>
+            <p className="prose-body mt-6">
+              Dal diploma IT al triennale in Computer Science: un percorso
+              orientato allo sviluppo software e al lavoro in team.
+            </p>
+          </Reveal>
 
-        <ol className="relative mt-10 space-y-0 md:mt-14">
-          {studyPath.map((entry, index) => (
-            <StudyEntry key={entry.id} entry={entry} index={index} />
-          ))}
-        </ol>
-      </div>
-    </section>
+          <ol className="relative mt-10 space-y-0 md:mt-14">
+            {studyPath.map((entry, index) => (
+              <StudyEntry key={entry.id} entry={entry} index={index} />
+            ))}
+          </ol>
+        </div>
+      </section>
+    </PageShell>
   );
 }
 
-export default StudyTimeline;
+export default StudyPage;

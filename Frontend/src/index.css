@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
 
   --color-canvas: oklch(96.5% 0.012 85);
@@ -94,7 +95,8 @@ body::before {
   inset: 0;
   z-index: -1;
   opacity: 0.35;
-  background-image: radial-gradient(
+  background-image:
+    radial-gradient(
       ellipse 120% 80% at 100% 0%,
       oklch(88% 0.08 250 / 0.25),
       transparent 55%
@@ -150,19 +152,19 @@ h3 {
   }
 
   .skip-link {
-    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-surface focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-ink focus:shadow-lg focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-accent;
+    @apply focus:bg-surface focus:text-ink focus:outline-accent sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:px-4 focus:py-2.5 focus:text-sm focus:font-semibold focus:shadow-lg focus:outline focus:outline-2 focus:outline-offset-2;
   }
 
   .section-label {
-    @apply font-display text-xs font-semibold uppercase tracking-[0.2em] text-accent;
+    @apply font-display text-accent text-xs font-semibold tracking-[0.2em] uppercase;
   }
 
   .section-heading {
-    @apply font-display text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.05] font-bold tracking-tight text-ink;
+    @apply font-display text-ink text-[clamp(2.25rem,5vw,3.5rem)] leading-[1.05] font-bold tracking-tight;
   }
 
   .prose-body {
-    @apply max-w-[68ch] text-base leading-relaxed font-light text-ink-muted md:text-lg;
+    @apply text-ink-muted max-w-[68ch] text-base leading-relaxed font-light md:text-lg;
   }
 
   .btn-primary,
@@ -194,7 +196,7 @@ h3 {
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold no-underline bg-accent text-on-accent shadow-[0_8px_24px_oklch(48%_0.16_252/0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+    @apply bg-accent text-on-accent focus-visible:outline-accent inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold no-underline shadow-[0_8px_24px_oklch(48%_0.16_252/0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   .btn-primary:hover {
@@ -203,7 +205,7 @@ h3 {
   }
 
   .btn-primary-on-dark {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold no-underline bg-on-hero text-hero focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-glow;
+    @apply bg-on-hero text-hero focus-visible:outline-accent-glow inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   .btn-primary-on-dark:hover {
@@ -212,7 +214,7 @@ h3 {
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-surface/80 px-6 py-3 text-sm font-semibold text-ink no-underline backdrop-blur-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+    @apply border-line bg-surface/80 text-ink focus-visible:outline-accent inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold no-underline backdrop-blur-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   .btn-ghost:hover {
@@ -221,7 +223,7 @@ h3 {
   }
 
   .btn-ghost-on-dark {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-on-hero/25 bg-hero-elevated/50 px-6 py-3 text-sm font-semibold text-on-hero no-underline backdrop-blur-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-glow;
+    @apply border-on-hero/25 bg-hero-elevated/50 text-on-hero focus-visible:outline-accent-glow inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold no-underline backdrop-blur-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   .btn-ghost-on-dark:hover {
@@ -230,7 +232,7 @@ h3 {
   }
 
   .surface-panel {
-    @apply rounded-2xl border border-line bg-surface;
+    @apply border-line bg-surface rounded-2xl border;
   }
 
   .mobile-drawer {
@@ -249,16 +251,16 @@ h3 {
   }
 
   .motion-field[aria-invalid="true"] {
-    @apply border-error-border ring-1 ring-error-border/40;
+    @apply border-error-border ring-error-border/40 ring-1;
   }
 
   .motion-field:focus-visible {
     transform: translate3d(0, -2px, 0);
-    @apply ring-2 ring-accent/45;
+    @apply ring-accent/45 ring-2;
   }
 
   .link-arrow {
-    @apply inline-flex items-center gap-2 font-semibold text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+    @apply text-ink focus-visible:outline-accent inline-flex items-center gap-2 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   .link-arrow:hover {
@@ -311,7 +313,7 @@ h3 {
   }
 
   .drawer-link {
-    @apply block rounded-xl px-3 py-3.5 text-base font-medium text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+    @apply text-ink focus-visible:outline-accent block rounded-xl px-3 py-3.5 text-base font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   .drawer-link:hover {
@@ -319,7 +321,7 @@ h3 {
   }
 
   .site-header {
-    @apply sticky top-0 z-50 border-b border-line/60 bg-canvas/80 pt-[env(safe-area-inset-top,0px)] backdrop-blur-md;
+    @apply border-line/60 bg-canvas/80 sticky top-0 z-50 border-b pt-[env(safe-area-inset-top,0px)] backdrop-blur-md;
     transform: translate3d(0, 0, 0);
     transition:
       background-color var(--duration-ui) var(--ease-soft),
@@ -345,7 +347,7 @@ h3 {
   }
 
   .nav-link {
-    @apply inline-block text-sm font-medium text-ink-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+    @apply text-ink-muted focus-visible:outline-accent inline-block text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
 
   .nav-link:hover {
@@ -369,7 +371,7 @@ h3 {
   }
 
   .skill-tag {
-    @apply inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border border-line bg-surface px-4 py-2.5 text-sm font-medium text-ink-muted outline-none;
+    @apply border-line bg-surface text-ink-muted inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-medium outline-none;
     transition:
       transform var(--duration-quick) var(--ease-fluid),
       border-color var(--duration-ui) var(--ease-soft),
@@ -379,7 +381,7 @@ h3 {
   }
 
   .skill-tag--featured {
-    @apply border-0 bg-canvas text-ink ring-1 ring-line/80;
+    @apply bg-canvas text-ink ring-line/80 border-0 ring-1;
   }
 
   .skill-tag:hover {
@@ -392,7 +394,7 @@ h3 {
   }
 
   .skill-tag:focus-visible {
-    @apply ring-2 ring-accent/50 ring-offset-2 ring-offset-surface;
+    @apply ring-accent/50 ring-offset-surface ring-2 ring-offset-2;
   }
 
   .skill-tag--active,
@@ -413,7 +415,7 @@ h3 {
   }
 
   .study-expand-trigger {
-    @apply inline-flex min-h-11 items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-semibold text-accent outline-none;
+    @apply text-accent inline-flex min-h-11 items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-semibold outline-none;
     transition: color var(--duration-quick) var(--ease-soft);
   }
 
@@ -422,7 +424,7 @@ h3 {
   }
 
   .study-expand-trigger:focus-visible {
-    @apply ring-2 ring-accent/45 ring-offset-2 ring-offset-surface;
+    @apply ring-accent/45 ring-offset-surface ring-2 ring-offset-2;
   }
 
   .expand-panel {
@@ -499,21 +501,6 @@ h3 {
       );
   }
 
-  .skill-card--backend .skill-card__glow {
-    background:
-      radial-gradient(
-        ellipse 80% 60% at 100% 100%,
-        oklch(65% 0.12 265 / 0.14),
-        transparent 55%
-      ),
-      radial-gradient(
-        ellipse 65% 50% at 0% 0%,
-        oklch(88% 0.08 250 / 0.18),
-        transparent 50%
-      ),
-      linear-gradient(168deg, oklch(99% 0.005 265) 0%, oklch(97% 0.012 250) 100%);
-  }
-
   .skill-card--foundations .skill-card__glow {
     background:
       radial-gradient(
@@ -526,7 +513,11 @@ h3 {
         oklch(78% 0.1 250 / 0.1),
         transparent 50%
       ),
-      linear-gradient(180deg, oklch(98.8% 0.008 90) 0%, oklch(97.2% 0.014 265) 100%);
+      linear-gradient(
+        180deg,
+        oklch(98.8% 0.008 90) 0%,
+        oklch(97.2% 0.014 265) 100%
+      );
   }
 
   .skill-card:hover .skill-card__glow {
@@ -589,7 +580,7 @@ h3 {
   }
 
   .about-directions__item {
-    @apply m-0 text-[clamp(1rem,1.5vw,1.0625rem)] font-normal leading-[1.65] text-pretty;
+    @apply m-0 text-[clamp(1rem,1.5vw,1.0625rem)] leading-[1.65] font-normal text-pretty;
     color: oklch(42% 0.028 265);
     padding-inline-start: 1.125rem;
     position: relative;
@@ -611,7 +602,7 @@ h3 {
   }
 
   .about-prose {
-    @apply min-w-0 m-0 max-w-none text-[clamp(1rem,1.6vw,1.125rem)] font-normal leading-[1.7] text-pretty;
+    @apply m-0 max-w-none min-w-0 text-[clamp(1rem,1.6vw,1.125rem)] leading-[1.7] font-normal text-pretty;
     color: oklch(38% 0.032 265);
     padding-block: clamp(0.5rem, 1.5vw, 1rem);
     padding-inline: clamp(0.25rem, 1vw, 0.5rem);
@@ -628,7 +619,7 @@ h3 {
   }
 
   .about-quote {
-    @apply relative min-w-0 w-full rounded-2xl border border-line/80 bg-surface px-7 py-8 md:rounded-[1.35rem] md:px-10 md:py-10;
+    @apply border-line/80 bg-surface relative w-full min-w-0 rounded-2xl border px-7 py-8 md:rounded-[1.35rem] md:px-10 md:py-10;
     box-shadow: 0 20px 48px oklch(20% 0.04 265 / 0.06);
   }
 
@@ -654,7 +645,7 @@ h3 {
   }
 
   .current-badge__hint {
-    @apply pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max max-w-[14rem] -translate-x-1/2 rounded-lg border border-line bg-surface px-3 py-2 text-xs font-normal normal-case leading-snug tracking-normal text-ink-muted opacity-0 shadow-[0_12px_32px_oklch(20%_0.04_265_/_0.12)] transition-opacity duration-[var(--duration-ui)] ease-[var(--ease-fluid)];
+    @apply border-line bg-surface text-ink-muted pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max max-w-[14rem] -translate-x-1/2 rounded-lg border px-3 py-2 text-xs leading-snug font-normal tracking-normal normal-case opacity-0 shadow-[0_12px_32px_oklch(20%_0.04_265_/_0.12)] transition-opacity duration-[var(--duration-ui)] ease-[var(--ease-fluid)];
   }
 
   .current-badge__hint--open {

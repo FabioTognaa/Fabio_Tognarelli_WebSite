@@ -3,12 +3,19 @@
 //*  SUSPENSE: cosa viene mostrato quando non viene caricata la lazy page
 import { lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import ScrollToTop from "./ScrollToTop";
+
+//* dichiarazione lazy di ogni pagina per efficientare
+const HomePage = lazy(() => import("./pages/HomePage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+
+const StudyPage = lazy(() => import("./pages/StudyPage"));
+const SkillsPage = lazy(() => import("./pages/SkillsPage"));
 
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
 
+const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 function App() {
   const location = useLocation();
 
@@ -18,8 +25,12 @@ function App() {
       <Suspense fallback={null}>
         <Routes location={location}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/studies" element={<StudyPage />} />
+          <Route path="/skills" element={<SkillsPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
     </div>
