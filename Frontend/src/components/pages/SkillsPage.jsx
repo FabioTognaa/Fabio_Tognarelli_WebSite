@@ -3,7 +3,7 @@ import SkillGroupCard from "../ui/SkillGroupCard";
 import Reveal from "../ui/Reveal";
 import { skillGroups } from "../../lib/skills";
 
-const GROUP_ORDER = ["frontend", "backend", "AI", "tooling", "foundations"];
+const GROUP_ORDER = ["backend", "AI", "frontend", "tooling", "foundations"];
 
 const groups = GROUP_ORDER.map((id) =>
   skillGroups.find((group) => group.id === id),
@@ -25,13 +25,16 @@ function SkillsPage() {
       <Reveal className="skills-intro">
         <div className="skills-intro__head">
           <p className="section-label">Competenze</p>
-          <h2 id="skills-heading" className="section-heading mt-3 max-w-[16ch]">
+          <h2
+            id="skills-heading"
+            className="section-heading mt-3 mb-14 max-w-[16ch]"
+          >
             Stack e metodo
           </h2>
         </div>
       </Reveal>
 
-      <div className="skills-layout">
+      <div className="grid grid-cols-2 gap-5">
         {groups.map((group, index) => (
           <Reveal
             key={group.id}

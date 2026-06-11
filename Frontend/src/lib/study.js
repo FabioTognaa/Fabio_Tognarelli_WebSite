@@ -12,11 +12,6 @@ export const studyPath = [
     place: "Lucca",
     period: "2019 – 2024",
     degree: "Diploma in tecnologie informatiche",
-    details: [
-      "Percorso orientato a reti, sistemi e programmazione applicata",
-      "Progetti di gruppo in laboratorio e stage in azienda",
-      "Base solida su algoritmi prima del triennale",
-    ],
   },
   {
     id: "unipi",
@@ -30,11 +25,9 @@ export const studyPath = [
     school: "Università di Pisa",
     place: "Pisa",
     period: "2024 – in corso",
-    degree: "Laurea triennale in Computer Science",
+    degree: `Laurea triennale in Computer Science`,
     details: [
-      "Focus su algoritmi, strutture dati e fondamenti di sistemi",
-      "Progetti universitari in team con revisione del codice",
-      "Percorso verso stage e primo impiego full stack",
+      "Corsi rilevanti:   Analisi | Architettura e Sistemi Operativi | Programmazione & Algoritmica | Ricerca Operativa | Algebra Lineare | Calcolo Numerico",
     ],
   },
 ];

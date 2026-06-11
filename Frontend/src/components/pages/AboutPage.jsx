@@ -3,9 +3,18 @@ import Reveal from "../ui/Reveal";
 import { Link } from "react-router-dom";
 
 const DIRECTIONS = [
-  "Specializzarmi su data e AI applicata al prodotto",
-  "Mostrare lavoro concreto, non solo liste di tecnologie",
-  "Collaborare su codice pulito, review e standard di team",
+  {
+    label: "Data & AI",
+    text: "Riuscire ad integrare LLM agentici efficacemente nei miei workflow  ",
+  },
+  {
+    label: "Progetti reali",
+    text: "Mettermi in gioco su progetti reali con clienti ed applicare le competenze tecniche che ho acquisito nel tempo",
+  },
+  {
+    label: "Team",
+    text: "Sono profondamente convinto nel prezioso valore aggiunto che rappresenta poter imparare al fianco di persone piu' esperte.",
+  },
 ];
 
 function AboutQuote({ quote, author, delay = 0 }) {
@@ -68,15 +77,30 @@ function AboutPage() {
         </div>
 
         <Reveal as="div" className="about-directions" delay={280}>
-          <h3 className="about-directions__heading">Dove sto andando</h3>
-          <ul className="about-directions__list">
-            {DIRECTIONS.map((item) => (
-              <li key={item} className="about-directions__item">
-                {item}
+          <p className="section-heading">Dove sto andando</p>
+          <p className="prose-body mt-3 text-xl">
+            Avere una direzione chiara al giorno d'oggi può fare veramente la
+            differenza
+          </p>
+          <ul className="mt-8 grid list-none gap-4 p-0 sm:grid-cols-3">
+            {DIRECTIONS.map((item, index) => (
+              <li
+                key={item.label}
+                className="surface-panel flex flex-col p-5 md:p-6"
+              >
+                <span className="text-accent font-display text-lg font-semibold tracking-tight">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="text-ink mt-3 text-sm font-semibold">
+                  {item.label}
+                </p>
+                <p className="text-ink-muted mt-2 text-sm leading-relaxed">
+                  {item.text}
+                </p>
               </li>
             ))}
           </ul>
-          <Link to="/projects" className="link-arrow about-directions__link">
+          <Link to="/projects" className="link-arrow mt-8 inline-flex">
             Vedi i progetti
           </Link>
         </Reveal>

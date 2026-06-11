@@ -1,11 +1,7 @@
-import { useId, useState } from "react";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Reveal from "../ui/Reveal";
 import { studyPath } from "../../lib/study";
 
 function StudyEntry({ entry, index }) {
-  const detailsId = useId();
-  const [expanded, setExpanded] = useState(false);
   const hasDetails = entry.details?.length > 0;
 
   return (
@@ -41,46 +37,17 @@ function StudyEntry({ entry, index }) {
         </p>
 
         {hasDetails && (
-          <div className="mt-5">
-            <button
-              type="button"
-              className="study-expand-trigger"
-              aria-expanded={expanded}
-              aria-controls={detailsId}
-              onClick={() => setExpanded((open) => !open)}
-            >
-              <span>
-                {expanded ? "Nascondi dettagli" : "Dettagli del percorso"}
-              </span>
-              <ChevronDownIcon
-                className="ease-fluid h-4 w-4 shrink-0 transition-transform duration-(--duration-ui)"
-                style={{ transform: expanded ? "rotate(180deg)" : undefined }}
-                aria-hidden
-              />
-            </button>
-
-            <div
-              id={detailsId}
-              className="expand-panel"
-              data-open={expanded ? "true" : "false"}
-              aria-hidden={!expanded}
-              {...(!expanded ? { inert: "" } : {})}
-            >
-              <div className="expand-panel__inner">
-                <ul className="expand-panel__content border-line/80 text-ink-muted mt-4 space-y-2 border-t pt-4 text-sm leading-relaxed">
-                  {entry.details.map((line) => (
-                    <li key={line} className="flex gap-2.5">
-                      <span
-                        className="bg-accent mt-2 h-1 w-1 shrink-0 rounded-full"
-                        aria-hidden
-                      />
-                      <span>{line}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
+          <ul className="border-line/80 text-ink-muted mt-5 space-y-2 border-t pt-4 text-sm leading-relaxed">
+            {entry.details.map((line) => (
+              <li key={line} className="flex gap-2.5">
+                <span
+                  className="bg-accent mt-2 h-1 w-1 shrink-0 rounded-full"
+                  aria-hidden
+                />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
         )}
       </article>
     </Reveal>
@@ -101,16 +68,17 @@ function StudyPage() {
             Formazione
           </h1>
           <p className="prose-body mt-6">
-            Dal diploma IT al triennale in Computer Science: un percorso
-            orientato allo sviluppo software e al lavoro in team.
+            Fin dalle scuole ho sempre saputo quelli che sarebbero stati i miei
+            interessi futuri. Ho cercato di focalizzare da sempre il mio
+            percorso di studi sull'informatica
           </p>
         </Reveal>
 
-        <ul className="mt-10 flex flex-col gap-10 md:mt-14 md:gap-16">
+        <span className="mt-10 flex flex-col gap-10 md:mt-14 md:gap-16">
           {studyPath.map((entry, index) => (
             <StudyEntry key={entry.id} entry={entry} index={index} />
           ))}
-        </ul>
+        </span>
       </div>
     </section>
   );

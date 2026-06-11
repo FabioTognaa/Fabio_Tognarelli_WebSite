@@ -1,5 +1,67 @@
 export const skillGroups = [
   {
+    id: "backend",
+    title: "Backend e Database",
+    summary: "Script, piccole API e flusso di lavoro con Git.",
+    items: [
+      {
+        label: "Node.js",
+        icon: "nodejs",
+        hint: "Script, piccole API e automazioni locali",
+      },
+      {
+        label: "Python",
+        icon: "python",
+        hint: "Utility, dati e esercizi da contesto universitario",
+      },
+      {
+        label: "FastAPI",
+        icon: "fastapi",
+        hint: "API RESTful e microservizi",
+      },
+      {
+        label: "PostgreSQL",
+        icon: "postgresql",
+        hint: "Database relazionale e gestione di dati",
+      },
+    ],
+  },
+  {
+    id: "AI",
+    title: "AI & automazioni",
+    summary: "Tool AI .",
+    items: [
+      {
+        label: "Claude Code & Design",
+        icon: "claudecode",
+        hint: "Ecosistema Claude per integrazione AI nei progetti personali ",
+      },
+      {
+        label: "Cursor",
+        icon: "cursor",
+        hint: "",
+      },
+      {
+        label: "n8n",
+        icon: "n8n",
+        hint: "Worklow completamente automatizzati con AI agentica",
+      },
+    ],
+  },
+  {
+    id: "tooling",
+    title: "Tooling",
+    summary: "Strumenti per il lavoro quotidiano.",
+    items: [
+      { label: "Docker", icon: "docker", hint: "" },
+      {
+        label: "GitHub Actions",
+        icon: "githubactions",
+        hint: "Versioning ed automazioni cloud",
+      },
+    ],
+  },
+  {
     id: "frontend",
     title: "Frontend",
     summary: "Interfacce responsive, accessibili e curate nei dettagli.",
@@ -31,68 +93,7 @@ export const skillGroups = [
       },
     ],
   },
-  {
-    id: "backend",
-    title: "Backend e Database",
-    summary: "Script, piccole API e flusso di lavoro con Git.",
-    items: [
-      {
-        label: "Node.js",
-        icon: "nodejs",
-        hint: "Script, piccole API e automazioni locali",
-      },
-      {
-        label: "Python",
-        icon: "python",
-        hint: "Utility, dati e esercizi da contesto universitario",
-      },
-      {
-        label: "FastAPI",
-        icon: "fastapi",
-        hint: "API RESTful e microservizi",
-      },
-      {
-        label: "PostgreSQL",
-        icon: "postgresql",
-        hint: "Database relazionale e gestione di dati",
-      },
-    ],
-  },
-  {
-    id: "tooling",
-    title: "Tooling",
-    summary: "Strumenti per il lavoro quotidiano.",
-    items: [
-      { label: "Docker", icon: "docker", hint: "" },
-      {
-        label: "GitHub Actions",
-        icon: "githubactions",
-        hint: "Versioning ed automazioni cloud",
-      },
-    ],
-  },
-  {
-    id: "AI",
-    title: "AI & automazioni",
-    summary: "Tool AI .",
-    items: [
-      {
-        label: "Claude Code & Design",
-        icon: "claudecode",
-        hint: "Ecosistema Claude per integrazione AI nei progetti personali ",
-      },
-      {
-        label: "Cursor",
-        icon: "cursor",
-        hint: "",
-      },
-      {
-        label: "n8n",
-        icon: "n8n",
-        hint: "Worklow completamente automatizzati con AI agentica",
-      },
-    ],
-  },
+
   {
     id: "foundations",
     title: "Fondamenti",
