@@ -370,40 +370,78 @@ h3 {
     transition: transform var(--duration-panel) var(--ease-fluid);
   }
 
-  .skills-intro {
+  .skills-intro,
+  .projects-intro {
     display: grid;
     gap: clamp(1.25rem, 3vw, 2rem);
   }
 
   @media (min-width: 1024px) {
-    .skills-intro {
+    .skills-intro,
+    .projects-intro {
       grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
       align-items: end;
       gap: clamp(2rem, 4.5vw, 4.5rem);
     }
 
-    .skills-intro__copy {
+    .skills-intro__copy,
+    .projects-intro__copy {
       padding-bottom: 0.125rem;
     }
   }
 
-  .skills-layout {
-    display: flex;
-    flex-direction: column;
+  .skills-layout,
+  .projects-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: clamp(1rem, 2.5vw, 1.375rem);
     margin-top: clamp(2.5rem, 5.5vw, 3.75rem);
   }
 
-  .skills-layout__item {
+  .skills-layout__item,
+  .projects-layout__item {
     min-width: 0;
-    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .skills-layout,
+    .projects-layout {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (min-width: 1024px) {
-    .skills-layout {
+    .skills-layout,
+    .projects-layout {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
       gap: clamp(1.25rem, 2vw, 1.75rem);
       margin-top: clamp(3rem, 5vw, 4.25rem);
     }
+  }
+
+  .projects-empty {
+    margin-top: clamp(2.5rem, 5.5vw, 3.75rem);
+    padding: clamp(2rem, 5vw, 2.75rem);
+    text-align: center;
+  }
+
+  .projects-footnote {
+    margin-top: clamp(2.5rem, 5vw, 3.75rem);
+    padding-top: clamp(1.5rem, 3vw, 2rem);
+    border-top: 1px solid oklch(88% 0.02 265 / 0.85);
+    max-width: 52ch;
+  }
+
+  .project-card--featured {
+    @apply flex h-full flex-col justify-between;
+  }
+
+  .project-card--featured h3 {
+    max-width: 22ch;
+  }
+
+  .project-card--featured p {
+    max-width: 42ch;
   }
 
   .skills-hint {
@@ -416,6 +454,15 @@ h3 {
     @apply font-display text-ink font-bold tracking-tight;
     font-size: clamp(1.125rem, 1.9vw, 1.3125rem);
     line-height: 1.2;
+  }
+
+  .skill-card--featured .skill-card__title {
+    font-size: clamp(1.25rem, 2.4vw, 1.625rem);
+  }
+
+  .skill-card--featured .skill-card__summary {
+    max-width: 42ch;
+    margin-top: 0.75rem;
   }
 
   .skill-card__summary {
@@ -584,6 +631,56 @@ h3 {
   .about-directions {
     padding-top: clamp(2rem, 4vw, 3rem);
     border-top: 1px solid oklch(88% 0.02 265 / 0.85);
+  }
+
+  .roadmap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .roadmap-list__step {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0.5rem;
+    align-items: start;
+    padding: 1.175rem 0;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid oklch(88% 0.02 265 / 0.7);
+  }
+
+  .roadmap-list__step:last-child {
+    border-bottom: none;
+  }
+
+  .roadmap-list__num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: oklch(62% 0.19 250 / 0.65);
+    letter-spacing: -0.03em;
+  }
+
+  .roadmap-list__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .roadmap-list__label {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .roadmap-list__text {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--color-ink-muted);
   }
 
   .about-prose {

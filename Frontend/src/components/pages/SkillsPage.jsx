@@ -1,4 +1,3 @@
-import { useCallback, useState } from "react";
 import SkillGroupCard from "../ui/SkillGroupCard";
 import Reveal from "../ui/Reveal";
 import { skillGroups } from "../../lib/skills";
@@ -9,13 +8,15 @@ const groups = GROUP_ORDER.map((id) =>
   skillGroups.find((group) => group.id === id),
 ).filter(Boolean);
 
+const GROUP_LAYOUT = {
+  backend: "skills-layout__item md:col-span-2 lg:col-span-7 lg:row-span-2",
+  AI: "skills-layout__item lg:col-span-5",
+  frontend: "skills-layout__item lg:col-span-5",
+  tooling: "skills-layout__item lg:col-span-6",
+  foundations: "skills-layout__item lg:col-span-6",
+};
+
 function SkillsPage() {
-  const [activeSkillKey, setActiveSkillKey] = useState(null);
-
-  const handleSkillSelect = useCallback((key) => {
-    setActiveSkillKey((current) => (current === key ? null : key));
-  }, []);
-
   return (
     <section
       id="competenze"
@@ -25,27 +26,20 @@ function SkillsPage() {
       <Reveal className="skills-intro">
         <div className="skills-intro__head">
           <p className="section-label">Competenze</p>
-          <h2
-            id="skills-heading"
-            className="section-heading mt-3 mb-14 max-w-[16ch]"
-          >
+          <h2 id="skills-heading" className="section-heading mt-3 max-w-[16ch]">
             Stack e metodo
           </h2>
         </div>
       </Reveal>
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="skills-layout">
         {groups.map((group, index) => (
           <Reveal
             key={group.id}
             delay={80 + index * 80}
-            className="skills-layout__item"
+            className={GROUP_LAYOUT[group.id] ?? "skills-layout__item"}
           >
-            <SkillGroupCard
-              group={group}
-              activeSkillKey={activeSkillKey}
-              onSkillSelect={handleSkillSelect}
-            />
+            <SkillGroupCard group={group} featured={group.id === "backend"} />
           </Reveal>
         ))}
       </div>

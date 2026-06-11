@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
-import PageShell from "../layout/PageShell";
 import ProjectCard from "../ui/ProjectCard";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
 import { projects, CV_PATH } from "../../lib/projects";
+
+const PROJECT_LAYOUT = [
+  "projects-layout__item md:col-span-2 lg:col-span-7 lg:row-span-2",
+  "projects-layout__item lg:col-span-5",
+  "projects-layout__item lg:col-span-5",
+];
 
 function ProjectsPage() {
   const hasPublished = projects.some(
@@ -11,48 +16,48 @@ function ProjectsPage() {
   );
 
   return (
-    <div className="section-pad mx-auto max-w-6xl">
-      <Reveal>
-        <p className="section-label">Progetti</p>
-        <h1 className="section-heading mt-3">Tutti i lavori</h1>
+    <section
+      id="progetti"
+      className="section-pad scroll-mt-header mx-auto max-w-7xl xl:max-w-[88rem]"
+      aria-labelledby="projects-heading"
+    >
+      <Reveal className="projects-intro">
+        <div className="projects-intro__head">
+          <p className="section-label">Progetti</p>
+          <h1 id="projects-heading" className="section-heading mt-3 max-w-[14ch]">
+            Tutti i lavori
+          </h1>
+        </div>
+        <p className="skills-hint projects-intro__copy">
+          {hasPublished
+            ? "Selezione di lavori personali e universitari, con codice, demo e note sulle scelte tecniche."
+            : "Sto preparando i case study completi. Qui trovi già tre slot con lo spazio riservato a demo, stack e repository."}
+        </p>
       </Reveal>
 
-      {!hasPublished && (
-        <Reveal delay={80}>
-          <p className="prose-body mt-6">
-            Sto preparando i case study completi. Qui trovi già la griglia con
-            tre slot: apri una card per vedere lo spazio riservato a demo, stack
-            e codice.
-          </p>
-        </Reveal>
-      )}
-
       {projects.length === 0 ? (
-        <div className="surface-panel mt-12 p-10 text-center">
-          <p className="text-ink-muted text-lg">
-            Nessun progetto pubblicato al momento.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Button href={CV_PATH} download={CV_PATH}>
-              Scarica CV
-            </Button>
-            <Button variant="ghost" to="/contact">
-              Contattami
-            </Button>
+        <Reveal delay={80}>
+          <div className="projects-empty surface-panel">
+            <p className="text-ink-muted text-lg">
+              Nessun progetto pubblicato al momento.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <Button href={CV_PATH} download={CV_PATH}>
+                Scarica CV
+              </Button>
+              <Button variant="ghost" to="/contact">
+                Contattami
+              </Button>
+            </div>
           </div>
-        </div>
+        </Reveal>
       ) : (
-        <div
-          className="mt-10 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
-          aria-label="Elenco progetti"
-        >
+        <div className="projects-layout" aria-label="Elenco progetti">
           {projects.map((project, index) => (
             <Reveal
               key={project.id}
               delay={100 + index * 80}
-              className={
-                index === 0 ? "sm:col-span-2 lg:col-span-2 lg:row-span-2" : ""
-              }
+              className={PROJECT_LAYOUT[index] ?? "projects-layout__item"}
             >
               <ProjectCard
                 project={project}
@@ -63,17 +68,19 @@ function ProjectsPage() {
         </div>
       )}
 
-      <p className="text-ink-muted mt-12">
-        Altri progetti in arrivo.{" "}
-        <Link
-          to="/contact"
-          className="motion-link text-accent hover:text-accent-deep font-semibold"
-        >
-          Scrivimi
-        </Link>{" "}
-        se vuoi collaborare.
-      </p>
-    </div>
+      <Reveal as="footer" className="projects-footnote" delay={320}>
+        <p className="text-ink-muted text-sm leading-relaxed md:text-base">
+          Altri progetti in arrivo.{" "}
+          <Link
+            to="/contact"
+            className="motion-link text-accent hover:text-accent-deep font-semibold"
+          >
+            Scrivimi
+          </Link>{" "}
+          se vuoi collaborare.
+        </p>
+      </Reveal>
+    </section>
   );
 }
 

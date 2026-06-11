@@ -1,21 +1,6 @@
-import PageShell from "../layout/PageShell";
 import Reveal from "../ui/Reveal";
 import { Link } from "react-router-dom";
-
-const DIRECTIONS = [
-  {
-    label: "Data & AI",
-    text: "Riuscire ad integrare LLM agentici efficacemente nei miei workflow  ",
-  },
-  {
-    label: "Progetti reali",
-    text: "Mettermi in gioco su progetti reali con clienti ed applicare le competenze tecniche che ho acquisito nel tempo",
-  },
-  {
-    label: "Team",
-    text: "Sono profondamente convinto nel prezioso valore aggiunto che rappresenta poter imparare al fianco di persone piu' esperte.",
-  },
-];
+import { DIRECTIONS } from "../../lib/about";
 
 function AboutQuote({ quote, author, delay = 0 }) {
   return (
@@ -76,27 +61,23 @@ function AboutPage() {
           />
         </div>
 
+        {/* SEZIONE DOVE STO ANDANDO*/}
         <Reveal as="div" className="about-directions" delay={280}>
           <p className="section-heading">Dove sto andando</p>
           <p className="prose-body mt-3 text-xl">
             Avere una direzione chiara al giorno d'oggi può fare veramente la
             differenza
           </p>
-          <ul className="mt-8 grid list-none gap-4 p-0 sm:grid-cols-3">
+          <ul className="roadmap-list mt-8 list-none p-0">
             {DIRECTIONS.map((item, index) => (
-              <li
-                key={item.label}
-                className="surface-panel flex flex-col p-5 md:p-6"
-              >
-                <span className="text-accent font-display text-lg font-semibold tracking-tight">
+              <li key={item.label} className="roadmap-list__step">
+                <span className="roadmap-list__num">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <p className="text-ink mt-3 text-sm font-semibold">
-                  {item.label}
-                </p>
-                <p className="text-ink-muted mt-2 text-sm leading-relaxed">
-                  {item.text}
-                </p>
+                <div className="roadmap-list__content">
+                  <p className="roadmap-list__label">{item.label}</p>
+                  <p className="roadmap-list__text">{item.text}</p>
+                </div>
               </li>
             ))}
           </ul>

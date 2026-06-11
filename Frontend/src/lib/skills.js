@@ -2,7 +2,8 @@ export const skillGroups = [
   {
     id: "backend",
     title: "Backend e Database",
-    summary: "Script, piccole API e flusso di lavoro con Git.",
+    summary:
+      "Endpoint REST, query su PostgreSQL e logica lato server: il ponte tra frontend, dati persistenti e servizi esterni.",
     items: [
       {
         label: "Node.js",
@@ -29,7 +30,8 @@ export const skillGroups = [
   {
     id: "AI",
     title: "AI & automazioni",
-    summary: "Tool AI .",
+    summary:
+      "Assistenti AI nel flusso di sviluppo, workflow agentici con n8n e integrazione di modelli nei progetti personali.",
     items: [
       {
         label: "Claude Code & Design",
@@ -51,7 +53,8 @@ export const skillGroups = [
   {
     id: "tooling",
     title: "Tooling",
-    summary: "Strumenti per il lavoro quotidiano.",
+    summary:
+      "Container con Docker e pipeline CI/CD su GitHub Actions: ambienti riproducibili e deploy automatizzati.",
     items: [
       { label: "Docker", icon: "docker", hint: "" },
       {
