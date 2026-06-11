@@ -370,8 +370,70 @@ h3 {
     transition: transform var(--duration-panel) var(--ease-fluid);
   }
 
+  .skills-intro {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  @media (min-width: 1024px) {
+    .skills-intro {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      align-items: end;
+      gap: clamp(2rem, 4.5vw, 4.5rem);
+    }
+
+    .skills-intro__copy {
+      padding-bottom: 0.125rem;
+    }
+  }
+
+  .skills-layout {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1rem, 2.5vw, 1.375rem);
+    margin-top: clamp(2.5rem, 5.5vw, 3.75rem);
+  }
+
+  .skills-layout__item {
+    min-width: 0;
+    width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .skills-layout {
+      gap: clamp(1.25rem, 2vw, 1.75rem);
+      margin-top: clamp(3rem, 5vw, 4.25rem);
+    }
+  }
+
+  .skills-hint {
+    @apply text-ink-soft max-w-prose font-normal;
+    font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
+    line-height: 1.55;
+  }
+
+  .skill-card__title {
+    @apply font-display text-ink font-bold tracking-tight;
+    font-size: clamp(1.125rem, 1.9vw, 1.3125rem);
+    line-height: 1.2;
+  }
+
+  .skill-card__summary {
+    @apply text-ink-muted font-light;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 36ch;
+    margin-top: 0.5rem;
+  }
+
+  .skill-card__tags {
+    gap: 0.5rem;
+  }
+
   .skill-tag {
-    @apply border-line bg-surface text-ink-muted inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-medium outline-none;
+    @apply border-line bg-surface text-ink-muted inline-flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border px-4 py-2.5 font-medium outline-none;
+    font-size: 0.9375rem;
+    line-height: 1.25;
     transition:
       transform var(--duration-quick) var(--ease-fluid),
       border-color var(--duration-ui) var(--ease-soft),
@@ -380,17 +442,9 @@ h3 {
       box-shadow var(--duration-ui) var(--ease-fluid);
   }
 
-  .skill-tag--featured {
-    @apply bg-canvas text-ink ring-line/80 border-0 ring-1;
-  }
-
   .skill-tag:hover {
     transform: translate3d(0, -2px, 0);
     @apply border-accent/40 text-ink;
-  }
-
-  .skill-tag--featured:hover {
-    @apply ring-accent/35;
   }
 
   .skill-tag:focus-visible {
@@ -404,14 +458,23 @@ h3 {
     box-shadow: 0 6px 20px oklch(62% 0.19 250 / 0.18);
   }
 
-  .skill-tag--featured.skill-tag--active,
-  .skill-tag--featured.skill-tag--active:hover {
-    @apply bg-accent/12 text-accent-deep ring-accent/45;
+  .skill-insight {
+    @apply border-line/70 bg-surface/85;
+    font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
+    line-height: 1.55;
+    border-radius: 0.875rem;
+    border-width: 1px;
+    border-style: solid;
+    padding: 0.75rem 1rem;
+    animation: fade 420ms var(--ease-fluid) forwards;
   }
 
-  .skill-insight {
-    @apply text-sm leading-relaxed md:text-base;
-    animation: fade 420ms var(--ease-fluid) forwards;
+  .skill-insight__label {
+    @apply text-accent font-semibold;
+  }
+
+  .skill-insight__hint {
+    @apply text-ink-muted font-normal;
   }
 
   .study-expand-trigger {
@@ -473,75 +536,39 @@ h3 {
   }
 
   .skill-card.surface-panel {
-    @apply border-line/70 bg-transparent;
+    @apply border-line bg-surface;
+    box-shadow: none;
+    transition:
+      border-color var(--duration-ui) var(--ease-soft),
+      box-shadow var(--duration-ui) var(--ease-fluid);
   }
 
-  .skill-card__glow {
-    opacity: 1;
-    transition: opacity var(--duration-ui) var(--ease-soft);
+  .skill-card.surface-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: inherit;
+    opacity: 0.55;
   }
 
-  .skill-card--frontend .skill-card__glow {
-    background:
-      radial-gradient(
-        ellipse 95% 75% at 100% 0%,
-        oklch(72% 0.16 250 / 0.22),
-        transparent 58%
-      ),
-      radial-gradient(
-        ellipse 70% 55% at 0% 100%,
-        oklch(94% 0.04 85 / 0.45),
-        transparent 52%
-      ),
-      linear-gradient(
-        152deg,
-        oklch(99.2% 0.006 90) 0%,
-        oklch(97.5% 0.018 248) 48%,
-        oklch(98.5% 0.01 265) 100%
-      );
+  .skill-card--frontend.surface-panel::before {
+    background: oklch(62% 0.19 250);
   }
 
-  .skill-card--foundations .skill-card__glow {
-    background:
-      radial-gradient(
-        ellipse 75% 55% at 50% 0%,
-        oklch(90% 0.06 85 / 0.35),
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse 60% 45% at 100% 80%,
-        oklch(78% 0.1 250 / 0.1),
-        transparent 50%
-      ),
-      linear-gradient(
-        180deg,
-        oklch(98.8% 0.008 90) 0%,
-        oklch(97.2% 0.014 265) 100%
-      );
+  .skill-card--backend.surface-panel::before {
+    background: oklch(48% 0.16 252);
   }
 
-  .skill-card:hover .skill-card__glow {
-    opacity: 1;
+  .skill-card--foundations.surface-panel::before {
+    background: oklch(62% 0.08 85);
   }
 
-  .skill-card--frontend:hover .skill-card__glow {
-    background:
-      radial-gradient(
-        ellipse 95% 75% at 100% 0%,
-        oklch(68% 0.18 250 / 0.28),
-        transparent 58%
-      ),
-      radial-gradient(
-        ellipse 70% 55% at 0% 100%,
-        oklch(93% 0.05 85 / 0.5),
-        transparent 52%
-      ),
-      linear-gradient(
-        152deg,
-        oklch(99.2% 0.006 90) 0%,
-        oklch(96.8% 0.022 248) 48%,
-        oklch(98.2% 0.012 265) 100%
-      );
+  .skill-card.surface-panel:hover {
+    @apply border-line;
+    box-shadow: 0 12px 28px oklch(20% 0.04 265 / 0.06);
   }
 
   .about-pairs {
@@ -643,21 +670,6 @@ h3 {
     content: "";
     @apply bg-accent/50 mr-2.5 inline-block h-px w-6 align-middle;
   }
-
-  .current-badge__hint {
-    @apply border-line bg-surface text-ink-muted pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max max-w-[14rem] -translate-x-1/2 rounded-lg border px-3 py-2 text-xs leading-snug font-normal tracking-normal normal-case opacity-0 shadow-[0_12px_32px_oklch(20%_0.04_265_/_0.12)] transition-opacity duration-[var(--duration-ui)] ease-[var(--ease-fluid)];
-  }
-
-  .current-badge__hint--open {
-    @apply opacity-100;
-  }
-
-  @media (hover: hover) {
-    .current-badge:hover .current-badge__hint,
-    .current-badge:focus-within .current-badge__hint {
-      @apply opacity-100;
-    }
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -730,6 +742,10 @@ h3 {
     box-shadow: none;
   }
 
+  .skill-card.surface-panel:hover {
+    box-shadow: none;
+  }
+
   .expand-panel {
     transition: none;
   }
@@ -743,9 +759,5 @@ h3 {
 
   .skill-insight {
     animation: none;
-  }
-
-  .current-badge__hint {
-    transition: none;
   }
 }

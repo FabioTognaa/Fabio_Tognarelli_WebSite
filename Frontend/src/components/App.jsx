@@ -4,7 +4,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
-
+import PageShell from "./layout/PageShell";
 //* dichiarazione lazy di ogni pagina per efficientare
 const HomePage = lazy(() => import("./pages/HomePage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
@@ -24,13 +24,15 @@ function App() {
       <ScrollToTop />
       <Suspense fallback={null}>
         <Routes location={location}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/studies" element={<StudyPage />} />
-          <Route path="/skills" element={<SkillsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="*" element={<PageNotFound />} />
+          <Route element={<PageShell />}>
+            <Route index element={<HomePage />} />
+            <Route path="about" element={<AboutPage />} />
+            <Route path="studies" element={<StudyPage />} />
+            <Route path="skills" element={<SkillsPage />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="projects" element={<ProjectsPage />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
         </Routes>
       </Suspense>
     </div>

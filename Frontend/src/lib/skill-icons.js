@@ -9,6 +9,13 @@ const ICON_LOADERS = {
   java: () => import("../assets/java-icon.svg"),
   c: () => import("../assets/c-icon.svg"),
   cpp: () => import("../assets/cpp-icon.svg"),
+  fastapi: () => import("../assets/fastapi-icon.png"),
+  postgresql: () => import("../assets/postgresql-icon.png"),
+  docker: () => import("../assets/docker-icon.png"),
+  githubactions: () => import("../assets/githubactions-icon.png"),
+  claudecode: () => import("../assets/claudecode-icon.png"),
+  cursor: () => import("../assets/cursor-icon.png"),
+  n8n: () => import("../assets/n8n-icon.png"),
 };
 
 const iconCache = new Map();

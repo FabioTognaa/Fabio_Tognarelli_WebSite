@@ -31,8 +31,6 @@ export const studyPath = [
     place: "Pisa",
     period: "2024 – in corso",
     degree: "Laurea triennale in Computer Science",
-    current: true,
-    currentHint: "Triennale in corso: algoritmi, sistemi e progetti software",
     details: [
       "Focus su algoritmi, strutture dati e fondamenti di sistemi",
       "Progetti universitari in team con revisione del codice",

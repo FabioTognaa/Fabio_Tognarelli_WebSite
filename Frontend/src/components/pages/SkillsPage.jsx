@@ -2,10 +2,14 @@ import { useCallback, useState } from "react";
 import SkillGroupCard from "../ui/SkillGroupCard";
 import Reveal from "../ui/Reveal";
 import { skillGroups } from "../../lib/skills";
-import PageShell from "../layout/PageShell";
+
+const GROUP_ORDER = ["frontend", "backend", "AI", "tooling", "foundations"];
+
+const groups = GROUP_ORDER.map((id) =>
+  skillGroups.find((group) => group.id === id),
+).filter(Boolean);
 
 function SkillsPage() {
-  const [featured, ...rest] = skillGroups;
   const [activeSkillKey, setActiveSkillKey] = useState(null);
 
   const handleSkillSelect = useCallback((key) => {
@@ -13,50 +17,36 @@ function SkillsPage() {
   }, []);
 
   return (
-    <PageShell>
-      <section
-        id="competenze"
-        className="section-pad scroll-mt-header mx-auto max-w-6xl"
-        aria-labelledby="skills-heading"
-      >
-        <Reveal>
+    <section
+      id="competenze"
+      className="section-pad scroll-mt-header mx-auto max-w-7xl xl:max-w-[88rem]"
+      aria-labelledby="skills-heading"
+    >
+      <Reveal className="skills-intro">
+        <div className="skills-intro__head">
           <p className="section-label">Competenze</p>
-          <h2 id="skills-heading" className="section-heading mt-3">
+          <h2 id="skills-heading" className="section-heading mt-3 max-w-[16ch]">
             Stack e metodo
           </h2>
-          <p className="prose-body mt-6">
-            Frontend moderno al centro, con basi solide di programmazione e
-            attenzione a leggibilità, accessibilità e manutenzione.{" "}
-            <span className="skills-hint text-ink-soft">
-              Tocca una competenza per vedere dove la applico.
-            </span>
-          </p>
-        </Reveal>
+        </div>
+      </Reveal>
 
-        <div className="mt-10 grid gap-4 sm:gap-5 md:mt-12 md:grid-cols-12 md:items-stretch md:gap-6">
-          <Reveal className="md:col-span-7">
+      <div className="skills-layout">
+        {groups.map((group, index) => (
+          <Reveal
+            key={group.id}
+            delay={80 + index * 80}
+            className="skills-layout__item"
+          >
             <SkillGroupCard
-              group={featured}
-              variant="featured"
+              group={group}
               activeSkillKey={activeSkillKey}
               onSkillSelect={handleSkillSelect}
             />
           </Reveal>
-
-          <div className="flex flex-col gap-5 md:col-span-5 md:h-full">
-            {rest.map((group, index) => (
-              <Reveal key={group.id} delay={80 + index * 80} className="flex-1">
-                <SkillGroupCard
-                  group={group}
-                  activeSkillKey={activeSkillKey}
-                  onSkillSelect={handleSkillSelect}
-                />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-    </PageShell>
+        ))}
+      </div>
+    </section>
   );
 }
 

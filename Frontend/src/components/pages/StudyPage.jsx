@@ -2,7 +2,6 @@ import { useId, useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Reveal from "../ui/Reveal";
 import { studyPath } from "../../lib/study";
-import PageShell from "../layout/PageShell";
 
 function StudyEntry({ entry, index }) {
   const detailsId = useId();
@@ -13,7 +12,7 @@ function StudyEntry({ entry, index }) {
     <Reveal
       as="li"
       delay={index * 100}
-      className="relative grid gap-4 pb-10 last:pb-0 sm:gap-6 sm:pb-12 md:grid-cols-[auto_1fr] md:items-start md:gap-x-8 md:pb-16"
+      className="grid gap-4 sm:gap-6 md:grid-cols-[auto_1fr] md:items-start md:gap-x-8"
     >
       <div className="flex shrink-0 items-start md:pt-1">
         <img
@@ -29,15 +28,13 @@ function StudyEntry({ entry, index }) {
         />
       </div>
 
-      <article className={`surface-panel p-6 md:p-8`}>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <p className="text-accent text-xs font-semibold tracking-wider uppercase">
-            {entry.period}
-          </p>
-        </div>
-        <h3 className="font-display text-ink mt-2 text-xl font-bold md:text-2xl">
+      <article className="surface-panel p-6 md:p-8">
+        <p className="text-accent text-xs font-semibold tracking-wider uppercase">
+          {entry.period}
+        </p>
+        <h2 className="font-display text-ink mt-2 text-xl font-bold md:text-2xl">
           {entry.school}
-        </h3>
+        </h2>
         <p className="text-ink-soft mt-1 text-sm">{entry.place}</p>
         <p className="text-ink-muted mt-4 text-base leading-relaxed">
           {entry.degree}
@@ -92,32 +89,30 @@ function StudyEntry({ entry, index }) {
 
 function StudyPage() {
   return (
-    <PageShell>
-      <section
-        id="percorso"
-        className="section-pad border-line bg-surface/50 scroll-mt-header border-y"
-        aria-labelledby="study-heading"
-      >
-        <div className="mx-auto max-w-6xl">
-          <Reveal>
-            <p className="section-label">Percorso</p>
-            <h2 id="study-heading" className="section-heading mt-3">
-              Formazione
-            </h2>
-            <p className="prose-body mt-6">
-              Dal diploma IT al triennale in Computer Science: un percorso
-              orientato allo sviluppo software e al lavoro in team.
-            </p>
-          </Reveal>
+    <section
+      id="percorso"
+      className="section-pad bg-surface/50 scroll-mt-header"
+      aria-labelledby="study-heading"
+    >
+      <div className="mx-auto max-w-6xl">
+        <Reveal>
+          <p className="section-label">Percorso</p>
+          <h1 id="study-heading" className="section-heading mt-3">
+            Formazione
+          </h1>
+          <p className="prose-body mt-6">
+            Dal diploma IT al triennale in Computer Science: un percorso
+            orientato allo sviluppo software e al lavoro in team.
+          </p>
+        </Reveal>
 
-          <ol className="relative mt-10 space-y-0 md:mt-14">
-            {studyPath.map((entry, index) => (
-              <StudyEntry key={entry.id} entry={entry} index={index} />
-            ))}
-          </ol>
-        </div>
-      </section>
-    </PageShell>
+        <ul className="mt-10 flex flex-col gap-10 md:mt-14 md:gap-16">
+          {studyPath.map((entry, index) => (
+            <StudyEntry key={entry.id} entry={entry} index={index} />
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }
 

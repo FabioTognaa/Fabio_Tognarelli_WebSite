@@ -1,12 +1,12 @@
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
-
-function PageShell({ children, className = "" }) {
+import { Outlet } from "react-router-dom";
+function PageShell({ className = "" }) {
   return (
     <div className={`flex min-h-dvh flex-col ${className}`}>
       <SiteHeader />
-      <main id="main-content" className="flex-1 page-enter">
-        {children}
+      <main id="main-content" className="page-enter flex-1">
+        <Outlet />
       </main>
       <SiteFooter />
     </div>

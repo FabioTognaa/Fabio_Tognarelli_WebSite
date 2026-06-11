@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import PageShell from "../layout/PageShell";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
 import { supabase } from "../../lib/supabaseClient";
@@ -128,7 +127,6 @@ function ContactPage() {
   }
 
   return (
-    <PageShell>
       <div className="section-pad mx-auto max-w-xl">
         <Reveal>
           <p className="section-label">Contatto</p>
@@ -255,7 +253,6 @@ function ContactPage() {
           </Button>
         </Reveal>
       </div>
-    </PageShell>
   );
 }
 

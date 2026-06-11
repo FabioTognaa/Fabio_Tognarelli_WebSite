@@ -15,17 +15,17 @@ function ProjectCard({ project, size = "default" }) {
     >
       <div>
         {isComingSoon && (
-          <span className="inline-block rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent-deep">
+          <span className="bg-accent/15 text-accent-deep inline-block rounded-full px-3 py-1 text-xs font-semibold">
             In preparazione
           </span>
         )}
         <h3
-          className={`font-display font-bold text-ink ${size === "featured" ? "mt-4 text-2xl md:text-3xl" : "mt-3 text-lg"}`}
+          className={`font-display text-ink font-bold ${size === "featured" ? "mt-4 text-2xl md:text-3xl" : "mt-3 text-lg"}`}
         >
           {title}
         </h3>
         <p
-          className={`mt-3 leading-relaxed text-ink-muted ${size === "featured" ? "text-base md:text-lg" : "text-sm"}`}
+          className={`text-ink-muted mt-3 leading-relaxed ${size === "featured" ? "text-base md:text-lg" : "text-sm"}`}
         >
           {description}
         </p>
@@ -37,7 +37,7 @@ function ProjectCard({ project, size = "default" }) {
             Apri progetto
           </Button>
         ) : (
-          <span className="text-sm font-medium text-ink-soft">
+          <span className="text-ink-soft text-sm font-medium">
             Case study in arrivo: screenshot, stack e repository
           </span>
         )}

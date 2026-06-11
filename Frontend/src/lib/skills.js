@@ -3,15 +3,14 @@ export const skillGroups = [
     id: "frontend",
     title: "Frontend",
     summary: "Interfacce responsive, accessibili e curate nei dettagli.",
-    featured: true,
     items: [
       {
-        label: "HTML semantico",
+        label: "HTML",
         icon: "html",
         hint: "Struttura leggibile per screen reader e SEO",
       },
       {
-        label: "CSS moderno",
+        label: "CSS",
         icon: "css",
         hint: "Layout fluidi, token e animazioni con intento",
       },
@@ -34,7 +33,7 @@ export const skillGroups = [
   },
   {
     id: "backend",
-    title: "Back-end e tooling",
+    title: "Backend e Database",
     summary: "Script, piccole API e flusso di lavoro con Git.",
     items: [
       {
@@ -47,8 +46,51 @@ export const skillGroups = [
         icon: "python",
         hint: "Utility, dati e esercizi da contesto universitario",
       },
-      { label: "Git", hint: "Branch, review e storia pulita in team" },
-      { label: "REST", hint: "Contratti chiari tra client e server" },
+      {
+        label: "FastAPI",
+        icon: "fastapi",
+        hint: "API RESTful e microservizi",
+      },
+      {
+        label: "PostgreSQL",
+        icon: "postgresql",
+        hint: "Database relazionale e gestione di dati",
+      },
+    ],
+  },
+  {
+    id: "tooling",
+    title: "Tooling",
+    summary: "Strumenti per il lavoro quotidiano.",
+    items: [
+      { label: "Docker", icon: "docker", hint: "" },
+      {
+        label: "GitHub Actions",
+        icon: "githubactions",
+        hint: "Versioning ed automazioni cloud",
+      },
+    ],
+  },
+  {
+    id: "AI",
+    title: "AI & automazioni",
+    summary: "Tool AI .",
+    items: [
+      {
+        label: "Claude Code & Design",
+        icon: "claudecode",
+        hint: "Ecosistema Claude per integrazione AI nei progetti personali ",
+      },
+      {
+        label: "Cursor",
+        icon: "cursor",
+        hint: "",
+      },
+      {
+        label: "n8n",
+        icon: "n8n",
+        hint: "Worklow completamente automatizzati con AI agentica",
+      },
     ],
   },
   {
@@ -66,10 +108,6 @@ export const skillGroups = [
         label: "C++",
         icon: "cpp",
         hint: "Astrazione e performance dove serve",
-      },
-      {
-        label: "Strutture dati",
-        hint: "Complessità e scelta del modello giusto",
       },
     ],
   },
