@@ -13,3 +13,8 @@ psycopg2-binary
 
 # Utilities
 python-dotenv
+
+
+sqlalchemy
+alembic
+asyncpg
