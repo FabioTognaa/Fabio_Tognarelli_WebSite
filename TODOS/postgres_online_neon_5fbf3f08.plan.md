@@ -1,6 +1,6 @@
 ---
 name: Postgres online Neon
-overview: Panoramica del Backend attuale e piano operativo per spostare PostgreSQL su Neon, collegarlo al backend locale e preparare il terreno per un eventuale deploy del backend in un secondo momento.
+overview: Piano didattico per imparare FastAPI + SQLAlchemy async + Alembic + Postgres su Neon. Supabase resta attivo per il form in produzione; Neon è il laboratorio del backend fino al deploy (fase successiva).
 todos:
   - id: neon-setup
     content: Creare progetto Neon, copiare credenziali direct (+ pooled per futuro deploy)
@@ -12,25 +12,65 @@ todos:
     content: Aggiungere SSL in database.py (connect_args) e alembic.ini (?ssl=require)
     status: pending
   - id: alembic-remote
-    content: Eseguire alembic upgrade head sul DB Neon e verificare tabella events
-    status: pending
-  - id: optional-data
-    content: "Se servono dati locali: pg_dump selettivo + restore dopo lo schema"
+    content: Eseguire alembic upgrade head su Neon (schema vuoto) e verificare tabella events
     status: pending
   - id: verify-async
     content: Test connessione async con engine SQLAlchemy
     status: pending
+  - id: post-route
+    content: "Imparare lo stack: route POST /events (Pydantic + Depends + insert su Neon), test con Swagger/curl"
+    status: pending
   - id: future-backend
-    content: (Fase successiva) Deploy FastAPI + CORS + collegamento frontend all API
+    content: "(Fase successiva, opzionale) Deploy FastAPI + CORS + collegamento frontend all'API"
     status: pending
 isProject: false
 ---
 
-# Piano: PostgreSQL online con Neon
+# Piano: PostgreSQL online con Neon (percorso didattico)
+
+## Obiettivo
+
+Migrare Postgres su Neon **per imparare lo stack**, non perché Supabase non basti per il portfolio.
+
+| Cosa impari | Dove nel piano |
+| ----------- | -------------- |
+| Postgres gestito (Neon, SSL, connection string) | Fasi 1–4 |
+| Migrazioni schema (Alembic) | Fase 4 |
+| SQLAlchemy async (modelli, sessioni) | Fasi 6–7 |
+| FastAPI (route, Pydantic, `Depends`, OpenAPI) | Fase 7 |
+| Deploy API + CORS (opzionale, dopo) | Fase 8 |
+
+**Criterio di successo (fase attuale):** una `POST` locale che scrive su Neon e la vedi in `psql` o con una `GET`. A quel punto hai coperto ~80% dello stack.
+
+### Cosa resta com’è (volutamente)
+
+- **Supabase** continua a gestire il form contatti in produzione ([`ContactPage.jsx`](../Frontend/src/components/pages/ContactPage.jsx)) — rete di sicurezza, zero urgenza di sostituirlo.
+- **Neon** è il Postgres del **backend FastAPI** — laboratorio separato finché non decidi il deploy.
+- **Non serve unificare** i due DB durante l’apprendimento.
+
+### Costi attesi
+
+Tutto su **free tier** per un portfolio personale: Neon, Vercel (frontend), eventuale hosting API (Railway/Render/Fly). Costo reale = tempo di configurazione, non bolletta.
+
+---
 
 ## Panoramica del Backend oggi
 
-Il backend è **funzionale ma ancora in fase iniziale**: hai messo in piedi l’infrastruttura dati, ma l’API non la usa ancora.
+Il backend è **funzionale ma ancora in fase iniziale**: infrastruttura dati pronta, API non collegata al DB.
+
+```mermaid
+flowchart LR
+  subgraph prod [Produzione oggi]
+    FE["Frontend Vercel"]
+    SB["Supabase contact_messages"]
+    FE --> SB
+  end
+  subgraph learn [Laboratorio da costruire]
+    API["FastAPI locale"]
+    Neon["Neon Postgres"]
+    API -->|"POST /events (da fare)"| Neon
+  end
+```
 
 ```mermaid
 flowchart LR
@@ -40,9 +80,9 @@ flowchart LR
     Alembic["Alembic migration/"]
     Model["events/models.py"]
   end
-  subgraph notYet [Non collegato]
+  subgraph notYet [Prossimo passo didattico]
     Main["main.py FastAPI"]
-    Routes["Route CRUD"]
+    Routes["POST/GET events"]
   end
   Config --> DBLayer
   DBLayer --> Alembic
@@ -52,44 +92,51 @@ flowchart LR
 
 | Area             | Stato              | Note                                                                                                                                              |
 | ---------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| FastAPI          | OK ma minimale     | [`Backend/src/main.py`](Backend/src/main.py) — solo 2 endpoint di test, nessun uso del DB                                                         |
-| Config           | OK, con ridondanza | [`Backend/src/config.py`](Backend/src/config.py) legge sia `DATABASE_URL` sia `DB_*`; l’app e Alembic usano solo `DB_*`                           |
-| SQLAlchemy async | OK                 | [`Backend/src/database.py`](Backend/src/database.py) — engine asyncpg + `get_async_session`                                                       |
-| Alembic          | OK                 | [`Backend/migration/env.py`](Backend/migration/env.py) + revisione init [`671a2d337da9_init.py`](Backend/migration/versions/671a2d337da9_init.py) |
-| Modelli          | 1 tabella          | `events` (id, nome, email) in [`Backend/src/events/models.py`](Backend/src/events/models.py)                                                      |
-| Documentazione   | Buona              | [`Backend/DATABASE.md`](Backend/DATABASE.md) copre locale + Alembic                                                                               |
-| Deploy backend   | Assente            | Frontend su Vercel; Supabase usato solo per il form contatti nel frontend                                                                         |
+| FastAPI          | OK ma minimale     | [`Backend/src/main.py`](../Backend/src/main.py) — solo 2 endpoint di test, nessun uso del DB                                                         |
+| Config           | OK, con ridondanza | [`Backend/src/config.py`](../Backend/src/config.py) legge sia `DATABASE_URL` sia `DB_*`; l’app e Alembic usano solo `DB_*`                           |
+| SQLAlchemy async | OK                 | [`Backend/src/database.py`](../Backend/src/database.py) — engine asyncpg + `get_async_session`                                                       |
+| Alembic          | OK                 | [`Backend/migration/env.py`](../Backend/migration/env.py) + revisione init [`671a2d337da9_init.py`](../Backend/migration/versions/671a2d337da9_init.py) |
+| Modelli          | 1 tabella          | `events` (id, nome, email) in [`Backend/src/events/models.py`](../Backend/src/events/models.py)                                                      |
+| Documentazione   | Buona              | [`Backend/DATABASE.md`](../Backend/DATABASE.md) copre locale + Alembic                                                                               |
+| Form produzione  | Supabase           | Non toccare finché non hai route stabili e vuoi esercitarti col deploy                                                                               |
 
-**Punti di attenzione prima di andare online:**
+**Punti di attenzione:**
 
-- La migrazione init contiene `op.drop_table('contacts')`: su Neon vuoto non è un problema; se nel DB locale avevi dati in `contacts`, valuta se migrarli o lasciarli perdere.
-- Neon **richiede SSL**: oggi [`database.py`](Backend/src/database.py) non lo imposta — va aggiunto un piccolo adattamento (vedi Fase 3).
-- [`Backend/.env.example`](Backend/.env.example) è incoerente (placeholder generici + `DATABASE_URL` locale): conviene allinearlo quando cambi host.
+- La migrazione init contiene `op.drop_table('contacts')`: su Neon vuoto non è un problema.
+- Neon **richiede SSL**: [`database.py`](../Backend/src/database.py) va aggiornato (Fase 3).
+- [`Backend/.env.example`](../Backend/.env.example) è incoerente: allinearlo quando cambi host.
 
 ---
 
-## Scope: cosa significa ciascuna opzione
+## Scope: due fasi didattiche
 
-### Opzione A — Solo database online (consigliata come **primo passo**)
+### Fase didattica 1 — Neon + API locale (obiettivo **ora**)
 
-- Crei Postgres su Neon, applichi le migrazioni, colleghi il backend **in locale** al DB remoto.
-- Pro: rischi bassi, costi zero (free tier Neon), impari il flusso senza dover deployare anche l’API.
-- Contro: in produzione il frontend non parlerà ancora col tuo FastAPI.
+1. Postgres su Neon, schema via Alembic (vuoto, niente dump).
+2. Backend locale collegato al DB remoto con SSL.
+3. Route `POST` (e opzionale `GET`) su `events`, test con Swagger (`/docs`) o `curl`.
+4. Supabase e frontend **invariati**.
 
-### Opzione B — Database + backend FastAPI online
+Pro: rischio basso, costo zero, impari DB + ORM + API senza deploy.
+Contro: il sito online non usa ancora il tuo FastAPI (ed è ok per ora).
 
-- Tutto dell’opzione A, più deploy di Uvicorn/FastAPI (Railway, Render, Fly.io, ecc.).
-- Pro: stack completo accessibile da internet.
-- Contro: più pezzi (CORS, secrets, health check, cold start, costi/hosting API).
+### Fase didattica 2 — Deploy + frontend (opzionale, **dopo**)
 
-### Opzione C — Solo schema vuoto
+1. Deploy FastAPI (Railway, Render, Fly.io).
+2. CORS per il dominio Vercel.
+3. Sostituire (se vuoi) Supabase con `fetch` verso la tua API.
 
-- Come A, ma **senza** `pg_dump`/`pg_restore`: su Neon parti da zero e fai solo `alembic upgrade head`.
-- Pro: il percorso più semplice se non hai dati locali da conservare.
+Pro: stack end-to-end in produzione.
+Contro: più pezzi (secrets, cold start, pooled connection).
 
-**Raccomandazione:** procedi in **due fasi** — prima **A + C** (Neon + schema via Alembic, backend locale che punta al remoto). Quando l’API userà davvero il DB e avrai route stabili, passa alla **fase B** (deploy backend).
+**Raccomandazione:** completa la **fase 1** fino alla `POST` funzionante, poi valuta la fase 2 solo se vuoi chiudere il cerchio in produzione.
 
-Il frontend oggi usa **Supabase** per i messaggi di contatto ([`Frontend/src/components/pages/ContactPage.jsx`](Frontend/src/components/pages/ContactPage.jsx)): non è lo stesso DB del backend. Non serve unificarli subito; Neon sarà il Postgres del **backend FastAPI**.
+### Cosa saltare durante l’apprendimento
+
+- `pg_dump` / restore dati locali (parti da schema vuoto).
+- Connection string **pooled** (serve al deploy serverless, non ora).
+- Unificare Supabase e Neon.
+- Ottimizzazioni produzione (rate limit, auth admin, ecc.).
 
 ---
 
@@ -97,9 +144,9 @@ Il frontend oggi usa **Supabase** per i messaggi di contatto ([`Frontend/src/com
 
 1. Vai su [neon.tech](https://neon.tech) e crea un account/progetto.
 2. Crea un database (nome suggerito: `portfolio_db`, coerente col locale).
-3. Nel dashboard Neon, copia **due** connection string (Neon le espone entrambe):
-   - **Direct connection** — per migrazioni Alembic e `psql`
-   - **Pooled connection** — utile in futuro se deploy serverless (opzionale per ora)
+3. Nel dashboard Neon, copia **due** connection string:
+   - **Direct connection** — per Alembic e `psql` (usa questa ora).
+   - **Pooled connection** — annotala per la fase deploy (opzionale per ora).
 4. Annota host, porta, user, password, database name dal pannello.
 
 Esempio di valori che finiranno nel `.env` (sostituisci con i tuoi):
@@ -113,13 +160,13 @@ DB_NAME=portfolio_db
 DATABASE_URL=postgresql://neondb_owner:PASSWORD@ep-xxxx.eu-central-1.aws.neon.tech:5432/portfolio_db?sslmode=require
 ```
 
-`DATABASE_URL` resta utile per test rapidi con `psycopg2` come in [`DATABASE.md`](Backend/DATABASE.md); l’app async usa `DB_*`.
+`DATABASE_URL` resta utile per test rapidi con `psycopg2` come in [`DATABASE.md`](../Backend/DATABASE.md); l’app async usa `DB_*`.
 
 ---
 
 ## Fase 2 — Aggiornare `.env` locale
 
-Dalla cartella [`Backend/`](Backend/):
+Dalla cartella [`Backend/`](../Backend/):
 
 1. Apri `Backend/.env` (non committarlo).
 2. Sostituisci `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS`, `DB_NAME` con i valori Neon.
@@ -145,9 +192,9 @@ Se fallisce: controlla password, firewall Neon (di default accetta connessioni e
 
 ## Fase 3 — Abilitare SSL per asyncpg (obbligatorio su Neon)
 
-Neon rifiuta connessioni non SSL. Oggi [`database.py`](Backend/src/database.py) costruisce l’URL senza SSL.
+Neon rifiuta connessioni non SSL. Oggi [`database.py`](../Backend/src/database.py) costruisce l’URL senza SSL.
 
-**Modifica minima consigliata** in [`Backend/src/database.py`](Backend/src/database.py):
+**Modifica minima consigliata** in [`Backend/src/database.py`](../Backend/src/database.py):
 
 ```python
 engine = create_async_engine(
@@ -157,17 +204,19 @@ engine = create_async_engine(
 )
 ```
 
-Per Alembic, aggiungi lo stesso parametro SSL all’URL in [`Backend/alembic.ini`](Backend/alembic.ini):
+Per Alembic, aggiungi lo stesso parametro SSL all’URL in [`Backend/alembic.ini`](../Backend/alembic.ini):
 
 ```ini
 sqlalchemy.url = postgresql+asyncpg://%(DB_USER)s:%(DB_PASS)s@%(DB_HOST)s:%(DB_PORT)s/%(DB_NAME)s?ssl=require
 ```
 
-In alternativa puoi usare una variabile `DB_SSL=require` in config — utile se in locale (senza SSL) e Neon (con SSL) devono convivere; per semplicità iniziale, SSL sempre attivo va bene anche in dev se usi solo Neon.
+In alternativa puoi usare una variabile `DB_SSL=require` in config — utile se in locale (senza SSL) e Neon (con SSL) devono convivere; per semplicità iniziale, SSL sempre attivo va bene se usi solo Neon.
 
 ---
 
 ## Fase 4 — Applicare lo schema su Neon con Alembic
+
+Schema **vuoto** (niente dump): opzione consigliata per il percorso didattico.
 
 Con venv attivo e `.env` puntato a Neon:
 
@@ -190,32 +239,7 @@ Dovresti vedere `events` e `alembic_version`.
 
 ---
 
-## Fase 5 — Migrare dati locali (solo se ti servono)
-
-Salta questa fase se parti da schema vuoto (opzione C).
-
-Se in locale hai righe in `events` (o altre tabelle) da conservare:
-
-```bash
-# 1. Dump dal Postgres locale
-sudo -u postgres pg_dump portfolio_db --data-only --table=events > events_data.sql
-
-# 2. Restore su Neon (dopo alembic upgrade head)
-psql "postgresql://USER:PASS@HOST:5432/portfolio_db?sslmode=require" < events_data.sql
-```
-
-Ordine obbligatorio: **prima schema (Alembic), poi dati**. Per dump completo:
-
-```bash
-sudo -u postgres pg_dump portfolio_db > backup_locale.sql
-psql "postgresql://...?sslmode=require" < backup_locale.sql
-```
-
-Attenzione: la revisione init **elimina** `contacts`; un dump completo potrebbe entrare in conflitto. Preferisci dump selettivo per tabella.
-
----
-
-## Fase 6 — Verificare l’app async
+## Fase 5 — Verificare l’app async
 
 Test rapido (dopo Fase 3):
 
@@ -234,46 +258,79 @@ asyncio.run(test())
 "
 ```
 
-Quando aggiungerai route che usano il DB, il pattern sarà:
+---
+
+## Fase 6 — Prima route API: imparare il flusso completo
+
+**Milestone didattica principale.** Il browser non parla con Neon direttamente: FastAPI è il intermediario. Per ora testi tutto in locale.
+
+Obiettivi:
+
+1. Schema Pydantic per il body della richiesta (`nome`, `email`).
+2. `POST /events` con `Depends(get_async_session)` che fa `INSERT` su `events`.
+3. (Opzionale) `GET /events` per leggere le righe inserite.
+4. Test da Swagger (`http://127.0.0.1:8000/docs`) o `curl`.
+5. Verifica su Neon: `psql ... -c "SELECT * FROM events;"`.
+
+Pattern di riferimento:
 
 ```python
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.database import get_async_session
 
-@app.get("/events")
-async def list_events(session: AsyncSession = Depends(get_async_session)):
+@app.post("/events")
+async def create_event(
+    payload: EventCreate,
+    session: AsyncSession = Depends(get_async_session),
+):
     ...
 ```
 
+Avvio locale:
+
+```bash
+cd Backend
+source .venv/bin/activate
+uvicorn src.main:app --reload
+```
+
+Quando questa fase funziona, hai imparato: Neon → Alembic → SQLAlchemy async → FastAPI → HTTP.
+
 ---
 
-## Fase 7 (futura) — Deploy backend FastAPI
+## Fase 7 (opzionale, futura) — Deploy backend FastAPI
 
-Non è obbligatoria ora, ma è il passo naturale dopo A:
+Solo dopo la Fase 6, se vuoi chiudere il cerchio in produzione:
 
 1. Scegli host API (Railway, Render, Fly.io — Vercel **non** è adatto a FastAPI long-running).
 2. Imposta le stesse variabili `DB_*` (e SSL) nei secrets della piattaforma.
 3. Comando avvio tipico: `uvicorn src.main:app --host 0.0.0.0 --port $PORT`
 4. Aggiungi CORS in FastAPI per il dominio Vercel del frontend.
-5. Sul frontend, sostituisci gradualmente le chiamate Supabase con fetch verso la tua API (solo quando le route esistono).
+5. Sul frontend, sostituisci gradualmente Supabase con `fetch` verso la tua API.
 
-Per Neon in produzione serverless, usa spesso la **pooled connection string**; per Alembic continua a usare la **direct**.
+Per Neon in produzione serverless, usa la **pooled connection string**; per Alembic continua a usare la **direct**.
 
 ---
 
 ## Checklist autonoma (ordine di esecuzione)
 
-1. Account Neon + progetto + credenziali copiate
+**Fase didattica 1 (ora):**
+
+1. Account Neon + progetto + credenziali copiate (direct)
 2. `.env` aggiornato con `DB_*` e `DATABASE_URL` (+ sslmode)
 3. Patch SSL in `database.py` e `alembic.ini`
 4. Test psycopg2 (Fase 2)
-5. `alembic upgrade head` su Neon
+5. `alembic upgrade head` su Neon (schema vuoto)
 6. `\dt` / verifica tabella `events`
-7. (Opzionale) dump/restore dati locali
-8. Test async engine (Fase 6)
-9. Sviluppo locale col DB remoto fino a route pronte
-10. (Dopo) deploy backend + CORS
+7. Test async engine (Fase 5)
+8. Route `POST /events` + test Swagger/curl (Fase 6)
+9. Verifica riga inserita su Neon con `psql`
+
+**Fase didattica 2 (dopo, opzionale):**
+
+10. Deploy backend + CORS
+11. (Opzionale) collegare frontend all’API al posto di Supabase
 
 ---
 
@@ -283,4 +340,5 @@ Per Neon in produzione serverless, usa spesso la **pooled connection string**; p
 - Non usare la connection string **pooled** per `alembic upgrade` (può dare errori con DDL).
 - Non saltare SSL: su Neon la connessione fallisce senza.
 - Non fare `alembic revision --autogenerate` sul remoto finché non hai verificato che i modelli locali riflettano lo schema desiderato.
-- Non confondere Supabase (form contatti frontend) con Neon (backend Postgres): sono due sistemi separati per ora.
+- Non sentirti obbligato a togliere Supabase: per imparare basta Neon + API locale.
+- Non passare al deploy prima di avere una `POST` locale che funziona — è il passo che consolida tutto lo stack.

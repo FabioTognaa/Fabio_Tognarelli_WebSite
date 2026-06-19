@@ -12,7 +12,7 @@ class Base(DeclarativeBase):
     pass
 
 # engine e creazione della sessione
-engine = create_async_engine(DATABASE_URL, poolclass=pool.NullPool)
+engine = create_async_engine(DATABASE_URL, poolclass=pool.NullPool,connect_args={"ssl": "require"})
 async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 # funzione per ottenere una sessione

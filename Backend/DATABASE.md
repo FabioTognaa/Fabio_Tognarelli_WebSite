@@ -10,7 +10,7 @@ postgresql://postgres@localhost:5432/portfolio_db
 
 ---
 
-## Servizio (Linux / systemd)
+## Stato database Postgres(Linux / systemd)
 
 ```bash
 # stato
@@ -94,24 +94,14 @@ DATABASE_URL=postgresql://postgres:tua_password@localhost:5432/portfolio_db
 
 ## Comandi di routine in `psql`
 
-| Comando | Cosa fa |
-|---------|---------|
-| `\l` | elenca i database |
+| Comando           | Cosa fa                |
+| ----------------- | ---------------------- |
+| `\l`              | elenca i database      |
 | `\c portfolio_db` | connetti a un database |
-| `\dt` | elenca le tabelle |
-| `\d nome_tabella` | schema di una tabella |
-| `\du` | elenca i ruoli/utenti |
-| `\q` | esci |
-
-Esempi SQL utili:
-
-```sql
--- tabelle pubbliche
-SELECT tablename FROM pg_tables WHERE schemaname = 'public';
-
--- dimensione del database
-SELECT pg_size_pretty(pg_database_size('portfolio_db'));
-```
+| `\dt`             | elenca le tabelle      |
+| `\d nome_tabella` | schema di una tabella  |
+| `\du`             | elenca i ruoli/utenti  |
+| `\q`              | esci                   |
 
 ---
 
@@ -143,7 +133,7 @@ conn.close()
 
 ---
 
-## Alembic: setup migrazioni (SQLAlchemy async)
+### Alembic: setup migrazioni (SQLAlchemy async)
 
 Stack attuale: **SQLAlchemy 2.x** + **asyncpg** + **Alembic** in modalità async. Le migrazioni vivono in `migration/` (non `alembic/`).
 
@@ -165,7 +155,7 @@ DB_NAME=portfolio_db
 
 ---
 
-### Setup iniziale (ordine consigliato)
+# Setup iniziale (ordine consigliato)
 
 Esegui tutto dalla cartella `Backend`, con venv attivo.
 
@@ -177,18 +167,16 @@ alembic init -t async migration
 
 Crea:
 
-| Path | Ruolo |
-|------|--------|
-| `alembic.ini` | configurazione CLI Alembic |
-| `migration/env.py` | ambiente di esecuzione migrazioni |
-| `migration/script.py.mako` | template dei file di revisione |
-| `migration/versions/` | cartella delle revisioni (vuota all’inizio) |
+| Path                       | Ruolo                                       |
+| -------------------------- | ------------------------------------------- |
+| `alembic.ini`              | configurazione CLI Alembic                  |
+| `migration/env.py`         | ambiente di esecuzione migrazioni           |
+| `migration/script.py.mako` | template dei file di revisione              |
+| `migration/versions/`      | cartella delle revisioni (vuota all’inizio) |
 
 Il flag `-t async` genera `env.py` già predisposto per `async_engine_from_config` e `asyncio.run`.
 
 #### 2. Configura `alembic.ini`
-
-Punti essenziali già impostati nel progetto:
 
 ```ini
 [alembic]
@@ -268,28 +256,28 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 ```
 
-| Pezzo | Ruolo |
-|-------|--------|
-| `Base` | classe base declarative; ogni modello eredita da qui e registra colonne in `Base.metadata` |
-| `DATABASE_URL` | stesse credenziali di Alembic, schema `postgresql+asyncpg://` |
-| `engine` / `async_session_maker` | connessioni per FastAPI |
-| `get_async_session` | dependency injection nelle route |
+| Pezzo                            | Ruolo                                                                                      |
+| -------------------------------- | ------------------------------------------------------------------------------------------ |
+| `Base`                           | classe base declarative; ogni modello eredita da qui e registra colonne in `Base.metadata` |
+| `DATABASE_URL`                   | stesse credenziali di Alembic, schema `postgresql+asyncpg://`                              |
+| `engine` / `async_session_maker` | connessioni per FastAPI                                                                    |
+| `get_async_session`              | dependency injection nelle route                                                           |
 
 **Relazione con Alembic:** i modelli importano `Base` da `database.py`. `env.py` imposta `target_metadata = Base.metadata`. Autogenerate confronta i modelli Python con lo schema PostgreSQL e propone `upgrade()` / `downgrade()`.
 
 ---
 
-### Mini tutorial: aggiornare la versione dello schema
+# Mini tutorial: aggiornare la versione dello schema
 
 Workflow da ripetere ogni volta che cambi un modello in `src/**/models.py`. Esegui tutto dalla cartella `Backend`, con venv attivo e PostgreSQL avviato.
 
-| Passo | Cosa fare |
-|-------|-----------|
-| 1 | Modifica il modello (colonna, tabella, …) e verifica che il modulo sia importato in `migration/env.py` (es. `import src.events.models`). |
-| 2 | Genera la revisione — Alembic confronta modelli Python e schema PostgreSQL: |
-| 3 | Apri e controlla il file creato in `migration/versions/` (`upgrade()` / `downgrade()`). Autogenerate a volte propone drop indesiderati: correggi prima di applicare. |
-| 4 | Applica la migrazione sul database. |
-| 5 | Verifica con `alembic current` o in `psql` con `\dt`. |
+| Passo | Cosa fare                                                                                                                                                            |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | Modifica il modello (colonna, tabella, …) e verifica che il modulo sia importato in `migration/env.py` (es. `import src.events.models`).                             |
+| 2     | Genera la revisione — Alembic confronta modelli Python e schema PostgreSQL:                                                                                          |
+| 3     | Apri e controlla il file creato in `migration/versions/` (`upgrade()` / `downgrade()`). Autogenerate a volte propone drop indesiderati: correggi prima di applicare. |
+| 4     | Applica la migrazione sul database.                                                                                                                                  |
+| 5     | Verifica con `alembic current` o in `psql` con `\dt`.                                                                                                                |
 
 **Comandi (passi 2 e 4):**
 
@@ -337,7 +325,7 @@ Dopo `revision --autogenerate`, **apri sempre** il file in `migration/versions/`
 
 ---
 
-### Guida passo passo: aggiungere una tabella
+# Guida passo passo: aggiungere una tabella
 
 Esempio con il modulo eventi già presente nel repo.
 
@@ -393,32 +381,3 @@ Verifica in `psql`:
 ```sql
 \d events
 ```
-
-#### Passo 5 — Usa la tabella nell’app (opzionale)
-
-Nelle route FastAPI, inietta la sessione con `Depends(get_async_session)` da `src/database.py` e usa il modello `Evento` per query/insert.
-
----
-
-### Checklist rapida nuova tabella
-
-1. Modello in `src/<modulo>/models.py` che eredita da `Base`.
-2. `import src.<modulo>.models` in `migration/env.py`.
-3. `alembic revision --autogenerate -m "..."`.
-4. Revisione controllata a mano.
-5. `alembic upgrade head`.
-
----
-
-## Troubleshooting rapido
-
-| Problema | Cosa provare |
-|----------|--------------|
-| `connection refused` | `sudo systemctl start postgresql` |
-| `database "portfolio_db" does not exist` | `sudo -u postgres createdb portfolio_db` |
-| `password authentication failed` | password in `.env` non coincide con quella di Postgres |
-| `psql` resta in attesa | Ctrl+C, poi prova `sudo -u postgres psql` (socket) |
-| autogenerate non vede le tabelle | verifica `import src.<modulo>.models` in `migration/env.py` |
-| `NameError: section` in `env.py` | aggiungi `section = config.config_ini_section` prima dei `set_section_option` |
-| URL con `{DB_PORT}` letterale o `Name or service not known` | in `alembic.ini` usa `%(DB_USER)s`, `%(DB_HOST)s`, … (ConfigParser), non `{DB_USER}` |
-| `alembic upgrade` fallisce su URL | controlla `DB_*` in `.env` e placeholder `%(DB_*)s` in `alembic.ini` |
