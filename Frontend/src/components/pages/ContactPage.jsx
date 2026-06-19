@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
-import { supabase } from "../../lib/supabaseClient";
 
 //* validazione campi del form
 function validateContactForm(values) {
@@ -71,6 +70,8 @@ function ContactPage() {
     }
   }
 
+  const [result, setResult] = useState("");
+
   async function onSubmit(e) {
     e.preventDefault();
 
@@ -88,31 +89,24 @@ function ContactPage() {
       return;
     }
 
+    const formData = new FormData(e.target);
+    formData.append("access_key", "358268f4-393b-498c-a153-6f078e3737b4");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
+
+
     setFieldErrors({});
     setStatus("sending");
     setFormError("");
 
-    //*se il modulo supabase non è configurato
-    if (!supabase) {
-      setStatus("error");
-      setFormError(
-        "Il modulo non è configurato. Scrivimi a fabiotognaa@gmail.com.",
-      );
-      console.log("Errore: Supabase non è stato configurato nel progetto")
-      return;
-    }
-
-    const payload = {
-      name: values.name.trim(),
-      email: values.email.trim(),
-      message: values.message.trim(),
-    };
-
-    //* invio messaggio al database
-    const { error } = await supabase.from("contact_messages").insert([payload]);
-
+    const data = await response.json();
+    setResult(data.success);
+  
     //* gestione errori
-    if (error) {
+    if (!data.success) {
       setStatus("error");
       setFormError(
         error.message ||

@@ -17,7 +17,7 @@ Il progetto è costruito con un approccio moderno, pulito e focalizzato sulle pe
 - **Accessibilità:** Menu di navigazione e interazioni gestite con **Headless UI** per la massima accessibilità.
 - **Architettura a Componenti:** Struttura modulare basata su React per la massima manutenibilità.
 - **Download CV:** Accesso diretto al curriculum vitae aggiornato.
-- **Form di contatto:** Pagina dedicata con invio messaggi tramite Supabase (opzionale in locale).
+- **Form di contatto:** Pagina dedicata con invio messaggi tramite [Web3Forms](https://web3forms.com/).
 - **Routing multipagina:** Home, progetti e contatto con React Router.
 
 ## 🛠️ Tech Stack
@@ -27,9 +27,8 @@ Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 | Categoria           | Tecnologie                                     |
 | :------------------ | :--------------------------------------------- |
 | **Build Tool**      | Vite                                           |
-| **Database**        | Supabase                                       |
-| **Backend**         | FastAPI (Python), Uvicorn                     |
 | **Frontend**        | React, React Router, Tailwind CSS, Headless UI |
+| **Form di contatto**| Web3Forms                                      |
 | **Code Quality**    | Prettier (Tailwind Plugin), ESLint             |
 | **Version Control** | Git & GitHub                                   |
 | **Deployment**      | Vercel                                         |
@@ -76,21 +75,13 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://p
     pnpm install
     ```
 
-4.  **Configura le variabili d'ambiente (opzionale, per il form di contatto):**
-
-    ```bash
-    cp .env.example .env
-    ```
-
-    Modifica `.env` con `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` dal [dashboard Supabase](https://supabase.com/dashboard/project/_/settings/api). Senza queste variabili il sito si avvia comunque, ma l'invio dal form di contatto non è disponibile.
-
-5.  **Avvia il server di sviluppo:**
+4.  **Avvia il server di sviluppo:**
 
     ```bash
     pnpm dev
     ```
 
-6.  Apri il browser su `http://localhost:5173` (o sull'URL indicato nel terminale).
+5.  Apri il browser su `http://localhost:5173` (o sull'URL indicato nel terminale).
 
 ### Altri comandi utili
 
@@ -128,13 +119,6 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://p
 │   │   └── index.css
 │   └── dist/                      # output build (generato)
 │
-├── Backend/
-│   ├── .env.example
-│   ├── requirements.txt
-│   └── setup/
-│       └── README.md
-│
-├── .env.example                   # Supabase vars (frontend)
 ├── package.json
 ├── pnpm-lock.yaml
 ├── vite.config.js
