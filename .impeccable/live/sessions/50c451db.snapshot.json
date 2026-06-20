@@ -1,0 +1,29 @@
+{
+  "id": "50c451db",
+  "phase": "completed",
+  "pageUrl": "/skills",
+  "sourceFile": "Frontend/src/components/ui/SkillGroupCard.jsx",
+  "expectedVariants": 3,
+  "arrivedVariants": 3,
+  "visibleVariant": 1,
+  "paramValues": {
+    "tag-gap": 0.45,
+    "icon-scale": 0.5
+  },
+  "pendingEventSeq": null,
+  "pendingEvent": null,
+  "deliveryLease": null,
+  "checkpointRevision": 12,
+  "activeOwner": "fb122e25",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [
+    {
+      "error": "carbonize_cleanup_required",
+      "file": "Frontend/src/components/ui/SkillGroupCard.jsx",
+      "message": "Accepted variant still has carbonize markers that must be folded into source CSS."
+    }
+  ],
+  "updatedAt": "2026-06-11T12:49:42.877Z"
+}

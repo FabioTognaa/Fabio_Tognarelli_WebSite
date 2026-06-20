@@ -1,0 +1,20 @@
+{
+  "id": "7ae40c93",
+  "phase": "discarded",
+  "pageUrl": "/skills",
+  "sourceFile": "Frontend/src/components/ui/SkillGroupCard.jsx",
+  "expectedVariants": 3,
+  "arrivedVariants": 3,
+  "visibleVariant": 3,
+  "paramValues": {},
+  "pendingEventSeq": null,
+  "pendingEvent": null,
+  "deliveryLease": null,
+  "checkpointRevision": 16,
+  "activeOwner": "fb122e25",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [],
+  "updatedAt": "2026-06-11T12:52:26.087Z"
+}

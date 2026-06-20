@@ -1,0 +1,29 @@
+{
+  "id": "5843c219",
+  "phase": "completed",
+  "pageUrl": "/about",
+  "sourceFile": "Frontend/src/components/pages/AboutPage.jsx",
+  "expectedVariants": 3,
+  "arrivedVariants": 3,
+  "visibleVariant": 1,
+  "paramValues": {
+    "density": "1",
+    "accent-amount": 0.55
+  },
+  "pendingEventSeq": null,
+  "pendingEvent": null,
+  "deliveryLease": null,
+  "checkpointRevision": 7,
+  "activeOwner": "b8a8fccb",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [
+    {
+      "error": "carbonize_cleanup_required",
+      "file": "Frontend/src/components/pages/AboutPage.jsx",
+      "message": "Accepted variant still has carbonize markers that must be folded into source CSS."
+    }
+  ],
+  "updatedAt": "2026-06-11T16:49:29.193Z"
+}
