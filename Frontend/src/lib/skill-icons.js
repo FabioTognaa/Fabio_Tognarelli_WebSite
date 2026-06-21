@@ -5,6 +5,7 @@ const ICON_LOADERS = {
   react: () => import("../assets/icons/skills/react-icon.svg"),
   tailwind: () => import("../assets/icons/skills/tailwind-icon.svg"),
   nodejs: () => import("../assets/icons/skills/nodejs-icon.svg"),
+  typescript: () => import("../assets/icons/skills/typescript-icon.svg"),
   python: () => import("../assets/icons/skills/python-icon.svg"),
   java: () => import("../assets/icons/skills/java-icon.svg"),
   c: () => import("../assets/icons/skills/c-icon.svg"),

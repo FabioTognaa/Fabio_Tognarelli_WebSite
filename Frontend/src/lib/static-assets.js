@@ -24,4 +24,10 @@ export const educationLogos = {
       "/images/logos/unipi-120.webp 120w, /images/logos/unipi-240.webp 240w",
     sizes: "120px",
   },
+  jevis: {
+    src: "/images/logos/jevis-120.webp",
+    srcSet:
+      "/images/logos/jevis-120.webp 120w, /images/logos/jevis-240.webp 240w",
+    sizes: "120px",
+  },
 };

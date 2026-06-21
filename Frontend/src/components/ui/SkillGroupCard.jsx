@@ -31,7 +31,7 @@ function SkillIcon({ iconKey }) {
 function SkillGroupCard({ group, featured = false }) {
   return (
     <article
-      className={`skill-card skill-card--${group.id}${featured ? " skill-card--featured" : ""} surface-panel relative flex h-full flex-col overflow-hidden p-6 md:p-8`}
+      className={`skill-card surface-panel relative flex h-full flex-col overflow-hidden p-6 md:p-8`}
     >
       <header className="skill-card__header relative">
         <h3 className="skill-card__title">{group.title}</h3>

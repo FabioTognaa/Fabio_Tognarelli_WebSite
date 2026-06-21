@@ -8,14 +8,6 @@ const groups = GROUP_ORDER.map((id) =>
   skillGroups.find((group) => group.id === id),
 ).filter(Boolean);
 
-const GROUP_LAYOUT = {
-  backend: "skills-layout__item md:col-span-2 lg:col-span-7 lg:row-span-2",
-  AI: "skills-layout__item lg:col-span-5",
-  frontend: "skills-layout__item lg:col-span-5",
-  tooling: "skills-layout__item lg:col-span-6",
-  foundations: "skills-layout__item lg:col-span-6",
-};
-
 function SkillsPage() {
   return (
     <section
@@ -32,12 +24,12 @@ function SkillsPage() {
         </div>
       </Reveal>
 
-      <div className="skills-layout">
+      <div className="grid grid-cols-2 gap-6 md:mt-24">
         {groups.map((group, index) => (
           <Reveal
             key={group.id}
             delay={80 + index * 80}
-            className={GROUP_LAYOUT[group.id] ?? "skills-layout__item"}
+            className={"skills-layout__item"}
           >
             <SkillGroupCard group={group} featured={group.id === "backend"} />
           </Reveal>

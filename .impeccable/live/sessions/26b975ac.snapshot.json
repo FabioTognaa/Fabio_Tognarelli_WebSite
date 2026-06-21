@@ -1,0 +1,57 @@
+{
+  "id": "26b975ac",
+  "phase": "generate_requested",
+  "pageUrl": "/",
+  "sourceFile": null,
+  "expectedVariants": 3,
+  "arrivedVariants": 0,
+  "visibleVariant": 0,
+  "paramValues": {},
+  "pendingEventSeq": 2,
+  "pendingEvent": {
+    "type": "generate",
+    "id": "26b975ac",
+    "action": "impeccable",
+    "count": 3,
+    "pageUrl": "/",
+    "element": {
+      "tagName": "a",
+      "id": null,
+      "classes": [
+        "nav-link"
+      ],
+      "textContent": "Progetti",
+      "outerHTML": "<a class=\"nav-link\" href=\"/projects\" data-discover=\"true\">Progetti</a>",
+      "computedStyles": {
+        "font-family": "\"Hanken Grotesk\", ui-sans-serif, system-ui, sans-serif",
+        "font-size": "14px",
+        "font-weight": "500",
+        "line-height": "20px",
+        "color": "oklch(0.48 0.025 265)",
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "background-color": "rgba(0, 0, 0, 0)",
+        "padding": "0px",
+        "margin": "0px",
+        "display": "block",
+        "position": "static",
+        "gap": "normal",
+        "border-radius": "0px",
+        "box-shadow": "none"
+      },
+      "cssCustomProperties": {},
+      "parentContext": "<nav class=\"hidden items-center gap-8 md:flex\">",
+      "boundingRect": {
+        "width": 49,
+        "height": 20
+      }
+    }
+  },
+  "deliveryLease": null,
+  "checkpointRevision": 1,
+  "activeOwner": "967bf60d",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [],
+  "updatedAt": "2026-06-21T21:08:34.553Z"
+}
