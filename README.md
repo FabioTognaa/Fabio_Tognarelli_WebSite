@@ -97,24 +97,29 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://p
 ```text
 ├── Frontend/
 │   ├── index.html
-│   ├── public/
-│   │   ├── cv-tognarelli-fabio.pdf
+│   ├── public/                     # asset statici (URL assoluti /)
+│   │   ├── documents/
+│   │   │   └── cv-tognarelli-fabio.pdf
 │   │   └── images/
-│   │       ├── logos/
-│   │       └── tognarelli-*.webp
+│   │       ├── profile/
+│   │       │   └── tognarelli-*.webp
+│   │       └── logos/
+│   │           ├── fermi-*.webp
+│   │           └── unipi-*.webp
 │   ├── docs/
-│   │   └── screenshots/
+│   │   └── screenshots/            # solo README, non nel build
 │   │       ├── desktop-preview.png
 │   │       └── form-preview.png
 │   ├── src/
-│   │   ├── assets/                 # icone skill e loghi (SVG)
+│   │   ├── assets/
+│   │   │   └── icons/skills/       # icone skill (import Vite, lazy load)
 │   │   ├── components/
 │   │   │   ├── layout/
 │   │   │   ├── pages/
-│   │   │   ├── sections/
 │   │   │   └── ui/
 │   │   ├── hooks/
 │   │   ├── lib/
+│   │   │   └── static-assets.js    # path pubblici centralizzati
 │   │   ├── main.jsx
 │   │   └── index.css
 │   └── dist/                      # output build (generato)
@@ -126,6 +131,8 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://p
 ├── .prettierrc
 └── vercel.json
 ```
+
+**Asset non-code:** foto, loghi e PDF in `public/`; icone skill in `src/assets/icons/skills/` (bundled da Vite). Gli URL pubblici sono definiti in `src/lib/static-assets.js`.
 
 ## 📬 Contatti
 

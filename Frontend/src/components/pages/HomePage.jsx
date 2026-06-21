@@ -1,15 +1,7 @@
 import PageShell from "../layout/PageShell";
 import Button from "../ui/Button";
 import { CV_PATH } from "../../lib/projects";
-
-const HERO_IMAGE = {
-  src: "/images/tognarelli-800.webp",
-  srcSet:
-    "/images/tognarelli-480.webp 480w, /images/tognarelli-800.webp 800w, /images/tognarelli-1200.webp 1200w",
-  sizes: "(min-width: 640px) 28rem, min(100vw - 2.5rem, 22rem)",
-  width: 800,
-  height: 1000,
-};
+import { profileImage } from "../../lib/static-assets";
 
 function HomePage() {
   return (
@@ -60,15 +52,15 @@ function HomePage() {
             <picture>
               <source
                 type="image/webp"
-                srcSet={HERO_IMAGE.srcSet}
-                sizes={HERO_IMAGE.sizes}
+                srcSet={profileImage.srcSet}
+                sizes={profileImage.sizes}
               />
               <img
-                src={HERO_IMAGE.src}
+                src={profileImage.src}
                 alt="Ritratto di Fabio Tognarelli"
                 className="h-full w-full object-cover object-center"
-                width={HERO_IMAGE.width}
-                height={HERO_IMAGE.height}
+                width={profileImage.width}
+                height={profileImage.height}
                 fetchPriority="high"
                 decoding="async"
               />

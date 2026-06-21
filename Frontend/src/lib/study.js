@@ -1,12 +1,9 @@
+import { educationLogos } from "./static-assets";
+
 export const studyPath = [
   {
     id: "fermi",
-    logo: {
-      src: "/images/logos/logo-fermi-120.webp",
-      srcSet:
-        "/images/logos/logo-fermi-120.webp 120w, /images/logos/logo-fermi-240.webp 240w",
-      sizes: "120px",
-    },
+    logo: educationLogos.fermi,
     logoAlt: "Logo Polo tecnico scientifico E. Fermi",
     school: "Polo tecnico scientifico E. Fermi",
     place: "Lucca",
@@ -15,12 +12,7 @@ export const studyPath = [
   },
   {
     id: "unipi",
-    logo: {
-      src: "/images/logos/logo-unipi-120.webp",
-      srcSet:
-        "/images/logos/logo-unipi-120.webp 120w, /images/logos/logo-unipi-240.webp 240w",
-      sizes: "120px",
-    },
+    logo: educationLogos.unipi,
     logoAlt: "Logo Università di Pisa",
     school: "Università di Pisa",
     place: "Pisa",

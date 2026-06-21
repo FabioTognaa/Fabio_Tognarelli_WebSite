@@ -26,4 +26,4 @@ export const projects = [
   },
 ];
 
-export const CV_PATH = "/cv-tognarelli-fabio.pdf";
+export { CV_PATH } from "./static-assets";

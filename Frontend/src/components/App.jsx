@@ -8,13 +8,10 @@ import PageShell from "./layout/PageShell";
 //* dichiarazione lazy di ogni pagina per efficientare
 const HomePage = lazy(() => import("./pages/HomePage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
-
 const StudyPage = lazy(() => import("./pages/StudyPage"));
 const SkillsPage = lazy(() => import("./pages/SkillsPage"));
-
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 const ProjectsPage = lazy(() => import("./pages/ProjectsPage"));
-
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 function App() {
   const location = useLocation();
