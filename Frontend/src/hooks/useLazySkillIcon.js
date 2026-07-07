@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { loadSkillIcon } from "../lib/skill-icons";
 
 export function useLazySkillIcon(iconKey, enabled = true) {
-  const [src, setSrc] = useState(null);
+  const [icon, setIcon] = useState({ key: null, src: null });
   const ref = useRef(null);
 
   useEffect(() => {
     if (!enabled || !iconKey) {
-      setSrc(null);
       return undefined;
     }
 
@@ -21,7 +20,7 @@ export function useLazySkillIcon(iconKey, enabled = true) {
     const load = () => {
       loadSkillIcon(iconKey).then((url) => {
         if (!cancelled && url) {
-          setSrc(url);
+          setIcon({ key: iconKey, src: url });
         }
       });
     };
@@ -51,5 +50,6 @@ export function useLazySkillIcon(iconKey, enabled = true) {
     };
   }, [enabled, iconKey]);
 
+  const src = icon.key === iconKey ? icon.src : null;
   return { ref, src };
 }

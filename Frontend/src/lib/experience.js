@@ -20,13 +20,13 @@ export const experiencePath = [
     company: "JEVIS",
     ruolo: "Junior IT Associate",
     place: "Pisa",
-    period: "2026 – attuale",
+    period: "Apr 2026 – now",
     summary:
-      "Supporto operativo e progettuale su infrastruttura e applicativi aziendali, in team multidisciplinare.",
+      "Supporto clienti su gestione, progettazione e consulenza IT. Parallelamente sviluppo software interni per rafforzare l’offerta tecnologica dell’azienda.",
     highlights: [
       "Gestione e monitoraggio di ambienti e servizi IT",
-      "Collaborazione su evolutive software e documentazione tecnica",
-      "Stack: ambienti Windows/Linux, strumenti di ticketing e automazione base",
+      "Stack: ambienti Windows/Linux, Wordpress con pipeline Headless CMS e Python.",
+      "Framework: React, Tailwind, Fastapi, PostgreSQL",
     ],
   },
 ];

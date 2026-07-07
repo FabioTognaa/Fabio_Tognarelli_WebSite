@@ -7,19 +7,19 @@ function prefersReducedMotion() {
 }
 
 function Reveal({
-  as: Tag = "div",
+  as = "div",
   children,
   className = "",
   delay = 0,
   once = true,
   ...props
 }) {
+  const Component = as;
   const ref = useRef(null);
   const [visible, setVisible] = useState(() => prefersReducedMotion());
 
   useEffect(() => {
     if (prefersReducedMotion()) {
-      setVisible(true);
       return;
     }
 
@@ -39,14 +39,14 @@ function Reveal({
   }, [once]);
 
   return (
-    <Tag
+    <Component
       ref={ref}
       className={`reveal-scroll${visible ? " is-visible" : ""}${className ? ` ${className}` : ""}`}
       style={delay ? { "--reveal-delay": `${delay}ms` } : undefined}
       {...props}
     >
       {children}
-    </Tag>
+    </Component>
   );
 }
 

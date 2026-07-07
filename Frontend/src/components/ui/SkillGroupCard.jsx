@@ -28,7 +28,7 @@ function SkillIcon({ iconKey }) {
   );
 }
 
-function SkillGroupCard({ group, featured = false }) {
+function SkillGroupCard({ group }) {
   return (
     <article
       className={`skill-card surface-panel relative flex h-full flex-col overflow-hidden p-6 md:p-8`}

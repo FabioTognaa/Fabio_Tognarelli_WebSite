@@ -40,10 +40,15 @@ function StackTag({ item }) {
 
 /** @param {{ project: import("../../lib/projects").projects[number] }} props */
 function ProjectCard({ project }) {
-  const { title, description, context, stack, github, demo, status } = project;
+  const { title, description, context, stack, github, link, mentions, status } =
+    project;
   const isComingSoon = status === "coming-soon";
   const hasGithub = Boolean(github?.trim());
-  const hasDemo = Boolean(demo?.trim());
+  const hasLink = Boolean(link?.trim());
+  const mentionLinks = (mentions ?? []).filter(
+    (mention) => mention.label?.trim() && mention.link?.trim(),
+  );
+  const hasActions = hasGithub || hasLink || mentionLinks.length > 0;
 
   return (
     <article className="project-card surface-panel motion-lift flex h-full flex-col p-6 md:p-8 lg:p-10">
@@ -60,7 +65,7 @@ function ProjectCard({ project }) {
         <h3 className="font-display text-ink mt-4 text-2xl font-bold tracking-tight md:text-3xl">
           {title}
         </h3>
-        <p className="text-ink-muted mt-4 max-w-prose text-base leading-relaxed md:text-lg">
+        <p className="text-ink-muted mt-4 text-base leading-relaxed md:text-lg">
           {description}
         </p>
       </header>
@@ -80,18 +85,28 @@ function ProjectCard({ project }) {
 
       {/* Footer in fondo alla card: link esterni o testo placeholder. */}
       <footer className="project-card__actions mt-auto pt-8">
-        {hasGithub || hasDemo ? (
+        {hasActions ? (
           <div className="flex flex-wrap gap-3">
             {hasGithub && (
               <Button variant="ghost" href={github} className="text-sm">
                 Repository GitHub
               </Button>
             )}
-            {hasDemo && (
-              <Button variant="ghost" href={demo} className="text-sm">
-                Apri demo
+            {hasLink && (
+              <Button variant="ghost" href={link} className="text-sm">
+                Visita il sito
               </Button>
             )}
+            {mentionLinks.map((mention) => (
+              <Button
+                key={mention.link}
+                variant="ghost"
+                href={mention.link}
+                className="text-sm"
+              >
+                {mention.label}
+              </Button>
+            ))}
           </div>
         ) : (
           <p className="text-ink-soft text-sm font-medium">

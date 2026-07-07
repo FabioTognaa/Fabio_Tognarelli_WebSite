@@ -70,8 +70,6 @@ function ContactPage() {
     }
   }
 
-  const [result, setResult] = useState("");
-
   async function onSubmit(e) {
     e.preventDefault();
 
@@ -92,32 +90,37 @@ function ContactPage() {
     const formData = new FormData(e.target);
     formData.append("access_key", "358268f4-393b-498c-a153-6f078e3737b4");
 
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData,
-    });
-
-
     setFieldErrors({});
     setStatus("sending");
     setFormError("");
 
-    const data = await response.json();
-    setResult(data.success);
-  
-    //* gestione errori
-    if (!data.success) {
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+
+      //* gestione errori
+      if (!response.ok || !data.success) {
+        setStatus("error");
+        setFormError(
+          data.message ||
+            "Non sono riuscito a inviare il messaggio. Riprova tra poco.",
+        );
+        return;
+      }
+
+      //* messaggio inviato con successo
+      setStatus("success");
+      setValues({ name: "", email: "", message: "" });
+    } catch (error) {
       setStatus("error");
       setFormError(
         error.message ||
           "Non sono riuscito a inviare il messaggio. Riprova tra poco.",
       );
-      return;
     }
-
-    //* messaggio inviato con successo
-    setStatus("success");
-    setValues({ name: "", email: "", message: "" });
   }
 
   return (

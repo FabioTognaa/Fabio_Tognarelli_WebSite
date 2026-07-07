@@ -1,0 +1,8 @@
+packages:
+  - .
+
+overrides:
+  minimatch: ^10.2.3
+  path-to-regexp: ^8.4.0
+  tar: ^7.5.11
+  undici: ^6.27.0

@@ -3,6 +3,7 @@ const ICON_LOADERS = {
   css: () => import("../assets/icons/skills/css-icon.svg"),
   javascript: () => import("../assets/icons/skills/javascript-icon.svg"),
   react: () => import("../assets/icons/skills/react-icon.svg"),
+  nextjs: () => import("../assets/icons/skills/nextjs-icon.svg"),
   tailwind: () => import("../assets/icons/skills/tailwind-icon.svg"),
   nodejs: () => import("../assets/icons/skills/nodejs-icon.svg"),
   typescript: () => import("../assets/icons/skills/typescript-icon.svg"),
@@ -17,6 +18,7 @@ const ICON_LOADERS = {
   claudecode: () => import("../assets/icons/skills/claudecode-icon.png"),
   cursor: () => import("../assets/icons/skills/cursor-icon.png"),
   n8n: () => import("../assets/icons/skills/n8n-icon.png"),
+  wordpress: () => import("../assets/icons/skills/wordpress-icon.svg"),
 };
 
 const iconCache = new Map();

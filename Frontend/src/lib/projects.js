@@ -5,54 +5,55 @@
  * - description: 1–2 frasi sul lavoro svolto
  * - context: contesto (personale, universitario, lavoro)
  * - stack: array { label, icon? } per tag tecnologici
- * - github, demo: URL opzionali; github mostrato quando valorizzato
+ * - github, link: URL opzionali per i pulsanti in footer
+ * - mentions: array opzionale { label, link } per link a entità citate in descrizione
  * - status: "coming-soon" | "published"
  */
 
 export const projects = [
   {
     id: "slot-1",
-    title: "Progetto in preparazione",
+    title: "CdL x Unipi: Digital Technologies Engineering",
     description:
-      "Primo case study in lavorazione: applicazione web con frontend React e API dedicata.",
-    context: "Side project personale",
+      "Sito web per un nuovo corso di laurea dell'Università di Pisa (UNIPI) con sede a Carrara. Ho curato lo sviluppo del progetto e attualmente ne gestisco la manutenzione e l'ottimizzazione.",
+    context: "Professional project",
     stack: [
-      { label: "React", icon: "react" },
-      { label: "TypeScript", icon: "typescript" },
+      { label: "Wordpress", icon: "wordpress" },
+      { label: "PHP", icon: "" },
       { label: "Tailwind", icon: "tailwind" },
     ],
     github: "",
-    demo: "",
+    link: "https://unipicarrara.jevis.it/",
   },
   {
     id: "slot-2",
     title: "V-Shuttle",
-    description:
-      "SImulatore di veicolo a guida autonoma. Progetto al quale ho partecipato per un hackaton.",
+    description: `Simulatore di veicolo a guida autonoma. Progetto al quale ho partecipato per un hackaton organizzato da Hastega.`,
     context: "Side project personale",
     stack: [
-      { label: "Next.js", icon: "" },
+      { label: "Next.js", icon: "nextjs" },
       { label: "React", icon: "react" },
       { label: "TypeScript", icon: "typescript" },
       { label: "Tailwind", icon: "tailwind" },
     ],
     github: "https://github.com/Giorbertopazzosgravato/TeamNumero9-VShuttle",
-    demo: "",
+    link: "",
+    mentions: [
+      {
+        label: "Hastega",
+        link: "https://www.hastega.it/en/",
+      },
+    ],
   },
   {
     id: "slot-3",
-    title: "Terzo progetto",
+    title: "Coming soon...",
     description:
-      "Spazio riservato a un proof of work full stack con deploy e pipeline CI/CD.",
-    context: "Proof of work full stack",
-    stack: [
-      { label: "React", icon: "react" },
-      { label: "Docker", icon: "docker" },
-      { label: "GitHub Actions", icon: "githubactions" },
-    ],
+      "Spazio riservato ai miei futuri progetti o a quelli che ancora non si possono trovare sul mio sito.",
+    context: "",
+    stack: [],
     github: "",
-    demo: "",
-    status: "coming-soon",
+    link: "",
   },
 ];
 

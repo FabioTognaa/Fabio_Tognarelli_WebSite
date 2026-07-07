@@ -12,13 +12,11 @@ Il progetto è costruito con un approccio moderno, pulito e focalizzato sulle pe
 
 ## ✨ Funzionalità Principali
 
-- **Design Responsivo:** Layout fluido ottimizzato per desktop, tablet e smartphone.
-- **Interfaccia Moderna:** Stile minimalista e pulito realizzato con Tailwind CSS.
-- **Accessibilità:** Menu di navigazione e interazioni gestite con **Headless UI** per la massima accessibilità.
 - **Architettura a Componenti:** Struttura modulare basata su React per la massima manutenibilità.
+
 - **Download CV:** Accesso diretto al curriculum vitae aggiornato.
+
 - **Form di contatto:** Pagina dedicata con invio messaggi tramite [Web3Forms](https://web3forms.com/).
-- **Routing multipagina:** Home, progetti e contatto con React Router.
 
 ## 🛠️ Tech Stack
 
@@ -29,10 +27,8 @@ Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 | **Build Tool**      | Vite                                           |
 | **Frontend**        | React, React Router, Tailwind CSS, Headless UI |
 | **Form di contatto**| Web3Forms                                      |
-| **Code Quality**    | Prettier (Tailwind Plugin), ESLint             |
 | **Version Control** | Git & GitHub                                   |
 | **Deployment**      | Vercel                                         |
-| **Design & Assets** | Canva (editing immagini), HeroIcons            |
 
 ## 📸 Anteprima
 
@@ -93,6 +89,20 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://p
 | `pnpm deploy`         | Build + deploy produzione su Vercel |
 | `pnpm deploy:preview` | Build + deploy preview su Vercel    |
 
+### Quality gate
+
+Prima di chiudere modifiche non banali, esegui:
+
+```bash
+pnpm build
+pnpm lint
+pnpm audit --audit-level high
+```
+
+La stessa catena gira in GitHub Actions su pull request e push verso `main` tramite `.github/workflows/quality-gate.yml`.
+
+Limiti attuali: il progetto non ha TypeScript/typecheck né un test framework configurato. Questi controlli non vanno considerati coperti finché non vengono aggiunti esplicitamente.
+
 ## 📂 Struttura del Progetto
 ```text
 ├── Frontend/
@@ -126,15 +136,18 @@ Assicurati di avere installato [Node.js](https://nodejs.org/) e [pnpm](https://p
 │
 ├── package.json
 ├── pnpm-lock.yaml
+├── pnpm-workspace.yaml          # override pnpm per patch di sicurezza transitive
 ├── vite.config.js
 ├── eslint.config.js
+├── .github/workflows/quality-gate.yml
+├── .cursor/                    # agenti, rules e quality gate del pilot
 ├── .prettierrc
 └── vercel.json
 ```
 
 **Asset non-code:** foto, loghi e PDF in `public/`; icone skill in `src/assets/icons/skills/` (bundled da Vite). Gli URL pubblici sono definiti in `src/lib/static-assets.js`.
 
-## 📬 Contatti
+## Contatti
 
 Se hai domande o vuoi collaborare, non esitare a contattarmi!
 
@@ -143,5 +156,3 @@ Website: https://fabiotognaa-personal-portfolio.vercel.app
 LinkedIn: https://www.linkedin.com/in/fabio-tognarelli/
 
 Email: fabiotognaa@gmail.com
-
-Realizzato con ❤️ da Fabio Tognarelli.

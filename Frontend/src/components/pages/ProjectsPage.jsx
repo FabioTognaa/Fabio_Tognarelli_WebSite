@@ -4,13 +4,8 @@ import ProjectsCarousel from "../ui/ProjectsCarousel";
 import Reveal from "../ui/Reveal";
 import { projects, CV_PATH } from "../../lib/projects";
 
+//*PAGINA PROGETTI
 function ProjectsPage() {
-  const hasPublished = projects.some(
-    (project) =>
-      project.status !== "coming-soon" &&
-      (project.github?.trim() || project.demo?.trim()),
-  );
-
   return (
     <section
       id="progetti"
@@ -47,6 +42,7 @@ function ProjectsPage() {
         </Reveal>
       ) : (
         <Reveal delay={80} className="projects-carousel-wrap">
+          {/* CAROSELLO DI PROGETTI */}
           <ProjectsCarousel projects={projects} />
         </Reveal>
       )}

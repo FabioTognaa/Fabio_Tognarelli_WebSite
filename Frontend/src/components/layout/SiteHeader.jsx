@@ -17,8 +17,6 @@ function SiteHeader() {
   const closeButtonRef = useRef(null);
   const close = () => setOpen(false);
 
-  const linkClass = "drawer-link";
-
   return (
     <>
       <header className="site-header" data-scrolled={scrolled ? "" : undefined}>
