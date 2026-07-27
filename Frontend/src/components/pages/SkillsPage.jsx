@@ -18,9 +18,9 @@ function SkillsPage() {
       <Reveal className="skills-intro">
         <div className="skills-intro__head">
           <p className="section-label">Competenze</p>
-          <h2 id="skills-heading" className="section-heading mt-3 max-w-[16ch]">
+          <h1 id="skills-heading" className="section-heading mt-3 max-w-[16ch]">
             Stack e metodo
-          </h2>
+          </h1>
         </div>
       </Reveal>
 

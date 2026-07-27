@@ -25,12 +25,12 @@ function AboutPage() {
     >
       <Reveal>
         <p className="section-label">Chi sono</p>
-        <h2
+        <h1
           id="about-heading"
           className="section-heading mt-3 max-w-[30ch] lg:max-w-[34ch]"
         >
           Determinato e pronto a creare valore nella società
-        </h2>
+        </h1>
       </Reveal>
 
       <div className="about-pairs">
@@ -63,7 +63,7 @@ function AboutPage() {
 
         {/* SEZIONE DOVE STO ANDANDO*/}
         <Reveal as="div" className="about-directions" delay={280}>
-          <p className="section-heading">Dove sto andando</p>
+          <h2 className="section-heading">Dove sto andando</h2>
           <p className="prose-body mt-3 text-xl">
             Avere una direzione chiara al giorno d'oggi può fare veramente la
             differenza

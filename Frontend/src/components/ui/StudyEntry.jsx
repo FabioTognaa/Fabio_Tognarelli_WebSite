@@ -27,9 +27,9 @@ function StudyEntry({ entry, index }) {
         <p className="text-accent text-xs font-semibold tracking-wider uppercase">
           {entry.period}
         </p>
-        <h2 className="font-display text-ink mt-2 text-xl font-bold md:text-2xl">
+        <h3 className="font-display text-ink mt-2 text-xl font-bold md:text-2xl">
           {entry.school}
-        </h2>
+        </h3>
         <p className="text-ink-soft mt-1 text-sm">{entry.place}</p>
         <p className="text-ink-muted mt-4 text-base leading-relaxed">
           {entry.degree}

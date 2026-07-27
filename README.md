@@ -30,22 +30,6 @@ Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 | **Version Control** | Git & GitHub                                   |
 | **Deployment**      | Vercel                                         |
 
-## 📸 Anteprima
-
-### Desktop View
-
-<img src="./Frontend/docs/screenshots/desktop-preview.png" alt="Desktop Preview" width="260" />
-
-
-### Contact Page
-
-<img src="./Frontend/docs/screenshots/form-preview.png" alt="Contact form preview" width="260" />
-
-
-### Project Page
-
-_Screenshot in arrivo._
-
 ## 🚀 Come avviare il progetto in locale
 
 Come far girare questo progetto in locale:
@@ -116,10 +100,6 @@ Limiti attuali: il progetto non ha TypeScript/typecheck né un test framework co
 │   │       └── logos/
 │   │           ├── fermi-*.webp
 │   │           └── unipi-*.webp
-│   ├── docs/
-│   │   └── screenshots/            # solo README, non nel build
-│   │       ├── desktop-preview.png
-│   │       └── form-preview.png
 │   ├── src/
 │   │   ├── assets/
 │   │   │   └── icons/skills/       # icone skill (import Vite, lazy load)

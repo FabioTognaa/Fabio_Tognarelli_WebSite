@@ -27,9 +27,9 @@ function ExperienceEntry({ entry, index }) {
         <p className="text-accent text-xs font-semibold tracking-wider uppercase">
           {entry.period}
         </p>
-        <h2 className="font-display text-ink mt-2 text-xl font-bold md:text-2xl">
+        <h3 className="font-display text-ink mt-2 text-xl font-bold md:text-2xl">
           {entry.company}
-        </h2>
+        </h3>
         <p className="experience-role text-ink mt-2 text-base font-semibold md:text-lg">
           {entry.ruolo}
         </p>

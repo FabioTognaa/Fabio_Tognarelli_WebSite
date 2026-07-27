@@ -1,7 +1,7 @@
 {
   "homepage": "https://fabiotognaa-personal-portfolio.vercel.app/",
   "name": "fabiotognaa-personal-portfolio",
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "packageManager": "pnpm@10.32.0",
@@ -19,7 +19,6 @@
     "@hcaptcha/react-hcaptcha": "^2.0.2",
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
-    "@supabase/supabase-js": "^2.108.2",
     "@tailwindcss/vite": "^4.2.2",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",

@@ -7,6 +7,7 @@ import { experiencePath } from "../../lib/experience";
 function StudyPage() {
   return (
     <>
+      <h1 className="sr-only">Percorso: esperienza e formazione</h1>
       <section
         className="section-pad bg-surface/50 scroll-mt-header"
         aria-labelledby="experience-heading"
@@ -14,9 +15,9 @@ function StudyPage() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="section-label">Percorso</p>
-            <h1 id="experience-heading" className="section-heading mt-3">
+            <h2 id="experience-heading" className="section-heading mt-3">
               Esperienza
-            </h1>
+            </h2>
             <p className="prose-body mt-6">
               Il mio personale bagaglio di esperienze fin'ora! Nel tempo ho
               avuto modo di misurarmi in realtà eterogenee e strutturate in modi
@@ -38,9 +39,9 @@ function StudyPage() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <p className="section-label">Percorso</p>
-            <h1 id="study-heading" className="section-heading mt-3">
+            <h2 id="study-heading" className="section-heading mt-3">
               Formazione
-            </h1>
+            </h2>
             <p className="prose-body mt-6">
               Fin dalle scuole ho sempre saputo quelli che sarebbero stati i
               miei interessi futuri. Ho cercato di focalizzare da sempre il mio

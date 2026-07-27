@@ -34,7 +34,7 @@ function SkillGroupCard({ group }) {
       className={`skill-card surface-panel relative flex h-full flex-col overflow-hidden p-6 md:p-8`}
     >
       <header className="skill-card__header relative">
-        <h3 className="skill-card__title">{group.title}</h3>
+        <h2 className="skill-card__title">{group.title}</h2>
         <p className="skill-card__summary">{group.summary}</p>
       </header>
 
@@ -45,10 +45,10 @@ function SkillGroupCard({ group }) {
         {group.items.map((item) => {
           return (
             <li key={item.label}>
-              <button type="button" className={`skill-tag motion-press`}>
+              <span className="skill-tag">
                 <SkillIcon iconKey={item.icon} />
                 <span>{item.label}</span>
-              </button>
+              </span>
             </li>
           );
         })}
