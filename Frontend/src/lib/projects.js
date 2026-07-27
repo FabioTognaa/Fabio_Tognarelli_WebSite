@@ -23,7 +23,7 @@ export const projects = [
       { label: "Tailwind", icon: "tailwind" },
     ],
     github: "",
-    link: "https://unipicarrara.jevis.it/",
+    link: "https://digitaltech.ing.unipi.it/",
   },
   {
     id: "slot-2",
