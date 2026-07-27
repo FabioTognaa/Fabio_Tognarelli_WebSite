@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import Button from "../ui/Button";
 import Reveal from "../ui/Reveal";
 
-//* validazione campi del form
+// validazione campi del form
 function validateContactForm(values) {
   const errors = {};
   const name = values.name.trim();
@@ -26,6 +26,7 @@ function validateContactForm(values) {
   return errors;
 }
 
+// se ci fosse un errore in un campo del form
 function FieldError({ id, message }) {
   if (!message) {
     return null;
@@ -38,18 +39,21 @@ function FieldError({ id, message }) {
   );
 }
 
+
 function ContactPage() {
   const [status, setStatus] = useState("idle");
   const [formError, setFormError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
   const [values, setValues] = useState({ name: "", email: "", message: "" });
 
+  //controlla se il form puo' essere submittato
   const canSubmit = useMemo(() => {
     const nameOk = values.name.trim().length > 0;
     const emailOk = values.email.trim().length > 0;
     const msgOk = values.message.trim().length > 0;
     return nameOk && emailOk && msgOk && status !== "sending";
   }, [status, values]);
+
 
   function clearFieldError(field) {
     setFieldErrors((current) => {
@@ -62,6 +66,7 @@ function ContactPage() {
     });
   }
 
+  //fa update dei valori nei campi ogni volta che si aggiorna quando l'utente fa una modifica
   function updateField(field, value) {
     setValues((current) => ({ ...current, [field]: value }));
     clearFieldError(field);
@@ -70,11 +75,15 @@ function ContactPage() {
     }
   }
 
+  //funzione di submit del form
   async function onSubmit(e) {
     e.preventDefault();
 
+    //valida i valori nel form attuale
     const errors = validateContactForm(values);
-    if (Object.keys(errors).length > 0) { //*se ci sono errori
+
+    //se ci sono errori nel form
+    if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
       setFormError("");
       setStatus("idle");
@@ -87,6 +96,7 @@ function ContactPage() {
       return;
     }
 
+    //setta il FormData per sincronizzare la ricezione delle mail
     const formData = new FormData(e.target);
     formData.append("access_key", "358268f4-393b-498c-a153-6f078e3737b4");
 
@@ -95,6 +105,7 @@ function ContactPage() {
     setFormError("");
 
     try {
+      //chiamata api a web3forms
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
