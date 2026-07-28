@@ -29,3 +29,4 @@ dist-ssr
 # Skill di Cursor
 .agents*
 .impeccable*
+.vercel
