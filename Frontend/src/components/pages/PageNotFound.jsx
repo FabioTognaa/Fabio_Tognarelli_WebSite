@@ -1,5 +1,3 @@
-import PageShell from "../layout/PageShell";
-
 function PageNotFound() {
   return (
     <div className="section-pad mx-auto max-w-6xl">

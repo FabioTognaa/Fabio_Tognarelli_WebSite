@@ -57,4 +57,4 @@ export const projects = [
   },
 ];
 
-export { CV_PATH } from "./static-assets";
+export { CV_PATH, CV_FILENAME } from "./static-assets";

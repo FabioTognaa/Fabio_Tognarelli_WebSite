@@ -336,15 +336,6 @@ h3 {
     @apply mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 md:h-[4.5rem] md:px-10 lg:px-16;
   }
 
-  .site-header__brand {
-    transition: transform var(--duration-ui) var(--ease-fluid);
-    transform-origin: left center;
-  }
-
-  .site-header[data-scrolled] .site-header__brand {
-    transform: translate3d(0, 0, 0) scale(0.97);
-  }
-
   .nav-link {
     @apply text-ink-muted focus-visible:outline-accent inline-block text-sm font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
   }
@@ -506,12 +497,6 @@ h3 {
     max-width: 52ch;
   }
 
-  .skills-hint {
-    @apply text-ink-soft max-w-prose font-normal;
-    font-size: clamp(0.9375rem, 1.4vw, 1.0625rem);
-    line-height: 1.55;
-  }
-
   .skill-card__title {
     @apply font-display text-ink font-bold tracking-tight;
     font-size: clamp(1.125rem, 1.9vw, 1.3125rem);
@@ -533,60 +518,6 @@ h3 {
     @apply border-line bg-surface text-ink-muted inline-flex min-h-11 items-center gap-1.5 rounded-full border px-4 py-2.5 font-medium;
     font-size: 0.9375rem;
     line-height: 1.25;
-  }
-
-  .study-expand-trigger {
-    @apply text-accent inline-flex min-h-11 items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-semibold outline-none;
-    transition: color var(--duration-quick) var(--ease-soft);
-  }
-
-  .study-expand-trigger:hover {
-    @apply text-accent-deep;
-  }
-
-  .study-expand-trigger:focus-visible {
-    @apply ring-accent/45 ring-offset-surface ring-2 ring-offset-2;
-  }
-
-  .expand-panel {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows var(--duration-panel) var(--ease-fluid);
-  }
-
-  .expand-panel[data-open="true"] {
-    grid-template-rows: 1fr;
-  }
-
-  .expand-panel__inner {
-    overflow: hidden;
-    min-height: 0;
-  }
-
-  .expand-panel__content {
-    opacity: 0;
-    transform: translate3d(0, -10px, 0);
-    transition:
-      opacity var(--duration-ui) var(--ease-fluid),
-      transform var(--duration-ui) var(--ease-fluid);
-  }
-
-  .expand-panel[data-open="true"] .expand-panel__content {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-
-  @supports (transition-behavior: allow-discrete) {
-    .expand-panel__content {
-      transition-behavior: allow-discrete;
-    }
-
-    @starting-style {
-      .expand-panel[data-open="true"] .expand-panel__content {
-        opacity: 0;
-        transform: translate3d(0, -10px, 0);
-      }
-    }
   }
 
   .study-logo {
@@ -774,7 +705,6 @@ h3 {
   .nav-link,
   .drawer-link,
   .site-header,
-  .site-header__brand,
   .drawer-backdrop-enter,
   .drawer-panel-enter {
     transition: none;
@@ -801,22 +731,7 @@ h3 {
     transform: none;
   }
 
-  .site-header[data-scrolled] .site-header__brand {
-    transform: none;
-  }
-
   .skill-card.surface-panel:hover {
     box-shadow: none;
-  }
-
-  .expand-panel {
-    transition: none;
-  }
-
-  .expand-panel__content,
-  .expand-panel[data-open="true"] .expand-panel__content {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
 }

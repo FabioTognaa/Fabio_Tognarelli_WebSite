@@ -60,41 +60,112 @@ Verificare post-deploy che form e font/icone funzionino ancora.
 
 ## 6. Medio — Performance / UX runtime
 
-### Remount totale ad ogni navigazione
+Obiettivo: meno lavoro inutile a ogni navigazione, meno flash, meno peso morto (CSS/icone/import), download CV corretto. Nessun redesign: solo fix snelli e verificabili.
 
-[`Frontend/src/components/App.jsx`](Frontend/src/components/App.jsx):
+Lo stato attuale è già in parte migliorato rispetto all’audit originale: `PageShell` ha già skip-link + `#main-content`, e `.page-enter` è già sul `<main>`. Resta però il problema principale in `App.jsx` (key sullo shell intero) e i cleanup sotto.
+
+---
+
+### 6.1 Remount totale ad ogni navigazione (priorità alta di questa fase)
+
+In [`Frontend/src/components/App.jsx`](Frontend/src/components/App.jsx):
 
 ```jsx
 <div key={location.pathname} className="page-enter">
+  <ScrollToTop />
+  <Suspense fallback={null}>
+    <Routes>
+      <Route element={<PageShell />}>…</Route>
+    </Routes>
+  </Suspense>
+</div>
 ```
 
-Questo **distrugge e ricrea** header, footer, listener scroll e drawer a ogni route. Costo inutile.
+**Cosa succede oggi:** React tratta quel `div` come un componente nuovo a ogni cambio path. Quindi **smonta e rimonta** tutto ciò che c’è sotto: `PageShell`, `SiteHeader` (listener scroll, drawer Headless UI), `SiteFooter`, e solo dopo la nuova pagina. L’animazione `page-enter` riparte anche su header/footer. È un costo inutile e peggiora la sensazione di “sito che si ricarica” in navigazione interna.
 
-**Fix:** animare solo `<Outlet>` / contenuto pagina (wrapper interno con key), non l’intero shell. Tenere `PageShell` stabile.
+**Come procedere:**
 
-### Altri fix snelli
-
-- `Suspense fallback={null}` → skeleton/min-height leggero per evitare flash bianco.
-- Import morti: `PageShell` in [`HomePage.jsx`](Frontend/src/components/pages/HomePage.jsx) e [`PageNotFound.jsx`](Frontend/src/components/pages/PageNotFound.jsx).
-- `download={CV_PATH}` ovunque (header/footer/home): l’attributo `download` deve essere un **filename** (`cv-tognarelli-fabio.pdf`), non il path URL.
-- CSS morto in [`Frontend/src/index.css`](Frontend/src/index.css): `.expand-panel*`, `.study-expand-trigger`, `.site-header__brand`, `.skills-hint` (e valutare `.skip-link` solo dopo aver aggiunto il markup).
-- Icone skill pesanti (`c-icon.svg` 27KB, `java` 20KB, ecc.): SVGO / SVG semplificati; PNG → WebP/SVG dove possibile.
-- Opzionale: dynamic import di `@headlessui` + heroicons solo nel drawer mobile (oggi finiscono in `ui-vendor` sul critical path).
+1. Togliere `key={location.pathname}` (e idealmente anche `page-enter`) dal wrapper esterno in `App.jsx`.
+2. Lasciare `PageShell` stabile (header/footer vivono tra le route).
+3. Animare solo il contenuto di pagina: o mantenere `.page-enter` sul `<main>` già presente in `PageShell`, oppure (se serve ri-triggerare l’animazione a ogni route) mettere la `key` **solo** intorno all’`<Outlet>` / a un wrapper interno del main — mai sullo shell.
+4. Smoke test: navigare tra home → about → skills → contact; verificare che header non “lampeggia”, drawer mobile resta coerente, scroll-to-top continua a funzionare, animazione pagina ancora presente.
 
 ---
 
-## 8. Basso/Medio — SEO e trust professionale
+### 6.2 Suspense fallback (priorità media)
 
-Mancano: favicon, `robots.txt`, `sitemap.xml`, `canonical`, `twitter:card`, meta per-route (SPA limitata: almeno statici solidi in `index.html` + file pubblici).
+Oggi `fallback={null}`: mentre la lazy route scarica il chunk, l’utente vede un buco bianco/vuoto nel main.
 
-### Cosa fare
-
-1. Favicon + apple-touch-icon in `Frontend/public/`.
-2. `robots.txt` + `sitemap.xml` con URL canoniche (oggi `*.vercel.app`; aggiornare quando c’è dominio custom).
-3. `link rel="canonical"` e `twitter:card` in [`Frontend/index.html`](Frontend/index.html).
-4. Opzionale successivo: `react-helmet-async` o titolo dinamico per route.
+**Come procedere:** un fallback minimale (non uno skeleton complesso): es. contenitore con `min-h` + eventuale pulse/aria-busy, allineato al layout esistente. Obiettivo: zero flash bianco, zero nuove dipendenze.
 
 ---
+
+### 6.3 Import morti
+
+[`HomePage.jsx`](Frontend/src/components/pages/HomePage.jsx) e [`PageNotFound.jsx`](Frontend/src/components/pages/PageNotFound.jsx) importano `PageShell` ma non lo usano (lo shell è già nel layout route). Rimuovere gli import. Verifica: `pnpm lint` / build pulita.
+
+---
+
+### 6.4 Attributo `download` del CV
+
+`CV_PATH` è `/documents/cv-tognarelli-fabio.pdf`. Usarlo come valore di `download={…}` (header, footer, home, projects) è sbagliato: l’attributo HTML `download` vuole un **nome file** suggerito al browser (`cv-tognarelli-fabio.pdf`), non il path URL. L’`href` resta `CV_PATH`.
+
+**Come procedere:** introdurre una costante tipo `CV_FILENAME` in `static-assets.js` (o derivarla dal path) e usarla in tutti i punti `download={…}`. Smoke test: click “Scarica CV” → file con nome sensato.
+
+---
+
+### 6.5 CSS morto (todo `css-icons-cleanup`)
+
+In [`Frontend/src/index.css`](Frontend/src/index.css) ci sono regole non referenziate dal markup attuale:
+
+- `.expand-panel*` / `.study-expand-trigger` (vecchio pattern accordion studi)
+- `.site-header__brand`
+- `.skills-hint`
+
+**Come procedere:** grep per conferma zero usi in JSX, poi cancellare i blocchi (incluse le varianti `prefers-reduced-motion` collegate). **Non** toccare `.skip-link`: il markup c’è già in `PageShell`. Dopo: build + controllo visivo header/skills/studies.
+
+---
+
+### 6.6 Icone skill pesanti (todo `css-icons-cleanup`)
+
+In `Frontend/src/assets/icons/skills/`: SVG/PNG grandi (es. `c-icon.svg` ~27KB, `java` ~20KB; diversi PNG). Oggi sono già lazy via `skill-icons.js`, ma restano pesanti al primo render della pagina Skills.
+
+**Come procedere (in ordine):**
+
+1. Misurare pesi attuali (`ls -la` / report build).
+2. SVGO sui SVG troppo grandi; dove l’icona è un logo semplice, sostituire con SVG semplificato.
+3. PNG → WebP (o SVG se conviene) aggiornando `skill-icons.js`.
+4. Verifica visiva Skills page desktop/mobile; nessun cambio di API componenti.
+
+---
+
+### 6.7 Opzionale — code-split Headless UI / Heroicons
+
+`SiteHeader` importa `@headlessui/react` + `@heroicons` in modo statico → finiscono nel vendor critico anche su desktop dove il drawer non serve.
+
+**Come procedere (solo se dopo 6.1–6.6 resta tempo/valore):** lazy del drawer mobile o dynamic import delle dipendenze drawer-only. Non bloccante per chiudere la fase 6.
+
+---
+
+### 6.8 Fuori scope di questa sezione (ma nel todo `runtime-perf-a11y`)
+
+Il todo elenca anche skip-link / headings / skill buttons: lo **skip-link è già presente**. Eventuali fix headings/skill-button a11y vanno trattati come micro-pass a11y separato (o appendice breve) solo dopo aver confermato i problemi reali nel markup corrente — non mescolarli al remount/CSS senza evidenza.
+
+---
+
+### Ordine di esecuzione proposto
+
+1. Fix remount `App.jsx` + smoke navigazione  
+2. Suspense fallback minimo  
+3. Import morti + `CV_FILENAME`  
+4. CSS morto  
+5. Icone skill  
+6. (Opzionale) split Headless UI  
+
+Verifica fase: `pnpm build && pnpm lint`, poi smoke home / contact / CV / mobile nav.
+
+---
+
 
 ## 9. Cookie policy / privacy (risposta ROADMAP)
 
@@ -112,28 +183,6 @@ Rischio legale concreto senza cookie banner: **basso**. Rischio senza alcuna inf
 Footer: link “Privacy”.
 
 ---
-
-## 10. Fuori da questa remediation (ROADMAP prodotto)
-
-- **Dominio custom**: sì, migliora trust e toglie “sito-Vercel”; va fatto in Vercel Domains + aggiornamento OG/canonical/sitemap.
-- **Sezione certificazioni Anthropic**: spostare PDF in `Frontend/public/certificates/`, entry in una lib tipo `lib/certificates.js`, pagina o blocco in Studies — dopo i fix sopra.
-
----
-
-## Ordine di esecuzione consigliato
-
-```mermaid
-flowchart TD
-  A[Redeploy + verify permessi mobile] --> B[Form Web3Forms harden]
-  B --> C[Security headers vercel.json]
-  C --> D[Remove supabase + private true]
-  D --> E[Fix App remount + a11y + download attr]
-  E --> F[Dead CSS + icon SVGO]
-  F --> G[SEO static + Privacy page]
-  G --> H[Git hygiene agents/impeccable]
-  H --> I[Certificazioni + dominio - fase prodotto]
-```
-
 ### Verifica a ogni fase
 
 ```bash

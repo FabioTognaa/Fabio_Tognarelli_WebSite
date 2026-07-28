@@ -1,4 +1,4 @@
-import { CV_PATH } from "./projects";
+import { CV_PATH, CV_FILENAME } from "./projects";
 
 export const siteNav = [
   { label: "Home", href: "/" },
@@ -12,6 +12,7 @@ export const siteNav = [
 export const headerCta = {
   label: "Scarica CV",
   href: CV_PATH,
+  download: CV_FILENAME,
   type: "download",
 };
 

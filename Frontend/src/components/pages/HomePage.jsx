@@ -1,6 +1,5 @@
-import PageShell from "../layout/PageShell";
 import Button from "../ui/Button";
-import { CV_PATH } from "../../lib/projects";
+import { CV_PATH, CV_FILENAME } from "../../lib/projects";
 import { profileImage } from "../../lib/static-assets";
 
 function HomePage() {
@@ -32,7 +31,7 @@ function HomePage() {
             <Button
               variant="primary-dark"
               href={CV_PATH}
-              download={CV_PATH}
+              download={CV_FILENAME}
               className="w-full sm:w-auto"
             >
               Scarica CV

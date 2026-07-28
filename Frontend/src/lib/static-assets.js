@@ -10,6 +10,7 @@ export const profileImage = {
 };
 
 export const CV_PATH = "/documents/cv-tognarelli-fabio.pdf";
+export const CV_FILENAME = "cv-tognarelli-fabio.pdf";
 
 export const educationLogos = {
   fermi: {

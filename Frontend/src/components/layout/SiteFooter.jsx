@@ -19,7 +19,7 @@ function SiteFooter() {
             </p>
             <a
               href={headerCta.href}
-              download={headerCta.href}
+              download={headerCta.download}
               className="btn-primary-on-dark mt-6 inline-flex text-sm"
             >
               Scarica CV

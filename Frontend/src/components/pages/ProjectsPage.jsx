@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Button from "../ui/Button";
 import ProjectsCarousel from "../ui/ProjectsCarousel";
 import Reveal from "../ui/Reveal";
-import { projects, CV_PATH } from "../../lib/projects";
+import { projects, CV_PATH, CV_FILENAME } from "../../lib/projects";
 
 //*PAGINA PROGETTI
 function ProjectsPage() {
@@ -31,7 +31,7 @@ function ProjectsPage() {
               Nessun progetto pubblicato al momento.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Button href={CV_PATH} download={CV_PATH}>
+              <Button href={CV_PATH} download={CV_FILENAME}>
                 Scarica CV
               </Button>
               <Button variant="ghost" to="/contact">
