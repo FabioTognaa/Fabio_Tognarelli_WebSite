@@ -19,7 +19,7 @@ export const projects = [
     context: "Professional project",
     stack: [
       { label: "Wordpress", icon: "wordpress" },
-      { label: "PHP", icon: "" },
+      { label: "PHP", icon: "php" },
       { label: "Tailwind", icon: "tailwind" },
     ],
     github: "",

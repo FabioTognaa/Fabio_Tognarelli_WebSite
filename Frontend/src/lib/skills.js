@@ -25,6 +25,10 @@ export const skillGroups = [
         label: "PostgreSQL",
         icon: "postgresql",
       },
+      {
+        label: "PHP",
+        icon: "php",
+      },
     ],
   },
   {
