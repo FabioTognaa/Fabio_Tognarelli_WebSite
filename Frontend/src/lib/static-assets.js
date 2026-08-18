@@ -12,6 +12,14 @@ export const profileImage = {
 export const CV_PATH = "/documents/cv-tognarelli-fabio.pdf";
 export const CV_FILENAME = "cv-tognarelli-fabio.pdf";
 
+export const certificateFiles = {
+  claude101: "/certificates/claude-101.pdf",
+  code101: "/certificates/code-101.pdf",
+  cowork: "/certificates/intro-cowork.pdf",
+  agentSkills: "/certificates/intro-agents-skill.pdf",
+  subagents: "/certificates/intro-subagents.pdf",
+};
+
 export const educationLogos = {
   fermi: {
     src: "/images/logos/fermi-120.webp",
