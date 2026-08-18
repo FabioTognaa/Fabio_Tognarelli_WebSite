@@ -2,7 +2,7 @@
 
 [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://fabiotognaa-personal-portfolio.vercel.app)
 
-## 👋 Introduzione
+## Introduzione
 
 Benvenuto nel repository del mio portfolio personale!
 
@@ -10,7 +10,7 @@ Ho sviluppato questo sito web per presentarmi professionalmente e raccogliere i 
 
 Il progetto è costruito con un approccio moderno, pulito e focalizzato sulle performance.
 
-## ✨ Funzionalità Principali
+## Funzionalità Principali
 
 - **Architettura a Componenti:** Struttura modulare basata su React per la massima manutenibilità.
 
@@ -18,7 +18,7 @@ Il progetto è costruito con un approccio moderno, pulito e focalizzato sulle pe
 
 - **Form di contatto:** Pagina dedicata con invio messaggi tramite [Web3Forms](https://web3forms.com/).
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 
@@ -30,7 +30,7 @@ Ecco le tecnologie e gli strumenti utilizzati per realizzare questo progetto:
 | **Version Control** | Git & GitHub                                   |
 | **Deployment**      | Vercel                                         |
 
-## 🚀 Come avviare il progetto in locale
+## Come avviare il progetto in locale
 
 Come far girare questo progetto in locale:
 
@@ -87,7 +87,7 @@ La stessa catena gira in GitHub Actions su pull request e push verso `main` tram
 
 Limiti attuali: il progetto non ha TypeScript/typecheck né un test framework configurato. Questi controlli non vanno considerati coperti finché non vengono aggiunti esplicitamente.
 
-## 📂 Struttura del Progetto
+## Struttura del Progetto
 ```text
 ├── Frontend/
 │   ├── index.html
@@ -128,8 +128,6 @@ Limiti attuali: il progetto non ha TypeScript/typecheck né un test framework co
 **Asset non-code:** foto, loghi e PDF in `public/`; icone skill in `src/assets/icons/skills/` (bundled da Vite). Gli URL pubblici sono definiti in `src/lib/static-assets.js`.
 
 ## Contatti
-
-Se hai domande o vuoi collaborare, non esitare a contattarmi!
 
 Website: https://fabiotognaa-personal-portfolio.vercel.app
 

@@ -1,6 +1,9 @@
 packages:
   - .
 
+allowBuilds:
+  esbuild: true
+
 overrides:
   minimatch: ^10.2.3
   path-to-regexp: ^8.4.0
