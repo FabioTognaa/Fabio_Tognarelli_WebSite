@@ -15,7 +15,7 @@ export const projects = [
     id: "slot-1",
     title: "CdL x Unipi: Digital Technologies Engineering",
     description:
-      "Sito web per un nuovo corso di laurea dell'Università di Pisa (UNIPI) con sede a Carrara. Ho curato lo sviluppo del progetto e attualmente ne gestisco la manutenzione e l'ottimizzazione.",
+      "Tema WordPress custom (PHP + Tailwind) per il CdL Digital Technologies Engineering: template, componenti UI e manutenzione in produzione su digitaltech.ing.unipi.it.",
     context: "Professional project",
     stack: [
       { label: "Wordpress", icon: "wordpress" },
@@ -28,7 +28,7 @@ export const projects = [
   {
     id: "slot-2",
     title: "V-Shuttle",
-    description: `Simulatore di veicolo a guida autonoma. Progetto al quale ho partecipato per un hackaton organizzato da Hastega.`,
+    description: `Simulatore di un pannello di controllo per un veicolo a guida autonoma. Progetto per un hackaton organizzato da Hastega. E' stato classificato al 2° posto su 15 gruppi partecipanti.`,
     context: "Side project personale",
     stack: [
       { label: "Next.js", icon: "nextjs" },
@@ -47,6 +47,15 @@ export const projects = [
   },
   {
     id: "slot-3",
+    title: "MapReducer",
+    description:
+      "Runtime MapReduce in C, distribuito come libreria statica. I worker girano su thread C11 e si scambiano record via pipe; il programma client registra le funzioni map/reduce e lancia il job. Completo di relazione approfondita su scelte architetturali, design patterns e funzionamento interno.",
+    stack: [{ label: "C", icon: "c" }],
+    github: "https://github.com/FabioTognaa/MapReducer---Tognarelli-Fabio",
+    link: "",
+  },
+  {
+    id: "slot-4",
     title: "Coming soon...",
     description:
       "Spazio riservato ai miei futuri progetti o a quelli che ancora non si possono trovare sul mio sito.",
