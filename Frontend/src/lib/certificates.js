@@ -22,8 +22,8 @@ export const certificates = [
         href: certificateFiles.agentSkills,
       },
       {
-        label: "Subagents",
-        href: certificateFiles.subagents,
+        label: "AI for businesses",
+        href: certificateFiles.aiForBusinesses,
       },
     ],
   },

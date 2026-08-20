@@ -18,6 +18,7 @@ export const certificateFiles = {
   cowork: "/certificates/intro-cowork.pdf",
   agentSkills: "/certificates/intro-agents-skill.pdf",
   subagents: "/certificates/intro-subagents.pdf",
+  aiForBusinesses: "/certificates/intro-ai-for-businesses.pdf",
 };
 
 export const educationLogos = {
